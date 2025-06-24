@@ -10,13 +10,13 @@ interface LinkProps extends ComponentProps<typeof NextLink> {
 export const Link = ({
 	className,
 	children,
-	href,
 	hoverEffect = 'background',
+	...props
 }: LinkProps) => {
 	return (
 		<NextLink
 			className={clsx(styles.link, styles[hoverEffect], className)}
-			href={href}
+			{...props}
 		>
 			{children}
 		</NextLink>

@@ -11,6 +11,7 @@ export const Button = ({
 	className,
 	background = 'primary',
 	disabled,
+	...props
 }: ButtonProps) => {
 	return (
 		<button
@@ -20,6 +21,7 @@ export const Button = ({
 				{ [styles.disabled]: disabled },
 				className
 			)}
+			{...props}
 		>
 			{children}
 		</button>

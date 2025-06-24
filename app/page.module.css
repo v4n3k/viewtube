@@ -1,8 +1,11 @@
 .page {
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	height: 100dvh;
+	width: 50%;
+	margin: 0 auto;
 }
 
 .page h1 {
