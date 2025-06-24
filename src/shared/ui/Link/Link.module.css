@@ -1,0 +1,27 @@
+.link {
+	font-size: var(--font-size-lg);
+	color: var(--color-text);
+	font-weight: var(--font-weight-sm);
+	border: none;
+	border-radius: var(--border-radius-sm);
+	cursor: pointer;
+	transition: var(--transition-speed-normal);
+	text-decoration: none;
+}
+
+.background {
+	padding: var(--spacing-xs) var(--spacing-lg);
+}
+
+.background:hover {
+	background: var(--color-background-hover);
+}
+
+.text {
+	padding: 0;
+	color: var(--color-secondary);
+}
+
+.text:hover {
+	color: var(--color-text);
+}

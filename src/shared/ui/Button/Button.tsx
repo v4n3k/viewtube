@@ -1,9 +1,8 @@
 import clsx from 'clsx';
-import { ComponentProps, ReactNode } from 'react';
+import { ComponentProps } from 'react';
 import styles from './Button.module.css';
 
 interface ButtonProps extends ComponentProps<'button'> {
-	children: ReactNode;
 	background?: 'primary' | 'transparent';
 }
 
