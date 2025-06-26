@@ -50,9 +50,9 @@ body.theme-dark {
 	--color-secondary: #aaaaaa;
 	--color-accent: #ff0000;
 	--color-success: #2ecc71;
-	--color-button-background: #3a3a3a;
+	--color-button-background: #212121;
 	--color-border: #383838;
-	--color-background-hover: #424242;
+	--color-background-hover: #303030;
 	--color-border-hover: #808080;
 
 	/* shadows */

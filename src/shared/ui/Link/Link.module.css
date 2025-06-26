@@ -1,5 +1,8 @@
 .link {
-	font-size: var(--font-size-lg);
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-lg);
+	font-size: var(--font-size-md);
 	color: var(--color-text);
 	font-weight: var(--font-weight-sm);
 	border: none;
@@ -10,7 +13,7 @@
 }
 
 .background {
-	padding: var(--spacing-xs) var(--spacing-lg);
+	padding: var(--spacing-md) var(--spacing-xl);
 }
 
 .background:hover {

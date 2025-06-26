@@ -1,0 +1,18 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: var(--spacing-xl);
+	padding: var(--spacing-md) var(--spacing-lg);
+}
+
+.left,
+.right {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-md);
+}
+
+.toggleSidebarButton {
+	padding: var(--spacing-md);
+}

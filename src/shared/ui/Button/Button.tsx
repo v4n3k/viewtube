@@ -3,14 +3,18 @@ import { ComponentProps } from 'react';
 import styles from './Button.module.css';
 
 interface ButtonProps extends ComponentProps<'button'> {
-	background?: 'primary' | 'transparent';
+	background?: 'filled' | 'transparent';
+	variant?: 'primary' | 'text';
+	fullWidth?: boolean;
 }
 
 export const Button = ({
 	children,
 	className,
-	background = 'primary',
 	disabled,
+	background = 'filled',
+	variant = 'primary',
+	fullWidth = false,
 	...props
 }: ButtonProps) => {
 	return (
@@ -18,7 +22,9 @@ export const Button = ({
 			className={clsx(
 				styles.button,
 				styles[background],
+				styles[variant],
 				{ [styles.disabled]: disabled },
+				{ [styles.fullWidth]: fullWidth },
 				className
 			)}
 			{...props}

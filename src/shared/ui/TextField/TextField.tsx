@@ -5,7 +5,7 @@ import { ComponentProps, ReactNode, useId } from 'react';
 import styles from './TextField.module.css';
 
 interface TextFieldProps extends ComponentProps<'input'> {
-	label: ReactNode;
+	label?: ReactNode;
 	roundedFull?: boolean;
 }
 
@@ -19,9 +19,11 @@ export const TextField = ({
 
 	return (
 		<div className={styles.textField}>
-			<label className={styles.label} htmlFor={id}>
-				{label}
-			</label>
+			{!!label && (
+				<label className={styles.label} htmlFor={id}>
+					{label}
+				</label>
+			)}
 			<input
 				className={clsx(styles.input, className)}
 				type={type}
