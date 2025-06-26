@@ -2,8 +2,9 @@
 	/* colors */
 	--color-background: #f9f9f9;
 	--color-text: #000000;
-	--color-primary: #ff0000;
 	--color-secondary: #606060;
+	--color-accent: #ff0000;
+	--color-success: #2ecc71;
 	--color-button-background: #eaeaea;
 	--color-border: #bbbbbb;
 	--color-background-hover: #e0e0e0;
@@ -46,8 +47,9 @@ body.theme-dark {
 	/* colors */
 	--color-background: #000000;
 	--color-text: #ffffff;
-	--color-primary: #ff0000;
 	--color-secondary: #aaaaaa;
+	--color-accent: #ff0000;
+	--color-success: #2ecc71;
 	--color-button-background: #3a3a3a;
 	--color-border: #383838;
 	--color-background-hover: #424242;

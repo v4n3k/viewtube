@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { signUp } from '../api/signUp';
 import { SignUpCredentials } from './types';
+import { toast } from 'react-toastify';
 
 const initialCredentials: SignUpCredentials = {
 	login: '',
@@ -31,11 +32,11 @@ export const useSignUp = () => {
 
 			router.replace(PATH_GENERATORS.home());
 
-			// toast.success('You have been signed up successfully!');
+			toast.success('You have been signed up successfully!');
 		},
 
 		onError: () => {
-			// toast.error('Error signing up');
+			toast.error('Error signing up');
 		},
 	});
 

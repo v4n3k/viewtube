@@ -1,3 +1,4 @@
+import { Providers } from '@/app/providers';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import 'src/app/styles/globals.css';
@@ -21,7 +22,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body className={roboto.variable}>{children}</body>
+			<body className={roboto.variable}>
+				<Providers>{children}</Providers>
+			</body>
 		</html>
 	);
 }
