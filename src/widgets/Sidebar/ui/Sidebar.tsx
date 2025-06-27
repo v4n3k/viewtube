@@ -1,99 +1,100 @@
-import { PATH_GENERATORS } from '@/app/routes';
-import { Button, Divider, Link } from '@/shared/ui';
-import { BiLike } from 'react-icons/bi';
-import { FiClock } from 'react-icons/fi';
-import { GoVideo } from 'react-icons/go';
-import { MdHistory, MdOutlineSubscriptions } from 'react-icons/md';
-import { RiArrowDownSLine, RiArrowRightSLine } from 'react-icons/ri';
-import { SlHome } from 'react-icons/sl';
-import styles from './Sidebar.module.css';
+'use client';
 
-const subscribedChannels = [
-	{ id: 1, name: 'Channel 1', avatar: 'https://adfasdf.jpg' },
-	{ id: 2, name: 'Channel 2', avatar: 'https://adfasdf.jpg' },
-	{ id: 3, name: 'Channel 3', avatar: 'https://adfasdf.jpg' },
-	{ id: 4, name: 'Channel 4', avatar: 'https://adfasdf.jpg' },
-];
+import { PATH_GENERATORS } from '@/app/routes';
+import { Button } from '@/shared/ui';
+import { useSubscribedChannels } from '../model';
+import {
+	ArrowDownIcon,
+	ArrowRightIcon,
+	ArrowUpIcon,
+	HistoryIcon,
+	HomeIcon,
+	LikedVideosIcon,
+	MyVideosIcon,
+	SubscriptionsIcon,
+	WatchLaterIcon,
+} from '../ui/SidebarIcons';
+import { SidebarLink } from '../ui/SidebarLink/SidebarLink';
+import { SidebarSection } from '../ui/SidebarSection/SidebarSection';
+import styles from './Sidebar.module.css';
 
 const ICON_SIZE = 24;
 
-const mockUserId = 1;
-
 export const Sidebar = () => {
+	const {
+		subscribedChannels,
+		isLoading,
+		error,
+		handleShowMore,
+		handleShowFewer,
+		showMoreAvailable,
+		showFewerAvailable,
+	} = useSubscribedChannels();
+
 	return (
 		<aside className={styles.sidebar}>
-			<nav>
-				<ul>
-					<li>
-						<Link href={PATH_GENERATORS.home()}>
-							<SlHome size={ICON_SIZE} />
-							Home
-						</Link>
-					</li>
-					<li>
-						<Link href={PATH_GENERATORS.subscriptions()}>
-							<MdOutlineSubscriptions size={ICON_SIZE} />
-							Subsriptions
-						</Link>
-					</li>
-				</ul>
-			</nav>
+			<SidebarSection>
+				<SidebarLink href={PATH_GENERATORS.home()} Icon={HomeIcon}>
+					Home
+				</SidebarLink>
+				<SidebarLink
+					href={PATH_GENERATORS.subscriptions()}
+					Icon={SubscriptionsIcon}
+				>
+					Subscriptions
+				</SidebarLink>
+			</SidebarSection>
 
-			<Divider />
+			<SidebarSection>
+				<SidebarLink
+					href={PATH_GENERATORS.channel(1)}
+					Icon={ArrowRightIcon}
+					iconPosition='right'
+				>
+					You
+				</SidebarLink>
+				<SidebarLink href={PATH_GENERATORS.history()} Icon={HistoryIcon}>
+					History
+				</SidebarLink>
+				<SidebarLink href={PATH_GENERATORS.myVideos()} Icon={MyVideosIcon}>
+					My videos
+				</SidebarLink>
+				<SidebarLink href={PATH_GENERATORS.watchLater()} Icon={WatchLaterIcon}>
+					Watch later
+				</SidebarLink>
+				<SidebarLink
+					href={PATH_GENERATORS.likedVideos()}
+					Icon={LikedVideosIcon}
+				>
+					Liked videos
+				</SidebarLink>
+			</SidebarSection>
 
-			<nav>
-				<ul>
-					<li>
-						<Link href={PATH_GENERATORS.channel(mockUserId)}>
-							You
-							<RiArrowRightSLine size={ICON_SIZE} />
-						</Link>
-					</li>
-					<li>
-						<Link href={PATH_GENERATORS.history()}>
-							<MdHistory size={ICON_SIZE} />
-							History
-						</Link>
-					</li>
-					<li>
-						<Link href={PATH_GENERATORS.myVideos()}>
-							<GoVideo size={ICON_SIZE} />
-							My videos
-						</Link>
-					</li>
-					<li>
-						<Link href={PATH_GENERATORS.watchLater()}>
-							<FiClock size={ICON_SIZE} />
-							Watch later
-						</Link>
-					</li>
-					<li>
-						<Link href={PATH_GENERATORS.likedVideos()}>
-							<BiLike size={ICON_SIZE} /> Liked videos
-						</Link>
-					</li>
-				</ul>
-			</nav>
-
-			<Divider />
-
-			<h2>Subscriptions</h2>
-			<nav>
-				<ul>
-					{subscribedChannels.map(channel => (
-						<li key={channel.id}>
-							<Link href={PATH_GENERATORS.channel(channel.id)}>
-								<img src={channel.avatar} alt='' />
-								{channel.name}
-							</Link>
-						</li>
-					))}
-				</ul>
-			</nav>
-			<Button variant='text' fullWidth>
-				<RiArrowDownSLine size={ICON_SIZE} />
-				Show more
-			</Button>
+			<SidebarSection title='Subscriptions' withoutDivider>
+				{isLoading && <div>Loading...</div>}
+				{error && <div>Error: {error.message}</div>}
+				{subscribedChannels?.map(channel => (
+					<SidebarLink
+						key={channel.id}
+						href={PATH_GENERATORS.channel(channel.id)}
+					>
+						<img src={channel.avatar} />
+						{channel.name}
+					</SidebarLink>
+				))}
+				{showMoreAvailable && (
+					<Button variant='text' fullWidth onClick={handleShowMore}>
+						<ArrowDownIcon size={ICON_SIZE} />
+						Show more
+					</Button>
+				)}
+				{showFewerAvailable && (
+					<Button variant='text' fullWidth onClick={handleShowFewer}>
+						<ArrowUpIcon size={ICON_SIZE} />
+						Show fewer
+					</Button>
+				)}
+			</SidebarSection>
 		</aside>
 	);
 };
