@@ -1,4 +1,4 @@
-import { Divider } from '@/shared/ui';
+import { Divider, Show } from '@/shared/ui';
 import React from 'react';
 import styles from './SidebarSection.module.css';
 
@@ -15,9 +15,13 @@ export const SidebarSection = ({
 }: SidebarSectionProps) => {
 	return (
 		<nav>
-			{title && <h2 className={styles.title}>{title}</h2>}
+			<Show when={title}>
+				<h2 className={styles.title}>{title}</h2>
+			</Show>
 			<ul>{children}</ul>
-			{!withoutDivider && <Divider />}
+			<Show when={!withoutDivider}>
+				<Divider />
+			</Show>
 		</nav>
 	);
 };

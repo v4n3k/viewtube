@@ -2,6 +2,7 @@
 
 import clsx from 'clsx';
 import { ComponentProps, ReactNode, useId } from 'react';
+import { Show } from '..';
 import styles from './TextField.module.css';
 
 interface TextFieldProps extends ComponentProps<'input'> {
@@ -19,11 +20,12 @@ export const TextField = ({
 
 	return (
 		<div className={styles.textField}>
-			{!!label && (
+			<Show when={label}>
 				<label className={styles.label} htmlFor={id}>
 					{label}
 				</label>
-			)}
+			</Show>
+
 			<input
 				className={clsx(styles.input, className)}
 				type={type}

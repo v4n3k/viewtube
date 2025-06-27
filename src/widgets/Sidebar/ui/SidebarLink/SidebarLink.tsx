@@ -1,4 +1,4 @@
-import { Link } from '@/shared/ui';
+import { Link, Show } from '@/shared/ui';
 import React from 'react';
 import { IconType } from 'react-icons';
 
@@ -18,9 +18,13 @@ export const SidebarLink = ({
 	return (
 		<li>
 			<Link href={href}>
-				{iconPosition === 'left' && Icon && <Icon size={24} />}
+				<Show when={iconPosition === 'left' && Icon}>
+					{Icon => <Icon size={24} />}
+				</Show>
 				{children}
-				{iconPosition === 'right' && Icon && <Icon size={24} />}
+				<Show when={iconPosition === 'right' && Icon}>
+					{Icon => <Icon size={24} />}
+				</Show>
 			</Link>
 		</li>
 	);

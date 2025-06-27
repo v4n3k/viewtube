@@ -1,7 +1,7 @@
 'use client';
 
 import { PATH_GENERATORS } from '@/app/routes';
-import { Button } from '@/shared/ui';
+import { Button, Show } from '@/shared/ui';
 import { useSubscribedChannels } from '../model';
 import {
 	ArrowDownIcon,
@@ -71,8 +71,12 @@ export const Sidebar = () => {
 			</SidebarSection>
 
 			<SidebarSection title='Subscriptions' withoutDivider>
-				{isLoading && <div>Loading...</div>}
-				{error && <div>Error: {error.message}</div>}
+				<Show when={isLoading}>
+					<div>Loading...</div>
+				</Show>
+
+				<Show when={error}>{e => <div>Error: {e.message}</div>}</Show>
+
 				{subscribedChannels?.map(channel => (
 					<SidebarLink
 						key={channel.id}
@@ -82,18 +86,19 @@ export const Sidebar = () => {
 						{channel.name}
 					</SidebarLink>
 				))}
-				{showMoreAvailable && (
+				<Show when={showMoreAvailable}>
 					<Button variant='text' fullWidth onClick={handleShowMore}>
 						<ArrowDownIcon size={ICON_SIZE} />
 						Show more
 					</Button>
-				)}
-				{showFewerAvailable && (
+				</Show>
+
+				<Show when={showFewerAvailable}>
 					<Button variant='text' fullWidth onClick={handleShowFewer}>
 						<ArrowUpIcon size={ICON_SIZE} />
 						Show fewer
 					</Button>
-				)}
+				</Show>
 			</SidebarSection>
 		</aside>
 	);
