@@ -1,0 +1,1 @@
+export { getRecommendedVideos } from './video';

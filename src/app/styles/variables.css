@@ -2,6 +2,7 @@
 	/* colors */
 	--color-background: #f9f9f9;
 	--color-text: #000000;
+	--color-text-white: #ffffff;
 	--color-secondary: #606060;
 	--color-accent: #ff0000;
 	--color-success: #2ecc71;
@@ -21,6 +22,8 @@
 	--font-weight-xl: 700;
 
 	/* spacings */
+	--spacing-3xs: 1px;
+	--spacing-2xs: 2px;
 	--spacing-xs: 4px;
 	--spacing-sm: 8px;
 	--spacing-md: 12px;
@@ -29,6 +32,7 @@
 	--spacing-2xl: 32px;
 
 	/* border radiuses */
+	--border-radius-xs: 4px;
 	--border-radius-sm: 8px;
 	--border-radius-md: 12px;
 	--border-radius-lg: 16px;
@@ -48,6 +52,7 @@ body.theme-dark {
 	/* colors */
 	--color-background: #000000;
 	--color-text: #ffffff;
+	--color-text-white: #ffffff;
 	--color-secondary: #aaaaaa;
 	--color-accent: #ff0000;
 	--color-success: #2ecc71;
