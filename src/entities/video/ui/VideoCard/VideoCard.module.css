@@ -1,6 +1,8 @@
 .videoCard {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-sm);
 	width: 100%;
-	margin-bottom: 16px;
 	list-style: none;
 	cursor: pointer;
 }
@@ -24,8 +26,7 @@
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-
-	transition: scale 0.3s ease-out;
+	transition: scale var(--transition-speed-normal) ease-in-out;
 }
 
 .videoCard:hover .preview {
@@ -46,7 +47,6 @@
 
 .videoDetails {
 	display: flex;
-	padding: var(--spacing-sm);
 }
 
 .channelAvatar {
@@ -76,11 +76,10 @@
 }
 
 .channelName {
-	font-size: 0.9rem;
-	color: #606060;
+	width: fit-content;
 }
 
 .videoStats {
 	font-size: var(--font-size-sm);
-	color: #606060;
+	color: var(--color-secondary);
 }

@@ -2,17 +2,35 @@ import { api } from '@/shared/api';
 import { Video } from '../model';
 
 interface GetVideosParams {
-	page?: number; // Делаем их опциональными, если у вас есть дефолты на бэкенде
-	limit?: number;
+	page: number;
+	limit: number;
 }
 
-export const getRecommendedVideos = async (params: GetVideosParams = {}) => {
-	const { page = 1, limit = 10 } = params;
+interface GetRecommendedVideosResponse {
+	recommendedVideos: Video[];
+	currentPage: number;
+	totalPages: number;
+	totalItems: number;
+}
 
-	return await api.get<Video[]>('/videos', {
+export const getRecommendedVideos = async (params: GetVideosParams) => {
+	const { page, limit } = params;
+
+	const response = await api.get<GetRecommendedVideosResponse>('/videos', {
 		params: {
 			page,
 			limit,
 		},
 	});
+
+	const recommendedVideos = response.data.recommendedVideos.map(video => ({
+		...video,
+		createdAt: new Date(video.createdAt),
+	})) as Video[];
+
+	return {
+		recommendedVideos,
+		currentPage: response.data.currentPage,
+		totalPages: response.data.totalPages,
+	};
 };
