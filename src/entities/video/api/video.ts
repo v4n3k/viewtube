@@ -23,10 +23,12 @@ export const getRecommendedVideos = async (params: GetVideosParams) => {
 		},
 	});
 
-	const recommendedVideos = response.data.recommendedVideos.map(video => ({
-		...video,
-		createdAt: new Date(video.createdAt),
-	})) as Video[];
+	const recommendedVideos: Video[] = response.data.recommendedVideos.map(
+		video => ({
+			...video,
+			createdAt: new Date(video.createdAt),
+		})
+	);
 
 	return {
 		recommendedVideos,

@@ -20,10 +20,12 @@ import styles from './Sidebar.module.css';
 
 const ICON_SIZE = 24;
 
+const imgPlaceholderUrl =
+	'https://culturetrekking.com/images/img_NJ8iq1DB6tsS96NB1RvB7w/adobestock_386572510.jpeg?fit=outside&w=1600&h=1066';
+
 export const Sidebar = () => {
 	const {
 		subscribedChannels,
-		isLoading,
 		error,
 		handleShowMore,
 		handleShowFewer,
@@ -71,10 +73,6 @@ export const Sidebar = () => {
 			</SidebarSection>
 
 			<SidebarSection title='Subscriptions' withoutDivider>
-				<Show when={isLoading}>
-					<div>Loading...</div>
-				</Show>
-
 				<Show when={error}>{e => <div>Error: {e.message}</div>}</Show>
 
 				{subscribedChannels?.map(channel => (
@@ -82,7 +80,7 @@ export const Sidebar = () => {
 						key={channel.id}
 						href={PATH_GENERATORS.channel(channel.id)}
 					>
-						<img src={channel.avatar} />
+						<img className={styles.channelAvatar} src={imgPlaceholderUrl} />
 						{channel.name}
 					</SidebarLink>
 				))}

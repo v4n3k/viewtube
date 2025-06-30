@@ -1,4 +1,7 @@
+'use client';
+
 import { ReactNode, useCallback, useEffect, useRef } from 'react';
+import { CircularLoader } from '../CircularLoader';
 import { Show } from '../helpers';
 
 interface InfiniteScrollProps {
@@ -16,7 +19,7 @@ export const InfiniteScroll = ({
 	hasMore,
 	isLoading = false,
 	rootMargin = '200px',
-	loader = <div>Loading...</div>,
+	loader = <CircularLoader paddingY='40px' />,
 }: InfiniteScrollProps) => {
 	const loaderRef = useRef<HTMLDivElement>(null);
 

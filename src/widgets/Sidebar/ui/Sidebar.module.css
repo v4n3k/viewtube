@@ -4,3 +4,10 @@
 	max-width: 220px;
 	width: 100%;
 }
+
+.channelAvatar {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	object-fit: cover;
+}

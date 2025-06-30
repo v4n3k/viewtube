@@ -1,8 +1,8 @@
 'use client';
 
 import { VideosList } from '@/entities/video/ui';
-import { InfiniteScroll } from '@/shared/ui/InfiniteScroll';
-import { useGetRecommendedVideos } from '../model/useGetRecommendedVideos';
+import { InfiniteScroll } from '@/shared/ui';
+import { useGetRecommendedVideos } from '../model';
 
 export const RecommendedVideosList = () => {
 	const {
