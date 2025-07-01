@@ -4,11 +4,11 @@ import styles from './layout.module.css';
 
 const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 	return (
-		<div>
+		<div className={styles.layout}>
 			<Header />
 			<div className={styles.container}>
 				<Sidebar />
-				{children}
+				<main className={styles.main}>{children}</main>
 			</div>
 		</div>
 	);
