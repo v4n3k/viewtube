@@ -1,0 +1,24 @@
+.container {
+	display: flex;
+	gap: var(--spacing-md);
+	align-items: flex-start;
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-sm);
+}
+
+.date {
+	font-size: var(--font-size-sm);
+	font-weight: var(--font-weight-sm);
+	color: var(--color-secondary);
+}
+
+.text {
+	font-size: var(--font-size-md);
+	color: var(--color-text);
+	font-weight: var(--font-weight-sm);
+	line-height: 1.25;
+}

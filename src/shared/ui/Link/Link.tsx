@@ -15,12 +15,7 @@ export const Link = ({
 }: LinkProps) => {
 	return (
 		<NextLink
-			className={clsx(
-				styles.link,
-				styles[hoverEffect],
-
-				className
-			)}
+			className={clsx(styles.link, styles[hoverEffect], className)}
 			{...props}
 		>
 			{children}

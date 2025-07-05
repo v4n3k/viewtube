@@ -1,15 +1,19 @@
-import { getRecommendedVideos } from '@/entities/video/api';
+import { getComments } from '@/entities/comment/api';
 import { PaginationLimit } from '@/shared/api';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-export const useGetRecommendedVideos = (params: PaginationLimit) => {
-	const { limit } = params;
+interface UseGetCommentParams extends PaginationLimit {
+	videoId: number;
+}
+
+export const useGetComments = (params: UseGetCommentParams) => {
+	const { limit, videoId } = params;
 
 	const query = useInfiniteQuery({
-		queryKey: ['recommendedVideos', limit],
+		queryKey: ['comments', limit],
 
 		queryFn: async ({ pageParam = 1 }) => {
-			return await getRecommendedVideos({ page: pageParam, limit });
+			return await getComments({ videoId, page: pageParam, limit });
 		},
 
 		getNextPageParam: lastPage => {
@@ -23,12 +27,12 @@ export const useGetRecommendedVideos = (params: PaginationLimit) => {
 
 		select: data => ({
 			...data,
-			pages: data.pages.flatMap(page => page.recommendedVideos),
+			pages: data.pages.flatMap(page => page.comments),
 		}),
 	});
 
 	return {
-		recommendedVideos: query.data?.pages,
+		comments: query.data?.pages,
 		...query,
 	};
 };

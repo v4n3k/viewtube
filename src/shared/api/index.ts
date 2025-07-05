@@ -1,1 +1,6 @@
-export { api, handleApiResponse } from './api';
+export { api } from './api';
+export type {
+	PaginatedResponse,
+	PaginationLimit,
+	PaginationParams,
+} from './types';

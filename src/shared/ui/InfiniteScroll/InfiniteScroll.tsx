@@ -54,9 +54,6 @@ export const InfiniteScroll = ({
 			{children}
 			<div ref={loaderRef}>
 				<Show when={isLoading}>{loader}</Show>
-				<Show when={!hasMore}>
-					<div>No more items to load.</div>
-				</Show>
 			</div>
 		</>
 	);

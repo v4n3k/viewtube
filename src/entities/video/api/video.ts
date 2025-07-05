@@ -1,7 +1,7 @@
 import { api } from '@/shared/api';
 import { Video } from '../model';
 
-interface GetVideosParams {
+interface GetRecommendedVideosParams {
 	page: number;
 	limit: number;
 }
@@ -13,14 +13,11 @@ interface GetRecommendedVideosResponse {
 	totalItems: number;
 }
 
-export const getRecommendedVideos = async (params: GetVideosParams) => {
-	const { page, limit } = params;
-
+export const getRecommendedVideos = async (
+	params: GetRecommendedVideosParams
+) => {
 	const response = await api.get<GetRecommendedVideosResponse>('/videos', {
-		params: {
-			page,
-			limit,
-		},
+		params,
 	});
 
 	const recommendedVideos: Video[] = response.data.recommendedVideos.map(

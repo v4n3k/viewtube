@@ -1,3 +1,5 @@
+import type { Channel } from '@/entities/channel/model';
+
 type Visibility = 'public' | 'private';
 
 export interface Video {
@@ -17,4 +19,5 @@ export interface Video {
 	channelId: number;
 	channelName: string;
 	channelAvatar: string;
+	channel: Channel;
 }
