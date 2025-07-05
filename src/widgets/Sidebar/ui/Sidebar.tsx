@@ -1,7 +1,7 @@
 'use client';
 
 import { PATH_GENERATORS } from '@/app/routes';
-import { Button, Show } from '@/shared/ui';
+import { Avatar, Button, Show } from '@/shared/ui';
 import { useSubscribedChannels } from '../model';
 import {
 	ArrowDownIcon,
@@ -19,9 +19,6 @@ import { SidebarSection } from '../ui/SidebarSection/SidebarSection';
 import styles from './Sidebar.module.css';
 
 const ICON_SIZE = 24;
-
-const imgPlaceholderUrl =
-	'https://culturetrekking.com/images/img_NJ8iq1DB6tsS96NB1RvB7w/adobestock_386572510.jpeg?fit=outside&w=1600&h=1066';
 
 export const Sidebar = () => {
 	const {
@@ -80,7 +77,7 @@ export const Sidebar = () => {
 						key={channel.id}
 						href={PATH_GENERATORS.channel(channel.id)}
 					>
-						<img className={styles.channelAvatar} src={imgPlaceholderUrl} />
+						<Avatar />
 						{channel.name}
 					</SidebarLink>
 				))}

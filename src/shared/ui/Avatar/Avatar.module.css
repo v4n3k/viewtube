@@ -1,0 +1,24 @@
+.avatar {
+	aspect-ratio: 1 / 1;
+	object-fit: cover;
+}
+
+.sm {
+	width: 30px;
+}
+
+.md {
+	width: 36px;
+}
+
+.lg {
+	width: 40px;
+}
+
+.circle {
+	border-radius: 50%;
+}
+
+.square {
+	border-radius: 4px;
+}

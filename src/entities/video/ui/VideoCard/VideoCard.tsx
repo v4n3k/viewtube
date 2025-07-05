@@ -1,7 +1,7 @@
 'use client';
 
 import { PATH_GENERATORS } from '@/app/routes';
-import { Link } from '@/shared/ui';
+import { Avatar, Link } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
 import { memo } from 'react';
 import { formatDateAgo, formatDuration, formatViews } from '../../lib';
@@ -11,9 +11,6 @@ import styles from './VideoCard.module.css';
 interface VideoCardProps {
 	video: Video;
 }
-
-const imgPlaceholderUrl =
-	'https://culturetrekking.com/images/img_NJ8iq1DB6tsS96NB1RvB7w/adobestock_386572510.jpeg?fit=outside&w=1600&h=1066';
 
 export const VideoCard = memo(({ video }: VideoCardProps) => {
 	const router = useRouter();
@@ -37,17 +34,21 @@ export const VideoCard = memo(({ video }: VideoCardProps) => {
 	return (
 		<li className={styles.videoCard} onClick={handleClick}>
 			<div className={styles.previewContainer}>
-				<img className={styles.preview} src={imgPlaceholderUrl} alt={title} />
+				<img
+					className={styles.preview}
+					src={'/imgPlaceholder.jpg'}
+					alt={title}
+				/>
 				<span className={styles.duration}>{formatDuration(duration)}</span>
 			</div>
 
 			<div className={styles.videoDetails}>
 				<Link
-					className={styles.channelAvatar}
+					className={styles.channelAvatarLink}
 					href={PATH_GENERATORS.channel(channelId)}
 					hoverEffect='text'
 				>
-					<img src={imgPlaceholderUrl} alt={channelName} />
+					<Avatar src={''} />
 				</Link>
 
 				<div className={styles.videoInfo}>
