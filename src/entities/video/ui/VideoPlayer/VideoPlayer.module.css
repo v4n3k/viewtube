@@ -1,0 +1,10 @@
+.videoPlayerWrapper {
+	position: relative;
+	aspect-ratio: 16 / 9;
+}
+
+.videoPlayer {
+	position: absolute;
+	top: 0;
+	left: 0;
+}

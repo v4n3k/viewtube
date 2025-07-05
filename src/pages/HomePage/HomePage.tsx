@@ -1,10 +1,10 @@
 import { RecommendedVideosList } from '@/features/getRecommendedVideos';
-import styles from './page.module.css';
+import styles from './HomePage.module.css';
 
-export default function Home() {
+export const HomePage = () => {
 	return (
 		<div className={styles.page}>
 			<RecommendedVideosList />
 		</div>
 	);
-}
+};

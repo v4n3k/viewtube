@@ -17,3 +17,9 @@
 .toggleSidebarButton {
 	padding: var(--spacing-md);
 }
+
+.avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: var(--border-radius-xl);
+}

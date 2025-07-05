@@ -1,6 +1,6 @@
 import React from 'react';
 
-const layout = ({
+const Layout = ({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
@@ -8,9 +8,9 @@ const layout = ({
 	return (
 		<div>
 			{children}
-			<p>auth layout</p>{' '}
+			<p>auth layout</p>
 		</div>
 	);
 };
 
-export default layout;
+export default Layout;

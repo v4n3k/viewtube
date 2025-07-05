@@ -7,6 +7,8 @@ interface VideosListProps {
 }
 
 export const VideosList = ({ videos }: VideosListProps) => {
+	console.log(videos?.length);
+
 	return (
 		<ul className={styles.videosList}>
 			{videos?.map(video => (
