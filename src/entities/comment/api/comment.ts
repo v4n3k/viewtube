@@ -10,10 +10,10 @@ interface GetCommentsResponse extends PaginatedResponse<'comments', Comment> {
 }
 
 export const getComments = async (params: GetCommentsParams) => {
-	const { videoId } = params;
+	const { videoId, ...paginationParams } = params;
 
 	const response = await api.get<GetCommentsResponse>(`/comments/${videoId}`, {
-		params,
+		params: paginationParams,
 	});
 
 	const comments: Comment[] = response.data.comments.map(comment => ({
@@ -26,4 +26,13 @@ export const getComments = async (params: GetCommentsParams) => {
 		currentPage: response.data.currentPage,
 		totalPages: response.data.totalPages,
 	};
+};
+
+interface CreateCommentParams
+	extends Pick<Comment, 'videoId' | 'parentCommentId' | 'text'> {
+	channelId: number;
+}
+
+export const createComment = async (comment: CreateCommentParams) => {
+	return await api.post('/comments', comment);
 };

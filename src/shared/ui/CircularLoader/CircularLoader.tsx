@@ -5,12 +5,14 @@ import styles from './CircularLoader.module.css';
 interface CircularLoaderProps {
 	className?: string;
 	onFullScreen?: boolean;
+	fullWidth?: boolean;
 	paddingY?: string;
 }
 
 export const CircularLoader = ({
 	className,
-	onFullScreen,
+	onFullScreen = false,
+	fullWidth = true,
 	paddingY = '0px',
 }: CircularLoaderProps) => {
 	const style = {
@@ -21,7 +23,7 @@ export const CircularLoader = ({
 		<div
 			className={clsx(
 				styles.circularLoader,
-				onFullScreen ? styles.onFullScreen : '',
+				{ [styles.onFullScreen]: onFullScreen, [styles.fullWidth]: fullWidth },
 				className
 			)}
 			style={style}

@@ -1,15 +1,11 @@
 'use client';
 
 import { CommentItem } from '@/entities/comment/ui';
-import { InfiniteScroll } from '@/shared/ui';
-import { useParams } from 'next/navigation';
+import { CircularLoader, InfiniteScroll } from '@/shared/ui';
 import { useGetComments } from '../../model';
 import styles from './CommentsList.module.css';
 
 export const CommentsList = () => {
-	const params = useParams<{ videoId: string }>();
-	const videoId = Number(params?.videoId);
-
 	const {
 		comments,
 		fetchNextPage,
@@ -19,12 +15,11 @@ export const CommentsList = () => {
 		isError,
 		error,
 	} = useGetComments({
-		videoId,
 		limit: 6,
 	});
 
 	if (isLoading) {
-		return <div>Загрузка комментариев...</div>;
+		return <CircularLoader paddingY='60px' />;
 	}
 
 	if (isError) {

@@ -1,16 +1,21 @@
+'use client';
+
 import { getComments } from '@/entities/comment/api';
 import { PaginationLimit } from '@/shared/api';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 
-interface UseGetCommentParams extends PaginationLimit {
-	videoId: number;
-}
+interface UseGetCommentParams extends PaginationLimit {}
 
 export const useGetComments = (params: UseGetCommentParams) => {
-	const { limit, videoId } = params;
+	const videoId = Number(useParams<{ videoId: string }>()?.videoId ?? NaN);
+
+	const { limit } = params;
 
 	const query = useInfiniteQuery({
-		queryKey: ['comments', limit],
+		queryKey: ['comments', limit, videoId],
+
+		enabled: !isNaN(videoId),
 
 		queryFn: async ({ pageParam = 1 }) => {
 			return await getComments({ videoId, page: pageParam, limit });
