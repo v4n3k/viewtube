@@ -6,7 +6,7 @@ import { Show } from '../helpers';
 
 interface InfiniteScrollProps {
 	children: ReactNode;
-	onLoadMore: () => void;
+	onFetchMore: () => void;
 	hasMore: boolean;
 	isLoading?: boolean;
 	rootMargin?: string;
@@ -15,7 +15,7 @@ interface InfiniteScrollProps {
 
 export const InfiniteScroll = ({
 	children,
-	onLoadMore,
+	onFetchMore,
 	hasMore,
 	isLoading = false,
 	rootMargin = '200px',
@@ -26,10 +26,10 @@ export const InfiniteScroll = ({
 	const observerCallback = useCallback(
 		(entries: IntersectionObserverEntry[]) => {
 			if (entries[0].isIntersecting && hasMore && !isLoading) {
-				onLoadMore();
+				onFetchMore();
 			}
 		},
-		[hasMore, isLoading, onLoadMore]
+		[hasMore, isLoading, onFetchMore]
 	);
 
 	useEffect(() => {

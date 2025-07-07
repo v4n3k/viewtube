@@ -27,7 +27,7 @@ export const RecommendedVideosList = () => {
 
 	return (
 		<InfiniteScroll
-			onLoadMore={fetchNextPage}
+			onFetchMore={fetchNextPage}
 			hasMore={hasNextPage}
 			isLoading={isFetchingNextPage}
 		>

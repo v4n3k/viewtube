@@ -1,1 +1,8 @@
-export type { Comment } from './types';
+export { useCommentStore } from './store';
+export type {
+	Comment,
+	CreateCommentParams,
+	GetCommentsParams,
+	GetCommentsResponse,
+	Reply,
+} from './types';

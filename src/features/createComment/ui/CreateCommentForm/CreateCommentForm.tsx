@@ -25,9 +25,8 @@ export const CreateCommentForm = () => {
 		setAreButtonsVisible(true);
 	};
 
-	const handleInputBlur = () => {
+	const handleHideButtons = () => {
 		setAreButtonsVisible(false);
-		setText('');
 	};
 
 	const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -35,11 +34,18 @@ export const CreateCommentForm = () => {
 		createComment();
 	};
 
+	const handleCancel = () => {
+		setText('');
+		handleHideButtons();
+		inputRef.current?.blur();
+	};
+
 	useEffect(() => {
 		if (isSuccess) {
-			handleInputBlur();
+			handleHideButtons();
+			inputRef.current?.blur();
 		}
-	}, [isSuccess]);
+	}, [isSuccess, handleHideButtons, setText]);
 
 	return (
 		<Show when={!isPending} fallback={<CircularLoader paddingY='40px' />}>
@@ -53,10 +59,14 @@ export const CreateCommentForm = () => {
 				/>
 				<Show when={areButtonsVisible}>
 					<div className={styles.buttonsContainer}>
-						<Button background='transparent' onClick={handleInputBlur}>
+						<Button
+							type='button'
+							background='transparent'
+							onClick={handleCancel}
+						>
 							Cancel
 						</Button>
-						<Button type='submit' disabled={!text}>
+						<Button type='submit' disabled={!text.trim()}>
 							Comment
 						</Button>
 					</div>

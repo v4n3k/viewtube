@@ -28,7 +28,7 @@ export const CommentsList = () => {
 
 	return (
 		<InfiniteScroll
-			onLoadMore={fetchNextPage}
+			onFetchMore={fetchNextPage}
 			hasMore={hasNextPage}
 			isLoading={isFetchingNextPage}
 		>

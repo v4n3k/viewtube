@@ -1,1 +1,1 @@
-export { createComment, getComments } from './comment';
+export { createComment, getComments, getRepliesToComment } from './comment';

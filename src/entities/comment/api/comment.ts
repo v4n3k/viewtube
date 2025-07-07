@@ -1,13 +1,10 @@
-import { api, PaginatedResponse, PaginationParams } from '@/shared/api';
-import { Comment } from '../model';
-
-interface GetCommentsParams extends PaginationParams {
-	videoId: number;
-}
-
-interface GetCommentsResponse extends PaginatedResponse<'comments', Comment> {
-	videoId: number;
-}
+import { api } from '@/shared/api';
+import {
+	Comment,
+	CreateCommentParams,
+	GetCommentsParams,
+	GetCommentsResponse,
+} from '../model';
 
 export const getComments = async (params: GetCommentsParams) => {
 	const { videoId, ...paginationParams } = params;
@@ -28,11 +25,10 @@ export const getComments = async (params: GetCommentsParams) => {
 	};
 };
 
-interface CreateCommentParams
-	extends Pick<Comment, 'videoId' | 'parentCommentId' | 'text'> {
-	channelId: number;
-}
-
 export const createComment = async (comment: CreateCommentParams) => {
-	return await api.post('/comments', comment);
+	return await api.post<Comment>('/comments', comment);
+};
+
+export const getRepliesToComment = async (commentId: number) => {
+	return await api.get<Comment[]>(`/comments/${commentId}/replies`);
 };

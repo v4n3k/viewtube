@@ -8,11 +8,11 @@ import { useState } from 'react';
 
 const channelId = 1;
 
-export const useCreateComment = () => {
+export const useCreateReply = () => {
 	const [text, setText] = useState('');
 
 	const videoId = Number(useParams<{ videoId: string }>()?.videoId ?? NaN);
-	const expandedCommentId = useCommentStore(state => state.parentCommentId);
+	const parentCommentId = useCommentStore(state => state.parentCommentId);
 
 	const queryClient = useQueryClient();
 
@@ -21,18 +21,19 @@ export const useCreateComment = () => {
 			createComment({
 				channelId,
 				videoId,
-				parentCommentId: expandedCommentId,
+				parentCommentId,
 				text,
 			}),
 
 		onSuccess: () => {
 			setText('');
+			queryClient.invalidateQueries({ queryKey: ['repliesToComment'] });
 			queryClient.invalidateQueries({ queryKey: ['comments'] });
 		},
 	});
 
 	return {
-		createComment: () => mutation.mutate(),
+		createReply: () => mutation.mutate(),
 		...mutation,
 		text,
 		setText,
