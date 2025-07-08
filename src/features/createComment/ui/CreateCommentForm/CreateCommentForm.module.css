@@ -4,7 +4,7 @@
 	gap: var(--spacing-sm);
 }
 
-.buttonsContainer {
+.actions {
 	display: flex;
 	justify-content: flex-end;
 	gap: var(--spacing-md);

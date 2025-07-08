@@ -58,7 +58,7 @@ export const CreateCommentForm = () => {
 					onFocus={handleInputFocus}
 				/>
 				<Show when={areButtonsVisible}>
-					<div className={styles.buttonsContainer}>
+					<div className={styles.actions}>
 						<Button
 							type='button'
 							background='transparent'
