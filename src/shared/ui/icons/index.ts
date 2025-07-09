@@ -1,3 +1,9 @@
+export {
+	AiOutlineDislike as DislikeIcon,
+	AiFillDislike as FillDislikeIcon,
+	AiFillLike as FillLikeIcon,
+	AiOutlineLike as LikeIcon,
+} from 'react-icons/ai';
 export { BiLike as LikedVideosIcon } from 'react-icons/bi';
 export { FiClock as WatchLaterIcon } from 'react-icons/fi';
 export { GoVideo as MyVideosIcon } from 'react-icons/go';

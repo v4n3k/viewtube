@@ -1,10 +1,10 @@
 import { PATH_GENERATORS } from '@/app/routes';
 import { formatDateAgo } from '@/entities/video/lib';
-import { CreateReplyForm } from '@/features/createReply/ui';
-import { RepliesList } from '@/features/getComments/ui';
-import { useGetRepliesToComment } from '@/features/getRepliesToComment/model';
+import { RepliesList, useGetRepliesToComment } from '@/features/comment';
+import { CreateReplyForm } from '@/features/comment/createReply/ui';
 import { Avatar, Button, Link, Show } from '@/shared/ui';
-import { memo, useEffect, useState } from 'react';
+import { ArrowDownIcon, ArrowUpIcon } from '@/shared/ui/icons';
+import { useEffect, useState } from 'react';
 import { Comment, useCommentStore } from '../../model';
 import styles from './CommentItem.module.css';
 
@@ -12,7 +12,7 @@ interface CommentItemProps {
 	comment: Comment;
 }
 
-export const CommentItem = memo(({ comment }: CommentItemProps) => {
+export const CommentItem = ({ comment }: CommentItemProps) => {
 	const [isReplying, setIsReplying] = useState(false);
 	const [showReplies, setShowReplies] = useState(false);
 	const [isFirstRender, setIsFirstRender] = useState(true);
@@ -83,7 +83,8 @@ export const CommentItem = memo(({ comment }: CommentItemProps) => {
 						className={styles.replyButton}
 						background='transparent'
 					>
-						{repliesCount} {repliesCount === 1 ? 'reply' : 'replies'}
+						{repliesCount} {repliesCount === 1 ? 'reply' : 'replies'}{' '}
+						{showReplies ? <ArrowUpIcon /> : <ArrowDownIcon />}
 					</Button>
 				</Show>
 			</div>
@@ -101,4 +102,4 @@ export const CommentItem = memo(({ comment }: CommentItemProps) => {
 			</Show>
 		</li>
 	);
-});
+};

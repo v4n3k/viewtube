@@ -1,17 +1,10 @@
-import { api } from '@/shared/api';
+import { api, PaginatedResponse, PaginationParams } from '@/shared/api';
 import { Video } from '../model';
 
-interface GetRecommendedVideosParams {
-	page: number;
-	limit: number;
-}
+interface GetRecommendedVideosParams extends PaginationParams {}
 
-interface GetRecommendedVideosResponse {
-	recommendedVideos: Video[];
-	currentPage: number;
-	totalPages: number;
-	totalItems: number;
-}
+interface GetRecommendedVideosResponse
+	extends PaginatedResponse<'recommendedVideos', Video> {}
 
 export const getRecommendedVideos = async (
 	params: GetRecommendedVideosParams
@@ -20,16 +13,37 @@ export const getRecommendedVideos = async (
 		params,
 	});
 
-	const recommendedVideos: Video[] = response.data.recommendedVideos.map(
-		video => ({
-			...video,
-			createdAt: new Date(video.createdAt),
-		})
-	);
+	return response.data;
+};
 
-	return {
-		recommendedVideos,
-		currentPage: response.data.currentPage,
-		totalPages: response.data.totalPages,
-	};
+export const getWatchLaterVideos = () => {
+	return api.get<Video[]>('/videos/watch_later');
+};
+
+export const getVideoById = (videoId: number) => {
+	return api.get<Video>(`/videos/${videoId}`);
+};
+
+export const likeVideo = (videoId: number) => {
+	return api.post<Video>(`/videos/${videoId}/like`);
+};
+
+export const unlikeVideo = (videoId: number) => {
+	return api.delete<void>(`/videos/${videoId}/like`);
+};
+
+export const dislikeVideo = (videoId: number) => {
+	return api.post<Video>(`/videos/${videoId}/dislike`);
+};
+
+export const undislikeVideo = (videoId: number) => {
+	return api.delete<void>(`/videos/${videoId}/dislike`);
+};
+
+export const addVideoToWatchLater = (videoId: number) => {
+	return api.post<Video>(`/videos/${videoId}/watch_later`);
+};
+
+export const removeVideoFromWatchLater = (videoId: number) => {
+	return api.delete<void>(`/videos/${videoId}/watch_later`);
 };

@@ -25,10 +25,10 @@ export const getComments = async (params: GetCommentsParams) => {
 	};
 };
 
-export const createComment = async (comment: CreateCommentParams) => {
-	return await api.post<Comment>('/comments', comment);
+export const createComment = (comment: CreateCommentParams) => {
+	return api.post<Comment>('/comments', comment);
 };
 
-export const getRepliesToComment = async (commentId: number) => {
-	return await api.get<Comment[]>(`/comments/${commentId}/replies`);
+export const getRepliesToComment = (commentId: number) => {
+	return api.get<Comment[]>(`/comments/${commentId}/replies`);
 };

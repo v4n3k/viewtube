@@ -1,2 +1,2 @@
-export { CreateReplyForm } from '../../../features/createReply/ui/CreateReplyForm';
+export { CreateReplyForm } from '../../../features/comment/createReply/ui/CreateReplyForm';
 export { CommentItem } from './CommentItem';

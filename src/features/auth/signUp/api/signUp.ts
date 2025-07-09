@@ -1,8 +1,8 @@
-import { api, handleApiResponse } from '@/shared/api';
+import { api } from '@/shared/api';
 import { SignUpCredentials, SignUpResponse } from '../model';
 
-export const signUp = async (
+export const signUp = (
 	credentials: SignUpCredentials
 ): Promise<SignUpResponse> => {
-	return handleApiResponse(api.post('/auth/sign_up', credentials));
+	return api.post('/auth/sign_up', credentials);
 };

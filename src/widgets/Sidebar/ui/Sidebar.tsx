@@ -2,7 +2,6 @@
 
 import { PATH_GENERATORS } from '@/app/routes';
 import { Avatar, Button, Show } from '@/shared/ui';
-import { useSubscribedChannels } from '../model';
 import {
 	ArrowDownIcon,
 	ArrowRightIcon,
@@ -13,7 +12,8 @@ import {
 	MyVideosIcon,
 	SubscriptionsIcon,
 	WatchLaterIcon,
-} from '../ui/SidebarIcons';
+} from '@/shared/ui/icons';
+import { useSubscribedChannels } from '../model';
 import { SidebarLink } from '../ui/SidebarLink/SidebarLink';
 import { SidebarSection } from '../ui/SidebarSection/SidebarSection';
 import styles from './Sidebar.module.css';

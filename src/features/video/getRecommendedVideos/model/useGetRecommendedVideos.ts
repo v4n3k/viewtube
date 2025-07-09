@@ -23,7 +23,12 @@ export const useGetRecommendedVideos = (params: PaginationLimit) => {
 
 		select: data => ({
 			...data,
-			pages: data.pages.flatMap(page => page.recommendedVideos),
+			pages: data.pages
+				.flatMap(page => page.recommendedVideos)
+				.map(video => ({
+					...video,
+					createdAt: new Date(video.createdAt),
+				})),
 		}),
 	});
 
