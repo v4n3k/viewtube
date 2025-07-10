@@ -18,7 +18,8 @@ export const CommentItem = ({ comment }: CommentItemProps) => {
 	const [isFirstRender, setIsFirstRender] = useState(true);
 
 	const setParentCommentId = useCommentStore(state => state.setParentCommentId);
-	const { text, repliesCount, createdAt, channel } = comment;
+
+	const { id, text, repliesCount, createdAt, channel } = comment;
 
 	const {
 		repliesToComment,
@@ -27,7 +28,7 @@ export const CommentItem = ({ comment }: CommentItemProps) => {
 		isError,
 		error,
 	} = useGetRepliesToComment({
-		commentId: comment.id,
+		commentId: id,
 	});
 
 	const handleGetReplies = () => {
@@ -37,7 +38,7 @@ export const CommentItem = ({ comment }: CommentItemProps) => {
 
 	const handleAddReply = () => {
 		setIsReplying(true);
-		setParentCommentId(comment.id);
+		setParentCommentId(id);
 	};
 
 	const handleRemoveReply = () => {
@@ -53,7 +54,7 @@ export const CommentItem = ({ comment }: CommentItemProps) => {
 
 		setShowReplies(true);
 		refetch();
-	}, [refetch]);
+	}, [refetch, repliesCount]);
 
 	return (
 		<li className={styles.commentItem}>

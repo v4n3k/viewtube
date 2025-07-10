@@ -1,5 +1,9 @@
-import React from 'react';
+import { LikeButton } from '@/features/video/likeVideo/ui/LikeButton/LikeButton';
 
 export const VideoDetails = () => {
-	return <div>VideoDetails</div>;
+	return (
+		<div>
+			<LikeButton isLiked={false} />
+		</div>
+	);
 };

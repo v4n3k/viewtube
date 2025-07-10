@@ -1,5 +1,6 @@
 import { api, PaginatedResponse, PaginationParams } from '@/shared/api';
-import { Video } from '../model';
+import { getVideoActionPath } from './../lib';
+import { Video, VideoActionParams } from './../model';
 
 interface GetRecommendedVideosParams extends PaginationParams {}
 
@@ -16,34 +17,56 @@ export const getRecommendedVideos = async (
 	return response.data;
 };
 
-export const getWatchLaterVideos = () => {
-	return api.get<Video[]>('/videos/watch_later');
+export const getWatchLaterVideos = async (channelId: number) => {
+	const response = await api.get<Video[]>(
+		`/channels/${channelId}/videos/watchLater`
+	);
+	return response.data;
 };
 
-export const getVideoById = (videoId: number) => {
-	return api.get<Video>(`/videos/${videoId}`);
+export const getVideoById = async (videoId: number) => {
+	const response = await api.get<Video>(`/videos/${videoId}`);
+	return response.data;
 };
 
-export const likeVideo = (videoId: number) => {
-	return api.post<Video>(`/videos/${videoId}/like`);
+export const likeVideo = async (params: VideoActionParams) => {
+	const url = getVideoActionPath(params, 'like');
+	const response = await api.post<Video>(url);
+
+	return response.data;
 };
 
-export const unlikeVideo = (videoId: number) => {
-	return api.delete<void>(`/videos/${videoId}/like`);
+export const unlikeVideo = async (params: VideoActionParams) => {
+	const url = getVideoActionPath(params, 'unlike');
+	const response = await api.delete<void>(url);
+
+	return response.data;
 };
 
-export const dislikeVideo = (videoId: number) => {
-	return api.post<Video>(`/videos/${videoId}/dislike`);
+export const dislikeVideo = async (params: VideoActionParams) => {
+	const url = getVideoActionPath(params, 'dislike');
+	const response = await api.post<Video>(url);
+
+	return response.data;
 };
 
-export const undislikeVideo = (videoId: number) => {
-	return api.delete<void>(`/videos/${videoId}/dislike`);
+export const undislikeVideo = async (params: VideoActionParams) => {
+	const url = getVideoActionPath(params, 'undislike');
+	const response = await api.delete<void>(url);
+
+	return response.data;
 };
 
-export const addVideoToWatchLater = (videoId: number) => {
-	return api.post<Video>(`/videos/${videoId}/watch_later`);
+export const addVideoToWatchLater = async (params: VideoActionParams) => {
+	const url = getVideoActionPath(params, 'watchLater');
+	const response = await api.post<Video>(url);
+
+	return response.data;
 };
 
-export const removeVideoFromWatchLater = (videoId: number) => {
-	return api.delete<void>(`/videos/${videoId}/watch_later`);
+export const deleteVideoFromWatchLater = async (params: VideoActionParams) => {
+	const url = getVideoActionPath(params, 'watchLater');
+	const response = await api.delete<void>(url);
+
+	return response.data;
 };

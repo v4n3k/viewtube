@@ -10,13 +10,16 @@ export const useGetRepliesToComment = ({
 }: UseGetRepliesToCommentParams) => {
 	const query = useQuery({
 		queryKey: ['repliesToComment', commentId],
+
 		queryFn: async () => {
 			return await getRepliesToComment(commentId);
 		},
+
 		enabled: commentId !== null,
+
 		select: data => {
-			if (data && data.data) {
-				return data.data.map(reply => ({
+			if (data) {
+				return data.map(reply => ({
 					...reply,
 					createdAt: new Date(reply.createdAt),
 				}));

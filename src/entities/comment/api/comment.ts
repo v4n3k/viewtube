@@ -13,22 +13,15 @@ export const getComments = async (params: GetCommentsParams) => {
 		params: paginationParams,
 	});
 
-	const comments: Comment[] = response.data.comments.map(comment => ({
-		...comment,
-		createdAt: new Date(comment.createdAt),
-	}));
-
-	return {
-		comments,
-		currentPage: response.data.currentPage,
-		totalPages: response.data.totalPages,
-	};
+	return response.data;
 };
 
-export const createComment = (comment: CreateCommentParams) => {
-	return api.post<Comment>('/comments', comment);
+export const createComment = async (comment: CreateCommentParams) => {
+	const response = await api.post<Comment>('/comments', comment);
+	return response.data;
 };
 
-export const getRepliesToComment = (commentId: number) => {
-	return api.get<Comment[]>(`/comments/${commentId}/replies`);
+export const getRepliesToComment = async (commentId: number) => {
+	const response = await api.get<Comment[]>(`/comments/${commentId}/replies`);
+	return response.data;
 };

@@ -21,3 +21,15 @@ export interface Video {
 	channelAvatar: string;
 	channel: Channel;
 }
+
+export interface VideoActionParams {
+	channelId: number;
+	videoId: number;
+}
+
+export type VideoAction =
+	| 'like'
+	| 'dislike'
+	| 'unlike'
+	| 'undislike'
+	| 'watchLater';
