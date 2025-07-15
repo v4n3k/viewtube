@@ -1,11 +1,11 @@
 'use client';
 
-import { unlikeVideo } from '@/entities/video/api';
+import { undislikeVideo } from '@/entities/video/api';
 import { useChannelId } from '@/shared/lib';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
-export const useUnlikeVideo = () => {
+export const useUndislikeVideo = () => {
 	const channelId = useChannelId();
 	const videoId = Number(useParams<{ videoId: string }>()?.videoId ?? NaN);
 
@@ -13,7 +13,7 @@ export const useUnlikeVideo = () => {
 
 	const mutation = useMutation({
 		mutationFn: () => {
-			return unlikeVideo({ channelId, videoId });
+			return undislikeVideo({ channelId, videoId });
 		},
 
 		onSuccess: () => {
@@ -22,7 +22,7 @@ export const useUnlikeVideo = () => {
 	});
 
 	return {
-		unlikeVideo: () => mutation.mutate(),
+		undislikeVideo: () => mutation.mutate(),
 		...mutation,
 	};
 };

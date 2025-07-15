@@ -2,16 +2,16 @@
 
 import { Button, Show } from '@/shared/ui';
 import { FillLikeIcon, LikeIcon } from '@/shared/ui/icons';
-import { useUnlikeVideo } from '../../model';
-import { useLikeVideo } from '../../model/useLikeVideo';
+import { ComponentProps } from 'react';
+import { useLikeVideo, useUnlikeVideo } from '../../model';
 
 const ICON_SIZE = 20;
 
-interface LikeButtonProps {
+interface LikeButtonProps extends ComponentProps<'button'> {
 	isLiked: boolean;
 }
 
-export const LikeButton = ({ isLiked }: LikeButtonProps) => {
+export const LikeButton = ({ isLiked, ...props }: LikeButtonProps) => {
 	const { likeVideo } = useLikeVideo();
 	const { unlikeVideo } = useUnlikeVideo();
 
@@ -24,7 +24,7 @@ export const LikeButton = ({ isLiked }: LikeButtonProps) => {
 	};
 
 	return (
-		<Button fullWidth={false} onClick={toggleLike}>
+		<Button fullWidth={false} onClick={toggleLike} {...props}>
 			<Show when={isLiked}>
 				<FillLikeIcon size={ICON_SIZE} />
 			</Show>

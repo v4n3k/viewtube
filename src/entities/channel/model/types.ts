@@ -5,5 +5,6 @@ export interface Channel {
 	name: string;
 	description: string;
 	avatarUrl: string;
+	subscriptionsCount: number;
 	author: ChannelAuthor;
 }
