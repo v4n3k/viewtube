@@ -2,6 +2,7 @@ import { PATH_GENERATORS } from '@/app/routes';
 import { Channel } from '@/entities/channel/model';
 import { formatNumber } from '@/shared/lib';
 import { Avatar, Link } from '@/shared/ui';
+import { useEffect } from 'react';
 import styles from './ChannelOverview.module.css';
 
 interface ChannelOverviewProps
@@ -15,14 +16,18 @@ export const ChannelOverview = ({
 }: ChannelOverviewProps) => {
 	const formattedSubscriptionsCount = formatNumber(subscriptionsCount);
 
+	useEffect(() => {
+		console.log(id, avatarUrl, name, subscriptionsCount);
+	}, [id, avatarUrl, name, subscriptionsCount]);
+
 	return (
 		<div className={styles.channelOverview}>
-			<Link href={PATH_GENERATORS.channel(id)}>
-				<Avatar src={avatarUrl} />
+			<Link href={PATH_GENERATORS.channel(id)} hoverEffect='text'>
+				<Avatar src='' size='xl' />
 			</Link>
 			<div>
-				<Link href={PATH_GENERATORS.channel(id)}>
-					<h3>{name}</h3>
+				<Link href={PATH_GENERATORS.channel(id)} hoverEffect='text'>
+					{name}
 				</Link>
 				<span>{formattedSubscriptionsCount} subscribers</span>
 			</div>

@@ -24,8 +24,12 @@ export const getWatchLaterVideos = async (channelId: number) => {
 	return response.data;
 };
 
-export const getVideoById = async (videoId: number) => {
-	const response = await api.get<Video>(`/videos/${videoId}`);
+export const getVideoById = async (params: VideoActionParams) => {
+	const { channelId, videoId } = params;
+	const response = await api.get<Video>(
+		`channels/${channelId}/videos/${videoId}`
+	);
+
 	return response.data;
 };
 

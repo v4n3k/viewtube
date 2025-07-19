@@ -4,7 +4,7 @@ import styles from './Avatar.module.css';
 
 interface AvatarProps extends ComponentProps<'img'> {
 	src?: string;
-	size?: 'sm' | 'md' | 'lg';
+	size?: 'sm' | 'md' | 'lg' | 'xl';
 	shape?: 'circle' | 'square';
 }
 

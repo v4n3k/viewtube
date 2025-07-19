@@ -2,13 +2,13 @@
 
 import { createComment } from '@/entities/comment/api';
 import { useCommentStore } from '@/entities/comment/model';
+import { useChannelId } from '@/shared/lib';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 
-const channelId = 1;
-
 export const useCreateComment = () => {
+	const channelId = useChannelId();
 	const [text, setText] = useState('');
 
 	const videoId = Number(useParams<{ videoId: string }>()?.videoId ?? NaN);

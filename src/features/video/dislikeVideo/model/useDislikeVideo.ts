@@ -17,7 +17,7 @@ export const useDislikeVideo = () => {
 		},
 
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['videos', videoId] });
+			queryClient.invalidateQueries({ queryKey: ['video', videoId] });
 		},
 	});
 

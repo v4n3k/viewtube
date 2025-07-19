@@ -19,6 +19,9 @@ export interface Video {
 	channelId: number;
 	channelName: string;
 	channelAvatar: string;
+	isLiked: boolean;
+	isDisliked: boolean;
+	isSaved: boolean;
 	channel: Channel;
 }
 

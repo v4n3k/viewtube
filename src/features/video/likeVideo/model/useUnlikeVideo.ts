@@ -17,7 +17,7 @@ export const useUnlikeVideo = () => {
 		},
 
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['videos', videoId] });
+			queryClient.invalidateQueries({ queryKey: ['video', videoId] });
 		},
 	});
 

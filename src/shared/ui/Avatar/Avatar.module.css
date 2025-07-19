@@ -15,6 +15,10 @@
 	width: 40px;
 }
 
+.xl {
+	width: 50px;
+}
+
 .circle {
 	border-radius: 50%;
 }

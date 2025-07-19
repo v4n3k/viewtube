@@ -3,6 +3,12 @@
 	flex-direction: column;
 }
 
+.channelAndActions {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 .actions {
 	display: flex;
 	gap: var(--spacing-md);
