@@ -8,8 +8,8 @@ export const useGetRecommendedVideos = (params: PaginationLimit) => {
 	const query = useInfiniteQuery({
 		queryKey: ['recommendedVideos', limit],
 
-		queryFn: async ({ pageParam = 1 }) => {
-			return await getRecommendedVideos({ page: pageParam, limit });
+		queryFn: ({ pageParam = 1 }) => {
+			return getRecommendedVideos({ page: pageParam, limit });
 		},
 
 		getNextPageParam: lastPage => {

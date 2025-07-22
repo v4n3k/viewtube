@@ -25,8 +25,10 @@ export const WatchPage = () => {
 	const videoId = Number(useParams<{ videoId: string }>()?.videoId);
 
 	const { data: video } = useQuery({
-		queryKey: ['video', channelId],
+		queryKey: ['video', videoId],
+
 		queryFn: () => getVideoById({ channelId, videoId }),
+
 		select: data => ({
 			...data,
 			createdAt: new Date(data.createdAt),

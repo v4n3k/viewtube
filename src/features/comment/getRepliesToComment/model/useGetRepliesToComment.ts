@@ -11,9 +11,7 @@ export const useGetRepliesToComment = ({
 	const query = useQuery({
 		queryKey: ['repliesToComment', commentId],
 
-		queryFn: async () => {
-			return await getRepliesToComment(commentId);
-		},
+		queryFn: () => getRepliesToComment(commentId),
 
 		enabled: commentId !== null,
 

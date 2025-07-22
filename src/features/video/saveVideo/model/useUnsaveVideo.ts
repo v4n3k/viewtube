@@ -12,9 +12,7 @@ export const useUnsaveVideo = () => {
 	const queryClient = useQueryClient();
 
 	const mutation = useMutation({
-		mutationFn: () => {
-			return deleteVideoFromWatchLater({ channelId, videoId });
-		},
+		mutationFn: () => deleteVideoFromWatchLater({ channelId, videoId }),
 
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['video', videoId] });

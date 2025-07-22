@@ -12,9 +12,7 @@ export const useSaveVideo = () => {
 	const queryClient = useQueryClient();
 
 	const mutation = useMutation({
-		mutationFn: () => {
-			return addVideoToWatchLater({ channelId, videoId });
-		},
+		mutationFn: () => addVideoToWatchLater({ channelId, videoId }),
 
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['video', videoId] });

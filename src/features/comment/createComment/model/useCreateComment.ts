@@ -27,7 +27,7 @@ export const useCreateComment = () => {
 
 		onSuccess: () => {
 			setText('');
-			queryClient.invalidateQueries({ queryKey: ['comments'] });
+			queryClient.invalidateQueries({ queryKey: ['comments', videoId] });
 		},
 	});
 

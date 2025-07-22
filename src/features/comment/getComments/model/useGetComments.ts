@@ -17,8 +17,8 @@ export const useGetComments = (params: UseGetCommentParams) => {
 
 		enabled: !isNaN(videoId),
 
-		queryFn: async ({ pageParam = 1 }) => {
-			return await getComments({ videoId, page: pageParam, limit });
+		queryFn: ({ pageParam = 1 }) => {
+			return getComments({ videoId, page: pageParam, limit });
 		},
 
 		getNextPageParam: lastPage => {

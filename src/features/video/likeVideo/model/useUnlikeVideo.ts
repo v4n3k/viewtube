@@ -12,9 +12,7 @@ export const useUnlikeVideo = () => {
 	const queryClient = useQueryClient();
 
 	const mutation = useMutation({
-		mutationFn: () => {
-			return unlikeVideo({ channelId, videoId });
-		},
+		mutationFn: () => unlikeVideo({ channelId, videoId }),
 
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['video', videoId] });

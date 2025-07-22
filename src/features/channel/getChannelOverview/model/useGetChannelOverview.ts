@@ -4,7 +4,9 @@ import { useQuery } from '@tanstack/react-query';
 export const useGetChannelOverview = (channelId: number) => {
 	const query = useQuery({
 		queryKey: ['channel', channelId],
+
 		queryFn: () => getChannel(channelId),
+
 		enabled: !!channelId,
 	});
 

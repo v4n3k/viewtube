@@ -27,8 +27,10 @@ export const useCreateReply = () => {
 
 		onSuccess: () => {
 			setText('');
-			queryClient.invalidateQueries({ queryKey: ['repliesToComment'] });
-			queryClient.invalidateQueries({ queryKey: ['comments'] });
+			queryClient.invalidateQueries({
+				queryKey: ['repliesToComment', videoId],
+			});
+			queryClient.invalidateQueries({ queryKey: ['comments', videoId] });
 		},
 	});
 
