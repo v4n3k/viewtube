@@ -4,6 +4,7 @@ import { Button, Show } from '@/shared/ui';
 import { BookmarkIcon, FillBookmarkIcon } from '@/shared/ui/icons';
 import { ComponentProps } from 'react';
 import { useSaveVideo, useUnsaveVideo } from '../../model';
+import styles from './SaveButton.module.css';
 
 interface SaveButtonProps extends ComponentProps<'button'> {
 	isSaved: boolean;
@@ -24,7 +25,7 @@ export const SaveButton = ({ isSaved, ...props }: SaveButtonProps) => {
 	};
 
 	return (
-		<Button onClick={toggleSaveVideo} {...props}>
+		<Button className={styles.saveButton} onClick={toggleSaveVideo} {...props}>
 			<Show when={isSaved}>
 				<FillBookmarkIcon size={ICON_SIZE} /> Saved
 			</Show>

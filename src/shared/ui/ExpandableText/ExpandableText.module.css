@@ -1,0 +1,33 @@
+.expandableText {
+	line-height: 1.5;
+}
+
+.text {
+	font-size: var(--font-size-md);
+	font-weight: var(--font-weight-sm);
+	color: var(--color-text);
+
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.clamped {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: var(--expandable-text-max-lines);
+	line-clamp: var(--expandable-text-max-lines);
+	overflow: hidden;
+}
+
+.button {
+	font-size: var(--font-size-sm);
+	font-weight: var(--font-weight-lg);
+	color: var(--color-text);
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+.showLess {
+	margin-top: var(--spacing-md);
+}

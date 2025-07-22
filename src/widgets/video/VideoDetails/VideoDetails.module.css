@@ -3,10 +3,18 @@
 	flex-direction: column;
 }
 
+.title {
+	font-size: var(--font-size-xl);
+	color: var(--color-text);
+	font-weight: var(--font-weight-xl);
+	margin-bottom: var(--spacing-sm);
+}
+
 .channelAndActions {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	margin-bottom: var(--spacing-sm);
 }
 
 .actions {
@@ -15,5 +23,23 @@
 }
 
 .saveButton {
+	display: flex;
+	justify-content: center;
 	margin-left: var(--spacing-md);
+	width: 104px;
+}
+
+.descriptionWrapper {
+	padding: var(--spacing-sm) var(--spacing-md);
+	background-color: var(--color-button-background);
+	border-radius: var(--border-radius-sm);
+}
+
+.viewsAndDate {
+	display: flex;
+	gap: var(--spacing-sm);
+	font-size: var(--font-size-sm);
+	font-weight: var(--font-weight-lg);
+	color: var(--color-text);
+	margin-bottom: var(--spacing-xs);
 }
