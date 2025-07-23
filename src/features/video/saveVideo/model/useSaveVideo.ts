@@ -16,6 +16,7 @@ export const useSaveVideo = () => {
 
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['video', videoId] });
+			queryClient.invalidateQueries({ queryKey: ['savedVideos', channelId] });
 		},
 	});
 

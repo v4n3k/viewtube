@@ -17,7 +17,7 @@ export const useGetRepliesToComment = ({
 
 		select: data => {
 			if (data) {
-				return data.map(reply => ({
+				return data?.map(reply => ({
 					...reply,
 					createdAt: new Date(reply.createdAt),
 				}));

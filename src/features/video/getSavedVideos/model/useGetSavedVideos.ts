@@ -1,15 +1,18 @@
-import { getRecommendedVideos } from '@/entities/video/api';
+import { getSavedVideos } from '@/entities/video/api';
 import { PaginationLimit } from '@/shared/api';
+import { useChannelId } from '@/shared/lib';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-export const useGetRecommendedVideos = (params: PaginationLimit) => {
+export const useGetSavedVideos = (params: PaginationLimit) => {
+	const channelId = useChannelId();
+
 	const { limit } = params;
 
 	const query = useInfiniteQuery({
-		queryKey: ['recommendedVideos', limit],
+		queryKey: ['savedVideos', limit],
 
 		queryFn: ({ pageParam = 1 }) => {
-			return getRecommendedVideos({ page: pageParam, limit });
+			return getSavedVideos({ channelId, page: pageParam, limit });
 		},
 
 		getNextPageParam: lastPage => {
@@ -24,16 +27,16 @@ export const useGetRecommendedVideos = (params: PaginationLimit) => {
 		select: data => ({
 			...data,
 			pages: data.pages
-				?.flatMap(page => page.recommendedVideos)
+				?.flatMap(page => page.savedVideos)
 				?.map(video => ({
 					...video,
-					createdAt: new Date(video.createdAt),
+					createdAt: new Date(video?.createdAt),
 				})),
 		}),
 	});
 
 	return {
-		recommendedVideos: query.data?.pages,
+		savedVideos: query.data?.pages,
 		...query,
 	};
 };

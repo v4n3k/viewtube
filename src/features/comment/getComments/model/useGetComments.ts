@@ -33,8 +33,8 @@ export const useGetComments = (params: UseGetCommentParams) => {
 		select: data => ({
 			...data,
 			pages: data.pages
-				.flatMap(page => page.comments)
-				.map(comment => ({
+				?.flatMap(page => page.comments)
+				?.map(comment => ({
 					...comment,
 					createdAt: new Date(comment.createdAt),
 				})),
