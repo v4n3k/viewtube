@@ -1,12 +1,24 @@
 'use client';
 
-export const useChannelId = () => {
-	const channelId = localStorage.getItem('channelId');
+import { useEffect, useState } from 'react';
 
-	if (!channelId) {
-		localStorage.setItem('channelId', '1');
-		return 1;
-	}
+export const useChannelId = () => {
+	const [channelId, setChannelId] = useState<number | null>(null);
+
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			const storedChannelId = localStorage.getItem('channelId');
+
+			if (!storedChannelId) {
+				localStorage.setItem('channelId', '1');
+				setChannelId(1);
+			} else {
+				setChannelId(Number(storedChannelId));
+			}
+		} else {
+			setChannelId(1);
+		}
+	}, []);
 
 	return Number(channelId);
 };

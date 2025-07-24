@@ -9,7 +9,7 @@ export const useGetSavedVideos = (params: PaginationLimit) => {
 	const { limit } = params;
 
 	const query = useInfiniteQuery({
-		queryKey: ['savedVideos', limit],
+		queryKey: ['savedVideos', channelId, limit],
 
 		queryFn: ({ pageParam = 1 }) => {
 			return getSavedVideos({ channelId, page: pageParam, limit });
@@ -33,6 +33,8 @@ export const useGetSavedVideos = (params: PaginationLimit) => {
 					createdAt: new Date(video?.createdAt),
 				})),
 		}),
+
+		enabled: !!channelId,
 	});
 
 	return {

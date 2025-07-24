@@ -15,7 +15,9 @@ export const useUndislikeVideo = () => {
 		mutationFn: () => undislikeVideo({ channelId, videoId }),
 
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['video', videoId] });
+			queryClient.invalidateQueries({
+				queryKey: ['video', channelId, videoId],
+			});
 		},
 	});
 

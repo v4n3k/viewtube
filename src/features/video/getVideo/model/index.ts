@@ -1,0 +1,1 @@
+export { useGetVideo } from './useGetVideo';

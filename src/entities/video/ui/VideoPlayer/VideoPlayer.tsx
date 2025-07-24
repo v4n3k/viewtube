@@ -27,26 +27,51 @@ export const VideoPlayer = ({
 	const plyrInstance = useRef<Plyr | null>(null);
 
 	useEffect(() => {
-		if (videoRef.current) {
-			plyrInstance.current = new Plyr(videoRef.current, {
-				controls: [
-					'play-large',
-					'play',
-					'progress',
-					'current-time',
-					'duration',
-					'mute',
-					'volume',
-					'pip',
-					'fullscreen',
-					'settings',
-				],
-				autoplay: autoplay,
-				loop: { active: loop },
-				muted: muted,
-			});
+		console.log('VideoPlayer useEffect triggered', {
+			src,
+			autoplay,
+			loop,
+			muted,
+		}); // Debug
+
+		if (!src) {
+			console.warn('Video src is missing!');
+			return; // Don't initialize if src is missing
 		}
+
+		let plyr: Plyr | null = null; // Local variable
+
+		const initializePlyr = () => {
+			if (videoRef.current) {
+				console.log('Initializing Plyr...'); // Debug
+				plyr = new Plyr(videoRef.current, {
+					controls: [
+						'play-large',
+						'play',
+						'progress',
+						'current-time',
+						'duration',
+						'mute',
+						'volume',
+						'pip',
+						'fullscreen',
+						'settings',
+					],
+					autoplay: autoplay,
+					loop: { active: loop },
+					muted: muted,
+				});
+				plyrInstance.current = plyr; // Update the ref
+			} else {
+				console.warn('videoRef.current is null. Plyr initialization failed.');
+			}
+		};
+
+		// Initialize Plyr after the component is mounted.
+		initializePlyr();
+
 		return () => {
+			console.log('Destroying Plyr...'); // Debug
 			if (plyrInstance.current) {
 				plyrInstance.current.destroy();
 				plyrInstance.current = null;
@@ -63,6 +88,8 @@ export const VideoPlayer = ({
 				className={styles.video}
 			>
 				<source src={src} type='video/mp4' />
+				{/* Add other source elements for different formats if needed */}
+				Your browser does not support the video tag.
 			</video>
 		</div>
 	);

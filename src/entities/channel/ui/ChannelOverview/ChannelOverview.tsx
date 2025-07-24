@@ -2,7 +2,6 @@ import { PATH_GENERATORS } from '@/app/routes';
 import { Channel } from '@/entities/channel/model';
 import { formatNumber } from '@/shared/lib';
 import { Avatar, Link } from '@/shared/ui';
-import { useEffect } from 'react';
 import styles from './ChannelOverview.module.css';
 
 interface ChannelOverviewProps
@@ -15,10 +14,6 @@ export const ChannelOverview = ({
 	subscriptionsCount,
 }: ChannelOverviewProps) => {
 	const formattedSubscriptionsCount = formatNumber(subscriptionsCount);
-
-	useEffect(() => {
-		console.log(id, avatarUrl, name, subscriptionsCount);
-	}, [id, avatarUrl, name, subscriptionsCount]);
 
 	return (
 		<div className={styles.channelOverview}>

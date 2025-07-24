@@ -1,1 +1,1 @@
-export { ChannelOverview } from './ui/ChannelOverview';
+export { ChannelOverview } from '../../../entities/channel/ui/ChannelOverview';

@@ -17,7 +17,7 @@
 	margin-bottom: var(--spacing-sm);
 }
 
-.actions {
+.actionsContainer {
 	display: flex;
 	gap: var(--spacing-md);
 }
