@@ -17,21 +17,19 @@ export const SavedVideosList = () => {
 		limit: 6,
 	});
 
-	if (isLoading) {
-		return <div>Загрузка видео...</div>;
-	}
-
-	if (isError) {
-		return <div>Ошибка загрузки видео: {error?.message}</div>;
-	}
-
 	return (
 		<InfiniteScroll
 			onFetchMore={fetchNextPage}
 			hasMore={hasNextPage}
 			isLoading={isFetchingNextPage}
 		>
-			<VideosList title='Смотреть позже' videos={savedVideos} />
+			<VideosList
+				title='Watch later'
+				videos={savedVideos}
+				isLoading={isLoading || isFetchingNextPage}
+				isError={isError}
+				error={error}
+			/>
 		</InfiniteScroll>
 	);
 };

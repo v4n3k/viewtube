@@ -14,6 +14,13 @@ interface GetSavedVideosParams extends PaginationParams {
 interface GetSavedVideosResponse
 	extends PaginatedResponse<'savedVideos', Video> {}
 
+interface GetLikedVideosParams extends PaginationParams {
+	channelId: number;
+}
+
+interface GetLikedVideosResponse
+	extends PaginatedResponse<'likedVideos', Video> {}
+
 export const getRecommendedVideos = async (
 	params: GetRecommendedVideosParams
 ) => {
@@ -29,6 +36,17 @@ export const getSavedVideos = async (params: GetSavedVideosParams) => {
 
 	const response = await api.get<GetSavedVideosResponse>(
 		`/channels/${channelId}/watchLater`,
+		{ params: paginationParams }
+	);
+
+	return response.data;
+};
+
+export const getLikedVideos = async (params: GetLikedVideosParams) => {
+	const { channelId, ...paginationParams } = params;
+
+	const response = await api.get<GetLikedVideosResponse>(
+		`/channels/${channelId}/liked`,
 		{ params: paginationParams }
 	);
 

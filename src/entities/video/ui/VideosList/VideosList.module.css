@@ -11,6 +11,12 @@
 	font-weight: var(--font-weight-xl);
 }
 
+.errorMessage {
+	font-size: var(--font-size-lg);
+	color: var(--color-text);
+	font-weight: var(--font-weight-lg);
+}
+
 .videosList {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

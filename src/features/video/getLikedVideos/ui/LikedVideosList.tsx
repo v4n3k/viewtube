@@ -2,18 +2,18 @@
 
 import { VideosList } from '@/entities/video/ui';
 import { InfiniteScroll } from '@/shared/ui';
-import { useGetRecommendedVideos } from '../model';
+import { useGetLikedVideos } from '../model';
 
-export const RecommendedVideosList = () => {
+export const LikedVideosList = () => {
 	const {
-		recommendedVideos,
+		likedVideos,
 		fetchNextPage,
 		hasNextPage,
 		isFetchingNextPage,
 		isLoading,
 		isError,
 		error,
-	} = useGetRecommendedVideos({
+	} = useGetLikedVideos({
 		limit: 6,
 	});
 
@@ -24,8 +24,8 @@ export const RecommendedVideosList = () => {
 			isLoading={isFetchingNextPage}
 		>
 			<VideosList
-				title='Recommended'
-				videos={recommendedVideos}
+				title='Liked'
+				videos={likedVideos}
 				isLoading={isLoading || isFetchingNextPage}
 				isError={isError}
 				error={error}

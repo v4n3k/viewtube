@@ -1,4 +1,6 @@
-.save {
-	width: 104px !important;
-	min-width: 104px !important;
+.saveButton {
+	display: flex;
+	justify-content: center;
+	width: 104px;
+	margin-left: var(--spacing-md);
 }

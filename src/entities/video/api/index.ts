@@ -2,6 +2,7 @@ export {
 	addVideoToWatchLater,
 	deleteVideoFromWatchLater,
 	dislikeVideo,
+	getLikedVideos,
 	getRecommendedVideos,
 	getSavedVideos,
 	getVideoById,
