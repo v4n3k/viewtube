@@ -1,0 +1,5 @@
+.subscribeButton {
+	display: flex;
+	justify-content: center;
+	width: 145px;
+}

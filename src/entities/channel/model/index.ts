@@ -1,1 +1,1 @@
-export type { Channel } from './types';
+export type { Channel, Subscription } from './types';

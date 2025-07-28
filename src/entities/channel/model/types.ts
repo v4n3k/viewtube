@@ -7,4 +7,11 @@ export interface Channel {
 	avatarUrl: string;
 	subscriptionsCount: number;
 	author: ChannelAuthor;
+	isSubscribed: boolean;
+}
+
+export interface Subscription {
+	subscriberChannelId: number;
+	subscribedToChannelId: number;
+	createdAt: Date;
 }

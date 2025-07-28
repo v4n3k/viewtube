@@ -1,5 +1,3 @@
-'use client';
-
 import { CommentsSection } from '@/widgets/comment/CommentsSection/ui';
 import { VideoWidget } from '@/widgets/video/VideoWidget/VideoWidget';
 import styles from './WatchPage.module.css';

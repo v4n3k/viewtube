@@ -1,20 +1,19 @@
 .videoDetails {
 	display: flex;
 	flex-direction: column;
+	gap: var(--spacing-sm);
 }
 
 .title {
 	font-size: var(--font-size-xl);
 	color: var(--color-text);
 	font-weight: var(--font-weight-xl);
-	margin-bottom: var(--spacing-sm);
 }
 
 .channelAndActions {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: var(--spacing-sm);
 }
 
 .actionsContainer {

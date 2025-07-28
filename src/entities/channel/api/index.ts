@@ -1,1 +1,5 @@
-export { getChannel } from './channel';
+export {
+	getChannel,
+	subscribeToChannel,
+	unsubscribeFromChannel,
+} from './channel';
