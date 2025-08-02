@@ -1,6 +1,6 @@
 export interface SignUpCredentials {
-	login: string;
-	nickname: string;
+	username: string;
+	email: string;
 	password: string;
 	passwordConfirmation: string;
 }

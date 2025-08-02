@@ -2,6 +2,7 @@ import { Providers } from '@/app/providers';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import 'src/app/styles/globals.css';
+import styles from './layout.module.css';
 
 const roboto = Roboto({
 	weight: ['400', '500', '600', '700'],
@@ -24,7 +25,7 @@ export default function RootLayout({
 		<html lang='en'>
 			<body className={roboto.variable}>
 				<Providers>
-					<div className='ш'>{children}</div>
+					<div className={styles.appLayout}>{children}</div>
 				</Providers>
 			</body>
 		</html>

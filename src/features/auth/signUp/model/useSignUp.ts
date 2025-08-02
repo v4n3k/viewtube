@@ -1,22 +1,13 @@
+'use client';
+
 import { PATH_GENERATORS } from '@/app/routes';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { toast } from 'react-toastify';
 import { signUp } from '../api/signUp';
 import { SignUpCredentials } from './types';
-import { toast } from 'react-toastify';
 
-const initialCredentials: SignUpCredentials = {
-	login: '',
-	nickname: '',
-	password: '',
-	passwordConfirmation: '',
-};
-
-export const useSignUp = () => {
-	const [credentials, setCredentials] =
-		useState<SignUpCredentials>(initialCredentials);
-
+export const useSignUp = (credentials: SignUpCredentials) => {
 	const router = useRouter();
 
 	const mutation = useMutation({
@@ -28,8 +19,6 @@ export const useSignUp = () => {
 			localStorage.setItem('userId', userId.toString());
 			localStorage.setItem('login', login);
 
-			setCredentials(initialCredentials);
-
 			router.replace(PATH_GENERATORS.home());
 
 			toast.success('You have been signed up successfully!');
@@ -40,5 +29,8 @@ export const useSignUp = () => {
 		},
 	});
 
-	return { signUp: mutation.mutate, ...mutation, credentials, setCredentials };
+	return {
+		signUp: () => mutation.mutate(),
+		...mutation,
+	};
 };

@@ -1,5 +1,5 @@
-import React from 'react';
+import { SignUpForm } from '@/widgets/auth';
 
 export const SignUpPage = () => {
-	return <div>SignUpPage</div>;
+	return <SignUpForm />;
 };

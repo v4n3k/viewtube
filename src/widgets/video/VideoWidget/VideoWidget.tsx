@@ -27,8 +27,13 @@ export const VideoWidget = () => {
 	if (!video) return;
 
 	const { isLiked, isDisliked, isSaved, channel } = video;
-	const { id: channelId, name, avatarUrl, subscriptionsCount, isSubscribed } =
-		channel ?? {};
+	const {
+		id: channelId,
+		name,
+		avatarUrl,
+		subscriptionsCount,
+		isSubscribed,
+	} = channel;
 
 	return (
 		<div>
