@@ -36,7 +36,9 @@ export const VideoCard = memo(({ video }: VideoCardProps) => {
 			<div className={styles.previewContainer}>
 				<img
 					className={styles.preview}
-					src={'/imgPlaceholder.jpg'}
+					src={
+						'https://storage.yandexcloud.net/viewtube/images/uploaded-image.jpg'
+					}
 					alt={title}
 				/>
 				<span className={styles.duration}>{formatDuration(duration)}</span>

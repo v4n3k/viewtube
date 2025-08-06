@@ -7,7 +7,7 @@ import { useGetVideo } from '@/features/video/getVideo/model/useGetVideo';
 import { LikeButton } from '@/features/video/likeVideo';
 import { SaveButton } from '@/features/video/saveVideo';
 import { VideoDetails } from '../VideoDetails';
-
+import styles from './VideoWidget.module.css';
 import dynamic from 'next/dynamic';
 
 const VideoPlayer = dynamic(
@@ -36,7 +36,7 @@ export const VideoWidget = () => {
 	} = channel;
 
 	return (
-		<div>
+		<div className={styles.videoWidget}>
 			<VideoPlayer src='/video.mp4' />
 
 			<VideoDetails

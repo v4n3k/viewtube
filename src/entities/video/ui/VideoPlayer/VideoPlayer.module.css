@@ -8,3 +8,11 @@
 	top: 0;
 	left: 0;
 }
+
+.plyr {
+	border-radius: var(--border-radius-lg);
+}
+
+:global(.plyr) {
+	border-radius: var(--border-radius-lg);
+}

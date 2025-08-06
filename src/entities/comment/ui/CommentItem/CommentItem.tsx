@@ -2,7 +2,7 @@ import { PATH_GENERATORS } from '@/app/routes';
 import { formatDateAgo } from '@/entities/video/lib';
 import { RepliesList, useGetRepliesToComment } from '@/features/comment';
 import { CreateReplyForm } from '@/features/comment/createReply/ui';
-import { Avatar, Button, Link, Show } from '@/shared/ui';
+import { Avatar, Button, ExpandableText, Link, Show } from '@/shared/ui';
 import { ArrowDownIcon, ArrowUpIcon } from '@/shared/ui/icons';
 import { useEffect, useState } from 'react';
 import { Comment, useCommentStore } from '../../model';
@@ -70,7 +70,7 @@ export const CommentItem = ({ comment }: CommentItemProps) => {
 						</Link>
 						<span className={styles.date}>{formatDateAgo(createdAt)}</span>
 					</div>
-					<p className={styles.text}>{text}</p>
+					<ExpandableText textClassName={styles.text}>{text}</ExpandableText>
 				</div>
 			</div>
 

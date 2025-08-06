@@ -19,7 +19,10 @@ export const Avatar = ({
 	return (
 		<img
 			className={clsx(styles.avatar, styles[size], styles[shape], className)}
-			src={src || '/imgPlaceholder.jpg'}
+			src={
+				src ||
+				'https://storage.yandexcloud.net/viewtube/images/uploaded-image.jpg'
+			}
 			alt={alt || 'avatar'}
 			{...props}
 		/>

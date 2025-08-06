@@ -12,11 +12,13 @@ import { Show } from '../helpers';
 import styles from './ExpandableText.module.css';
 
 interface ExpandableTextProps extends ComponentProps<'p'> {
+	textClassName?: string;
 	maxLines?: number;
 	children: React.ReactNode;
 }
 
 export const ExpandableText = ({
+	textClassName,
 	className,
 	children,
 	maxLines = 3,
@@ -58,7 +60,9 @@ export const ExpandableText = ({
 	return (
 		<div className={clsx(styles.expandableText, className)}>
 			<p
-				className={clsx(styles.text, { [styles.clamped]: !isExpanded })}
+				className={clsx(styles.text, textClassName, {
+					[styles.clamped]: !isExpanded,
+				})}
 				ref={textRef}
 			>
 				{textContent}

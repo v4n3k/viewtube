@@ -1,6 +1,6 @@
 import { PATH_GENERATORS } from '@/app/routes';
 import { formatDateAgo } from '@/entities/video/lib';
-import { Avatar, Link } from '@/shared/ui';
+import { Avatar, ExpandableText, Link } from '@/shared/ui';
 import clsx from 'clsx';
 import { Reply } from '../../model/types';
 import styles from './ReplyItem.module.css';
@@ -26,7 +26,7 @@ export const ReplyItem = ({ reply }: ReplyItemProps) => {
 						</Link>
 						<span className={styles.date}>{formatDateAgo(createdAt)}</span>
 					</div>
-					<p className={styles.text}>{text}</p>
+					<ExpandableText textClassName={styles.text}>{text}</ExpandableText>
 				</div>
 			</div>
 		</li>
