@@ -6,9 +6,9 @@ import { DislikeButton } from '@/features/video/dislikeVideo';
 import { useGetVideo } from '@/features/video/getVideo/model/useGetVideo';
 import { LikeButton } from '@/features/video/likeVideo';
 import { SaveButton } from '@/features/video/saveVideo';
+import dynamic from 'next/dynamic';
 import { VideoDetails } from '../VideoDetails';
 import styles from './VideoWidget.module.css';
-import dynamic from 'next/dynamic';
 
 const VideoPlayer = dynamic(
 	() =>
@@ -37,7 +37,7 @@ export const VideoWidget = () => {
 
 	return (
 		<div className={styles.videoWidget}>
-			<VideoPlayer src='/video.mp4' />
+			<VideoPlayer src='https://storage.yandexcloud.net/viewtube/videos/video.mp4' />
 
 			<VideoDetails
 				video={video}

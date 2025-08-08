@@ -1,0 +1,35 @@
+'use client';
+
+import { PATH_GENERATORS } from '@/app/routes';
+import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import { signIn } from '../api';
+import { SignInCredentials } from './types';
+
+export const useSignIn = (credentials: SignInCredentials) => {
+	const router = useRouter();
+
+	const mutation = useMutation({
+		mutationFn: () => signIn(credentials),
+
+		onSuccess: data => {
+			const { userId } = data;
+
+			localStorage.setItem('userId', userId.toString());
+
+			router.replace(PATH_GENERATORS.home());
+
+			toast.success('You have been signed in successfully!');
+		},
+
+		onError: () => {
+			toast.error('Error signing in');
+		},
+	});
+
+	return {
+		signIn: () => mutation.mutate(),
+		...mutation,
+	};
+};

@@ -1,23 +1,21 @@
 'use client';
 
 import { PATH_GENERATORS } from '@/app/routes';
-import {
-	SignUpButton,
-	SignUpCredentials,
-	useSignUp,
-} from '@/features/auth/signUp';
+import { SignInCredentials, useSignIn } from '@/features/auth/signIn/model';
+import { SignInButton } from '@/features/auth/signIn/ui';
+import { SignUpCredentials } from '@/features/auth/signUp';
 import { Link, TextField } from '@/shared/ui';
 import { ChangeEvent, FormEvent, useState } from 'react';
-import styles from './SignUpForm.module.css';
+import styles from './SignInForm.module.css';
 
 export const SignUpForm = () => {
-	const [credentials, setCredentials] = useState<SignUpCredentials>(
-		{} as SignUpCredentials
+	const [credentials, setCredentials] = useState<SignInCredentials>(
+		{} as SignInCredentials
 	);
 
-	const { signUp } = useSignUp(credentials);
+	const { signIn } = useSignIn(credentials);
 
-	const { login, email, password, passwordConfirmation } = credentials;
+	const { login, password } = credentials;
 
 	const handleFormChange = (
 		key: keyof SignUpCredentials,
@@ -28,42 +26,31 @@ export const SignUpForm = () => {
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		signUp();
+		signIn();
 	};
 
 	return (
 		<section className={styles.formContainer}>
-			<h2 className={styles.title}>Sign Up</h2>
+			<h2 className={styles.title}>Sign In</h2>
 			<form className={styles.form} onSubmit={handleSubmit}>
 				<TextField
 					value={login}
 					onChange={e => handleFormChange('login', e)}
 					placeholder='Login'
 				/>
-				<TextField
-					value={email}
-					onChange={e => handleFormChange('email', e)}
-					type='email'
-					placeholder='Email'
-				/>
+
 				<TextField
 					value={password}
 					onChange={e => handleFormChange('password', e)}
 					type='password'
 					placeholder='Password'
 				/>
-				<TextField
-					value={passwordConfirmation}
-					onChange={e => handleFormChange('passwordConfirmation', e)}
-					type='password'
-					placeholder='Password Confirmation'
-				/>
 
 				<div className={styles.actionsContainer}>
-					<Link href={PATH_GENERATORS.signIn()} hoverEffect='text'>
-						Already have account?
+					<Link href={PATH_GENERATORS.signUp()} hoverEffect='text'>
+						Do you have not account?
 					</Link>
-					<SignUpButton />
+					<SignInButton />
 				</div>
 			</form>
 		</section>
