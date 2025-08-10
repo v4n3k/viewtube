@@ -1,19 +1,21 @@
 'use client';
 
 import clsx from 'clsx';
-import { ComponentProps, ReactNode, useId } from 'react';
+import { ComponentProps, useId } from 'react';
 import { Show } from '..';
 import styles from './TextField.module.css';
 
 interface TextFieldProps extends ComponentProps<'input'> {
-	label?: ReactNode;
-	roundedFull?: boolean;
+	label?: string;
+	errorMessage?: string;
 }
 
 export const TextField = ({
 	className,
+	ref,
 	label,
 	type = 'text',
+	errorMessage,
 	...props
 }: TextFieldProps) => {
 	const id = useId();
@@ -27,11 +29,20 @@ export const TextField = ({
 			</Show>
 
 			<input
-				className={clsx(styles.input, className)}
-				type={type}
+				className={clsx(
+					styles.input,
+					{ [styles.error]: errorMessage },
+					className
+				)}
+				ref={ref}
 				id={id}
+				type={type}
 				{...props}
 			/>
+
+			<Show when={errorMessage}>
+				<p className={styles.errorMessage}>{errorMessage}</p>
+			</Show>
 		</div>
 	);
 };

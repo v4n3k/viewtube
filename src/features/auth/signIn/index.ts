@@ -1,3 +1,3 @@
-export { useSignUp } from './model';
-export type { SignUpCredentials } from './model';
-export { SignUpButton } from './ui';
+export { signInSchema, useSignIn } from './model';
+export type { SignInCredentials } from './model';
+export { SignInButton } from './ui';

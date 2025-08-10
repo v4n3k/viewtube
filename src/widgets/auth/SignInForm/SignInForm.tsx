@@ -1,58 +1,45 @@
 'use client';
 
 import { PATH_GENERATORS } from '@/app/routes';
+import { signInSchema } from '@/features/auth/signIn';
 import { SignInCredentials, useSignIn } from '@/features/auth/signIn/model';
 import { SignInButton } from '@/features/auth/signIn/ui';
-import { SignUpCredentials } from '@/features/auth/signUp';
-import { Link, TextField } from '@/shared/ui';
-import { ChangeEvent, FormEvent, useState } from 'react';
-import styles from './SignInForm.module.css';
+import { FormContainer, FormFieldConfig, Link } from '@/shared/ui';
 
-export const SignUpForm = () => {
-	const [credentials, setCredentials] = useState<SignInCredentials>(
-		{} as SignInCredentials
-	);
+const fields: FormFieldConfig<SignInCredentials>[] = [
+	{ key: 'login', placeholder: 'Login' },
+	{ key: 'password', type: 'password', placeholder: 'Password' },
+];
 
-	const { signIn } = useSignIn(credentials);
+const actions = (
+	<>
+		<Link href={PATH_GENERATORS.signUp()} hoverEffect='text'>
+			Don&apos;t have an account?
+		</Link>
+		<SignInButton />
+	</>
+);
 
-	const { login, password } = credentials;
+export const SignInForm = () => {
+	const { signIn } = useSignIn();
 
-	const handleFormChange = (
-		key: keyof SignUpCredentials,
-		e: ChangeEvent<HTMLInputElement>
-	) => {
-		setCredentials(prev => ({ ...prev, [key]: e.target.value }));
+	const initialCredentials: SignInCredentials = {
+		login: '',
+		password: '',
 	};
 
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		signIn();
+	const handleSubmit = (credentials: SignInCredentials) => {
+		signIn(credentials);
 	};
 
 	return (
-		<section className={styles.formContainer}>
-			<h2 className={styles.title}>Sign In</h2>
-			<form className={styles.form} onSubmit={handleSubmit}>
-				<TextField
-					value={login}
-					onChange={e => handleFormChange('login', e)}
-					placeholder='Login'
-				/>
-
-				<TextField
-					value={password}
-					onChange={e => handleFormChange('password', e)}
-					type='password'
-					placeholder='Password'
-				/>
-
-				<div className={styles.actionsContainer}>
-					<Link href={PATH_GENERATORS.signUp()} hoverEffect='text'>
-						Do you have not account?
-					</Link>
-					<SignInButton />
-				</div>
-			</form>
-		</section>
+		<FormContainer<SignInCredentials>
+			title='Sign In'
+			initialFormState={initialCredentials}
+			fields={fields}
+			schema={signInSchema}
+			onSubmit={handleSubmit}
+			actions={actions}
+		/>
 	);
 };

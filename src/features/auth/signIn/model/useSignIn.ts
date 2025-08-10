@@ -4,14 +4,14 @@ import { PATH_GENERATORS } from '@/app/routes';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { signIn } from '../api';
+import { signIn as signInApi } from '../api';
 import { SignInCredentials } from './types';
 
-export const useSignIn = (credentials: SignInCredentials) => {
+export const useSignIn = () => {
 	const router = useRouter();
 
 	const mutation = useMutation({
-		mutationFn: () => signIn(credentials),
+		mutationFn: (credentials: SignInCredentials) => signInApi(credentials),
 
 		onSuccess: data => {
 			const { userId } = data;
@@ -29,7 +29,7 @@ export const useSignIn = (credentials: SignInCredentials) => {
 	});
 
 	return {
-		signIn: () => mutation.mutate(),
+		signIn: mutation.mutate,
 		...mutation,
 	};
 };

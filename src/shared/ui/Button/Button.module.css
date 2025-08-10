@@ -1,6 +1,7 @@
 .button {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	gap: var(--spacing-xs);
 	width: fit-content;
 	padding: var(--spacing-sm) var(--spacing-lg);
@@ -13,6 +14,9 @@
 	cursor: pointer;
 	transition: var(--transition-speed-normal);
 	user-select: none;
+
+	position: relative;
+	overflow: hidden;
 }
 
 .button:hover:not(.disabled) {
@@ -41,4 +45,34 @@
 .disabled {
 	opacity: 0.6;
 	cursor: not-allowed;
+	pointer-events: none;
+}
+
+.buttonContent {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: inherit;
+	width: 100%;
+	height: 100%;
+	visibility: visible;
+	opacity: 1;
+	transition: visibility 0s, opacity 0.3s ease;
+	white-space: nowrap;
+}
+
+.hidden {
+	visibility: hidden;
+	opacity: 0;
+}
+
+.loaderWrapper {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	pointer-events: none;
 }

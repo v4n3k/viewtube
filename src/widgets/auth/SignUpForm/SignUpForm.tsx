@@ -4,68 +4,64 @@ import { PATH_GENERATORS } from '@/app/routes';
 import {
 	SignUpButton,
 	SignUpCredentials,
+	signUpSchema,
 	useSignUp,
 } from '@/features/auth/signUp';
-import { Link, TextField } from '@/shared/ui';
-import { ChangeEvent, FormEvent, useState } from 'react';
-import styles from './SignUpForm.module.css';
+import { FormContainer, FormFieldConfig, Link } from '@/shared/ui';
+
+const fields: FormFieldConfig<SignUpCredentials>[] = [
+	{ key: 'login', label: 'Login', placeholder: 'Choose a login' },
+	{
+		key: 'email',
+		label: 'Email',
+		type: 'email',
+		placeholder: 'Enter your email',
+	},
+	{
+		key: 'password',
+		label: 'Password',
+		type: 'password',
+		placeholder: 'Create a password',
+	},
+	{
+		key: 'passwordConfirmation',
+		label: 'Confirm Password',
+		type: 'password',
+		placeholder: 'Confirm your password',
+	},
+];
+
+const defaultValues: SignUpCredentials = {
+	login: '',
+	email: '',
+	password: '',
+	passwordConfirmation: '',
+};
+
+const actions = (
+	<>
+		<Link href={PATH_GENERATORS.signIn()} hoverEffect='text'>
+			Already have an account?
+		</Link>
+		<SignUpButton />
+	</>
+);
 
 export const SignUpForm = () => {
-	const [credentials, setCredentials] = useState<SignUpCredentials>(
-		{} as SignUpCredentials
-	);
+	const { signUp } = useSignUp();
 
-	const { signUp } = useSignUp(credentials);
-
-	const { login, email, password, passwordConfirmation } = credentials;
-
-	const handleFormChange = (
-		key: keyof SignUpCredentials,
-		e: ChangeEvent<HTMLInputElement>
-	) => {
-		setCredentials(prev => ({ ...prev, [key]: e.target.value }));
-	};
-
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		signUp();
+	const handleSubmit = (credentials: SignUpCredentials) => {
+		signUp(credentials);
 	};
 
 	return (
-		<section className={styles.formContainer}>
-			<h2 className={styles.title}>Sign Up</h2>
-			<form className={styles.form} onSubmit={handleSubmit}>
-				<TextField
-					value={login}
-					onChange={e => handleFormChange('login', e)}
-					placeholder='Login'
-				/>
-				<TextField
-					value={email}
-					onChange={e => handleFormChange('email', e)}
-					type='email'
-					placeholder='Email'
-				/>
-				<TextField
-					value={password}
-					onChange={e => handleFormChange('password', e)}
-					type='password'
-					placeholder='Password'
-				/>
-				<TextField
-					value={passwordConfirmation}
-					onChange={e => handleFormChange('passwordConfirmation', e)}
-					type='password'
-					placeholder='Password Confirmation'
-				/>
-
-				<div className={styles.actionsContainer}>
-					<Link href={PATH_GENERATORS.signIn()} hoverEffect='text'>
-						Already have account?
-					</Link>
-					<SignUpButton />
-				</div>
-			</form>
-		</section>
+		<FormContainer<SignUpCredentials>
+			title='Sign Up'
+			initialFormState={defaultValues}
+			schema={signUpSchema}
+			fields={fields}
+			onSubmit={handleSubmit}
+			actions={actions}
+		/>
 	);
 };

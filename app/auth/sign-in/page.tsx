@@ -1,3 +1,7 @@
-export default function SignInPage() {
-	return <div>sign-in</div>;
-}
+import { SignInPage } from '@/pages/SignInPage';
+
+const SignIn = () => {
+	return <SignInPage />;
+};
+
+export default SignIn;

@@ -24,6 +24,10 @@
 	background-color: var(--color-background);
 }
 
+.input.error {
+	border-color: var(--color-accent);
+}
+
 .input::placeholder {
 	color: var(--color-secondary);
 }
@@ -35,4 +39,10 @@
 .input:focus {
 	border-color: #4d90fe;
 	box-shadow: 0 0 3px rgba(77, 144, 254, 0.5);
+}
+
+.errorMessage {
+	font-size: var(--font-size-sm);
+	font-weight: var(--font-weight-md);
+	color: var(--color-accent);
 }
