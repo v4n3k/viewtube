@@ -27,12 +27,16 @@ export const VideoCard = memo(({ video }: VideoCardProps) => {
 		channelAvatar,
 	} = video;
 
-	const handleClick = () => {
+	const handleCardClick = () => {
 		router.push(PATH_GENERATORS.video(id));
 	};
 
+	const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+		e.stopPropagation();
+	};
+
 	return (
-		<li className={styles.videoCard} onClick={handleClick}>
+		<li className={styles.videoCard} onClick={handleCardClick}>
 			<div className={styles.previewContainer}>
 				<img
 					className={styles.preview}
@@ -47,8 +51,9 @@ export const VideoCard = memo(({ video }: VideoCardProps) => {
 			<div className={styles.videoDetails}>
 				<Link
 					className={styles.channelAvatarLink}
-					href={PATH_GENERATORS.channel(channelId)}
 					hoverEffect='text'
+					href={PATH_GENERATORS.channel(channelId)}
+					onClick={handleLinkClick}
 				>
 					<Avatar src={''} />
 				</Link>
@@ -57,8 +62,9 @@ export const VideoCard = memo(({ video }: VideoCardProps) => {
 					<h3 className={styles.title}>{title}</h3>
 					<Link
 						className={styles.channelName}
-						href={PATH_GENERATORS.channel(channelId)}
 						hoverEffect='text'
+						href={PATH_GENERATORS.channel(channelId)}
+						onClick={handleLinkClick}
 					>
 						{channelName}
 					</Link>

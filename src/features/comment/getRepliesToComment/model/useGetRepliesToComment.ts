@@ -26,7 +26,7 @@ export const useGetRepliesToComment = ({
 		},
 	});
 
-	const refetchRepliesToComment = (commentId: number) => {
+	const refetchRepliesToComment = () => {
 		query.refetch();
 	};
 
