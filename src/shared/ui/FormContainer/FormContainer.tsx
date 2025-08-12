@@ -15,6 +15,8 @@ export interface FormFieldConfig<T> {
 
 type FieldErrors<T> = Partial<Record<keyof T, string | undefined>>;
 
+type RawInputFieldValues = string | undefined;
+
 interface FormContainerProps<T> {
 	className?: string;
 	title: string;
@@ -25,7 +27,7 @@ interface FormContainerProps<T> {
 	schema: ZodType<T>;
 }
 
-export const FormContainer = <T extends Record<string, any>>({
+export const FormContainer = <T extends object>({
 	title,
 	initialFormState,
 	schema,
@@ -34,15 +36,17 @@ export const FormContainer = <T extends Record<string, any>>({
 	actions,
 	className,
 }: FormContainerProps<T>) => {
-	const [userForm, setUserForm] = useState<Partial<T>>({});
+	const [userForm, setUserForm] = useState<
+		Partial<Record<keyof T, RawInputFieldValues>>
+	>({});
 	const [fieldErrors, setFieldErrors] = useState<FieldErrors<T>>({});
 	const [generalError, setGeneralError] = useState<string | null>(null);
 	const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
-	const form: T = {
+	const form = {
 		...initialFormState,
 		...userForm,
-	};
+	} as T;
 
 	const validateForm = (data: T): boolean => {
 		const result = schema.safeParse(data);
@@ -101,7 +105,7 @@ export const FormContainer = <T extends Record<string, any>>({
 					<TextField
 						key={String(field.key)}
 						label={field.label}
-						value={form[field.key] || ''}
+						value={String(form[field.key]) || ''}
 						onChange={e => handleFormChange(field.key, e)}
 						placeholder={field.placeholder}
 						type={field.type}

@@ -9,6 +9,13 @@ import {
 } from '@/features/auth/signUp';
 import { FormContainer, FormFieldConfig, Link } from '@/shared/ui';
 
+const defaultValues: SignUpCredentials = {
+	login: '',
+	email: '',
+	password: '',
+	passwordConfirmation: '',
+};
+
 const fields: FormFieldConfig<SignUpCredentials>[] = [
 	{ key: 'login', label: 'Login', placeholder: 'Choose a login' },
 	{
@@ -30,13 +37,6 @@ const fields: FormFieldConfig<SignUpCredentials>[] = [
 		placeholder: 'Confirm your password',
 	},
 ];
-
-const defaultValues: SignUpCredentials = {
-	login: '',
-	email: '',
-	password: '',
-	passwordConfirmation: '',
-};
 
 const actions = (
 	<>

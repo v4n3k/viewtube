@@ -1,5 +1,4 @@
-import { SignInForm } from '@/widgets/auth/SignInForm/SignInForm';
-import React from 'react';
+import { SignInForm } from '@/widgets/auth/SignInForm';
 
 export const SignInPage = () => {
 	return <SignInForm />;

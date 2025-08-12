@@ -6,6 +6,11 @@ import { SignInCredentials, useSignIn } from '@/features/auth/signIn/model';
 import { SignInButton } from '@/features/auth/signIn/ui';
 import { FormContainer, FormFieldConfig, Link } from '@/shared/ui';
 
+const initialCredentials: SignInCredentials = {
+	login: '',
+	password: '',
+};
+
 const fields: FormFieldConfig<SignInCredentials>[] = [
 	{ key: 'login', placeholder: 'Login' },
 	{ key: 'password', type: 'password', placeholder: 'Password' },
@@ -22,11 +27,6 @@ const actions = (
 
 export const SignInForm = () => {
 	const { signIn } = useSignIn();
-
-	const initialCredentials: SignInCredentials = {
-		login: '',
-		password: '',
-	};
 
 	const handleSubmit = (credentials: SignInCredentials) => {
 		signIn(credentials);

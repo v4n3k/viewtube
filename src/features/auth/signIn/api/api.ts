@@ -1,8 +1,10 @@
 import { api } from '@/shared/api';
 import { SignInCredentials, SignInResponse } from '../model';
 
-export const signIn = (
+export const signIn = async (
 	credentials: SignInCredentials
 ): Promise<SignInResponse> => {
-	return api.post('/auth/sign_in', credentials);
+	const response = await api.post('/auth/sign_in', credentials);
+
+	return response.data;
 };

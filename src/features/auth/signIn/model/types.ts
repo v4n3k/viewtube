@@ -10,4 +10,5 @@ export type SignInCredentials = z.infer<typeof signInSchema>;
 export interface SignInResponse {
 	userId: string;
 	message: string;
+	login: string;
 }
