@@ -7,7 +7,7 @@ interface CircularLoaderProps {
 	onFullScreen?: boolean;
 	fullWidth?: boolean;
 	paddingY?: string;
-	size?: 's' | 'm';
+	size?: 'sm' | 'md';
 	color?: 'grey' | 'contrast';
 }
 
@@ -16,7 +16,7 @@ export const CircularLoader = ({
 	onFullScreen = false,
 	fullWidth = true,
 	paddingY = '0px',
-	size = 'm',
+	size = 'md',
 	color = 'grey',
 }: CircularLoaderProps) => {
 	const containerStyle = {

@@ -3,20 +3,24 @@
 	object-fit: cover;
 }
 
-.sm {
+.size-sm {
 	width: 30px;
 }
 
-.md {
+.size-md {
 	width: 36px;
 }
 
-.lg {
+.size-lg {
 	width: 40px;
 }
 
-.xl {
+.size-xl {
 	width: 50px;
+}
+
+.size-2xl {
+	width: 160px;
 }
 
 .circle {

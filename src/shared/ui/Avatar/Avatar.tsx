@@ -4,7 +4,7 @@ import styles from './Avatar.module.css';
 
 interface AvatarProps extends ComponentProps<'img'> {
 	src?: string;
-	size?: 'sm' | 'md' | 'lg' | 'xl';
+	size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 	shape?: 'circle' | 'square';
 }
 
@@ -18,7 +18,12 @@ export const Avatar = ({
 }: AvatarProps) => {
 	return (
 		<img
-			className={clsx(styles.avatar, styles[size], styles[shape], className)}
+			className={clsx(
+				styles.avatar,
+				styles[`size-${size}`],
+				styles[shape],
+				className
+			)}
 			src={
 				src ||
 				'https://storage.yandexcloud.net/viewtube/images/uploaded-image.jpg'

@@ -1,0 +1,1 @@
+export { useGetChannel } from './model';

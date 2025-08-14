@@ -1,5 +1,1 @@
-export {
-	getChannel,
-	subscribeToChannel,
-	unsubscribeFromChannel,
-} from './channel';
+export { getChannel, subscribeToChannel, unsubscribeFromChannel } from './api';

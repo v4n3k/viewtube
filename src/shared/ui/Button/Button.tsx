@@ -41,7 +41,7 @@ export const Button = ({
 
 			{isLoading && (
 				<span className={styles.loaderWrapper}>
-					<CircularLoader size='s' color='contrast' />
+					<CircularLoader size='sm' color='contrast' />
 				</span>
 			)}
 		</button>

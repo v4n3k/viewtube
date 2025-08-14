@@ -1,0 +1,32 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-md);
+}
+
+.channelInfo {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-md);
+	max-width: min(70%, 800px);
+	width: 100%;
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-md);
+	line-height: 1;
+}
+
+.stats {
+	display: flex;
+	gap: var(--spacing-xs);
+	color: var(--color-secondary);
+}
+
+.name {
+	font-size: var(--font-size-2xl);
+	color: var(--color-text);
+	font-weight: var(--font-weight-lg);
+}

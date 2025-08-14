@@ -5,7 +5,9 @@ export interface Channel {
 	name: string;
 	description: string;
 	avatarUrl: string;
-	subscriptionsCount: number;
+	bannerUrl: string;
+	subscribersCount: number;
+	videosCount: number;
 	author: ChannelAuthor;
 	isSubscribed: boolean;
 }
