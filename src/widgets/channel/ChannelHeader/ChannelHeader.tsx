@@ -3,12 +3,12 @@
 import { ChannelBanner } from '@/entities/channel/ui';
 import { useGetChannel } from '@/features/channel/getChannel';
 import { SubscribeToChannelButton } from '@/features/channel/subscribeToChannel';
+import { useChannelId } from '@/shared/lib';
 import { Avatar, ExpandableText } from '@/shared/ui';
-import { useParams } from 'next/navigation';
 import styles from './ChannelHeader.module.css';
 
 export const ChannelHeader = () => {
-	const channelId = Number(useParams()?.channelId);
+	const channelId = useChannelId();
 
 	const { channel } = useGetChannel(channelId);
 
@@ -22,8 +22,6 @@ export const ChannelHeader = () => {
 		subscribersCount,
 		videosCount,
 	} = channel;
-
-	console.log(channel, subscribersCount);
 
 	return (
 		<header className={styles.channelHeader}>

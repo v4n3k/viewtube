@@ -4,7 +4,7 @@ import { VideoCard } from '../VideoCard/VideoCard';
 import styles from './VideosList.module.css';
 
 interface VideosListProps {
-	title: string;
+	title?: string;
 	videos: Video[] | undefined;
 	isLoading?: boolean;
 	isError?: boolean;
@@ -20,7 +20,9 @@ export const VideosList = ({
 }: VideosListProps) => {
 	return (
 		<section className={styles.videosListSection}>
-			<h2 className={styles.title}>{title}</h2>
+			<Show when={title}>
+				<h2 className={styles.title}>{title}</h2>
+			</Show>
 
 			<Show when={isLoading}>
 				<CircularLoader paddingY='60px' />

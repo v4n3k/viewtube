@@ -6,7 +6,8 @@ export {
 	getRecommendedVideos,
 	getSavedVideos,
 	getVideoById,
+	getVideosByChannelId,
 	likeVideo,
 	undislikeVideo,
 	unlikeVideo,
-} from './video';
+} from './api';

@@ -1,6 +1,6 @@
 import { api, PaginatedResponse, PaginationParams } from '@/shared/api';
-import { getVideoActionPath } from './../lib';
-import { Video, VideoActionParams } from './../model';
+import { getVideoActionPath } from '../lib';
+import { Video, VideoActionParams } from '../model';
 
 interface GetRecommendedVideosParams extends PaginationParams {}
 
@@ -58,6 +58,12 @@ export const getVideoById = async (params: VideoActionParams) => {
 	const response = await api.get<Video>(
 		`channels/${channelId}/videos/${videoId}`
 	);
+
+	return response.data;
+};
+
+export const getVideosByChannelId = async (channelId: number) => {
+	const response = await api.get<Video[]>(`channels/${channelId}/videos`);
 
 	return response.data;
 };
