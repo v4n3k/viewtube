@@ -1,10 +1,15 @@
+'use client';
+
 import { getChannel } from '@/entities/channel/api';
+import { useChannelId } from '@/shared/lib';
 import { useQuery } from '@tanstack/react-query';
 
-export const useGetChannel = (channelId: number) => {
+export const useGetChannel = (requestedChannelId: number) => {
+	const requesterChannelId = useChannelId();
+
 	const query = useQuery({
-		queryKey: ['channel', channelId],
-		queryFn: () => getChannel(channelId),
+		queryKey: ['channel', requestedChannelId, requesterChannelId],
+		queryFn: () => getChannel({ requestedChannelId, requesterChannelId }),
 	});
 
 	return {

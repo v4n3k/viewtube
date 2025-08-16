@@ -1,11 +1,11 @@
 import { CircularLoader, Show } from '@/shared/ui';
-import { Video } from '../../model';
+import { Video, VideoWithoutChannel } from '../../model';
 import { VideoCard } from '../VideoCard/VideoCard';
 import styles from './VideosList.module.css';
 
 interface VideosListProps {
 	title?: string;
-	videos: Video[] | undefined;
+	videos: (Video | VideoWithoutChannel)[] | undefined;
 	isLoading?: boolean;
 	isError?: boolean;
 	error?: Error | null;

@@ -3,12 +3,12 @@
 import { ChannelBanner } from '@/entities/channel/ui';
 import { useGetChannel } from '@/features/channel/getChannel';
 import { SubscribeToChannelButton } from '@/features/channel/subscribeToChannel';
-import { useChannelId } from '@/shared/lib';
 import { Avatar, ExpandableText } from '@/shared/ui';
+import { useParams } from 'next/navigation';
 import styles from './ChannelHeader.module.css';
 
 export const ChannelHeader = () => {
-	const channelId = useChannelId();
+	const channelId = Number(useParams()?.channelId);
 
 	const { channel } = useGetChannel(channelId);
 
@@ -21,6 +21,7 @@ export const ChannelHeader = () => {
 		bannerUrl,
 		subscribersCount,
 		videosCount,
+		isSubscribed,
 	} = channel;
 
 	return (
@@ -40,7 +41,7 @@ export const ChannelHeader = () => {
 							{description}
 						</ExpandableText>
 						<SubscribeToChannelButton
-							isSubscribed={true}
+							isSubscribed={isSubscribed}
 							subscribedToChannelId={channelId}
 						/>
 					</div>

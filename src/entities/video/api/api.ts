@@ -1,6 +1,6 @@
 import { api, PaginatedResponse, PaginationParams } from '@/shared/api';
 import { getVideoActionPath } from '../lib';
-import { Video, VideoActionParams } from '../model';
+import { Video, VideoActionParams, VideoWithoutChannel } from '../model';
 
 interface GetRecommendedVideosParams extends PaginationParams {}
 
@@ -63,7 +63,9 @@ export const getVideoById = async (params: VideoActionParams) => {
 };
 
 export const getVideosByChannelId = async (channelId: number) => {
-	const response = await api.get<Video[]>(`channels/${channelId}/videos`);
+	const response = await api.get<VideoWithoutChannel[]>(
+		`channels/${channelId}/videos`
+	);
 
 	return response.data;
 };
@@ -77,7 +79,7 @@ export const likeVideo = async (params: VideoActionParams) => {
 
 export const unlikeVideo = async (params: VideoActionParams) => {
 	const url = getVideoActionPath(params, 'unlike');
-	const response = await api.delete<void>(url);
+	const response = await api.delete<Video>(url);
 
 	return response.data;
 };
@@ -91,7 +93,7 @@ export const dislikeVideo = async (params: VideoActionParams) => {
 
 export const undislikeVideo = async (params: VideoActionParams) => {
 	const url = getVideoActionPath(params, 'undislike');
-	const response = await api.delete<void>(url);
+	const response = await api.delete<Video>(url);
 
 	return response.data;
 };
@@ -105,7 +107,7 @@ export const addVideoToWatchLater = async (params: VideoActionParams) => {
 
 export const deleteVideoFromWatchLater = async (params: VideoActionParams) => {
 	const url = getVideoActionPath(params, 'watchLater');
-	const response = await api.delete<void>(url);
+	const response = await api.delete<Video>(url);
 
 	return response.data;
 };

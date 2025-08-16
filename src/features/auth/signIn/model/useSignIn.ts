@@ -14,19 +14,9 @@ export const useSignIn = () => {
 		mutationFn: (credentials: SignInCredentials) => signInApi(credentials),
 
 		onSuccess: data => {
-			// Дополнительная проверка на наличие userId
-			if (!data || typeof data.userId === 'undefined') {
-				console.error('API returned success, but userId is missing:', data);
-				toast.error(
-					`Sign-in successful, but user data incomplete. Please try again.`
-				);
-				// Важно: если здесь произошла ошибка, не продолжать выполнение onSuccess
-				return;
-			}
-
 			const { userId } = data;
 
-			localStorage.setItem('userId', userId.toString());
+			localStorage.setItem('userId', userId);
 
 			router.replace(PATH_GENERATORS.home());
 

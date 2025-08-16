@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 export const useChannelId = () => {
-	const [channelId, setChannelId] = useState<number | null>(null);
+	const [channelId, setChannelId] = useState<number>(NaN);
 
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
@@ -20,5 +20,5 @@ export const useChannelId = () => {
 		}
 	}, []);
 
-	return Number(channelId);
+	return channelId;
 };

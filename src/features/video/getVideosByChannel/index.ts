@@ -1,1 +1,1 @@
-export { VideosByChannelList } from './ui';
+export { ChannelVideosList } from './ui';

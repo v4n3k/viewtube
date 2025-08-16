@@ -7,7 +7,8 @@ import { useParams } from 'next/navigation';
 
 export const useUnsubscribeFromChannel = (unsubscribeFromChannelId: number) => {
 	const channelId = useChannelId();
-	const videoId = Number(useParams<{ videoId: string }>()?.videoId ?? NaN);
+	const videoId = Number(useParams()?.videoId);
+	const requestedChannelId = Number(useParams()?.channelId);
 
 	const queryClient = useQueryClient();
 
@@ -22,6 +23,12 @@ export const useUnsubscribeFromChannel = (unsubscribeFromChannelId: number) => {
 			queryClient.invalidateQueries({
 				queryKey: ['video', channelId, videoId],
 			});
+
+			if (!isNaN(requestedChannelId)) {
+				queryClient.invalidateQueries({
+					queryKey: ['channel', requestedChannelId, channelId],
+				});
+			}
 		},
 	});
 

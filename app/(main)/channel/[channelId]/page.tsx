@@ -1,4 +1,4 @@
-import { ChannelPage } from '@/pages/ChannelPage/ChannelPage';
+import { ChannelPage } from '@/pages/ChannelPage';
 
 const Channel = () => {
 	return <ChannelPage />;

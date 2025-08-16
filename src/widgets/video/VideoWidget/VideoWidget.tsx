@@ -31,7 +31,7 @@ export const VideoWidget = () => {
 		id: channelId,
 		name,
 		avatarUrl,
-		subscriptionsCount,
+		subscribersCount,
 		isSubscribed,
 	} = channel;
 
@@ -46,7 +46,7 @@ export const VideoWidget = () => {
 						id={channelId}
 						name={name}
 						avatarUrl={avatarUrl}
-						subscriptionsCount={subscriptionsCount}
+						subscriptionsCount={subscribersCount}
 						renderSubscriptionButton={() => (
 							<SubscribeToChannelButton
 								isSubscribed={isSubscribed}

@@ -25,6 +25,11 @@ export interface Video {
 	channel: Channel;
 }
 
+export type VideoWithoutChannel = Omit<
+	Video,
+	'channelId' | 'channelName' | 'channelAvatar' | 'channel'
+>;
+
 export interface VideoActionParams {
 	channelId: number;
 	videoId: number;

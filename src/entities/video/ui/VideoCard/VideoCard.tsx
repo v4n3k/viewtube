@@ -5,27 +5,28 @@ import { Avatar, Link } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
 import { memo } from 'react';
 import { formatDateAgo, formatDuration, formatViews } from '../../lib';
-import { Video } from '../../model';
+import { Video, VideoWithoutChannel } from '../../model';
 import styles from './VideoCard.module.css';
 
 interface VideoCardProps {
-	video: Video;
+	video: Video | VideoWithoutChannel;
 }
+
+const hasChannelInfo = (video: Video | VideoWithoutChannel): video is Video => {
+	return (
+		'channelId' in video &&
+		typeof video.channelId === 'number' &&
+		'channelName' in video &&
+		typeof video.channelName === 'string' &&
+		'channelAvatar' in video &&
+		typeof video.channelAvatar === 'string'
+	);
+};
 
 export const VideoCard = memo(({ video }: VideoCardProps) => {
 	const router = useRouter();
 
-	const {
-		id,
-		title,
-		previewUrl,
-		duration,
-		views,
-		createdAt,
-		channelId,
-		channelName,
-		channelAvatar,
-	} = video;
+	const { id, title, previewUrl, duration, views, createdAt } = video;
 
 	const handleCardClick = () => {
 		router.push(PATH_GENERATORS.video(id));
@@ -49,25 +50,31 @@ export const VideoCard = memo(({ video }: VideoCardProps) => {
 			</div>
 
 			<div className={styles.videoDetails}>
-				<Link
-					className={styles.channelAvatarLink}
-					hoverEffect='text'
-					href={PATH_GENERATORS.channel(channelId)}
-					onClick={handleLinkClick}
-				>
-					<Avatar src={''} />
-				</Link>
+				{hasChannelInfo(video) && (
+					<Link
+						className={styles.channelAvatarLink}
+						hoverEffect='text'
+						href={PATH_GENERATORS.channel(video.channelId)}
+						onClick={handleLinkClick}
+					>
+						<Avatar src={video.channelAvatar} size='lg' />
+					</Link>
+				)}
 
 				<div className={styles.videoInfo}>
 					<h3 className={styles.title}>{title}</h3>
-					<Link
-						className={styles.channelName}
-						hoverEffect='text'
-						href={PATH_GENERATORS.channel(channelId)}
-						onClick={handleLinkClick}
-					>
-						{channelName}
-					</Link>
+
+					{hasChannelInfo(video) && (
+						<Link
+							className={styles.channelName}
+							hoverEffect='text'
+							href={PATH_GENERATORS.channel(video.channelId)}
+							onClick={handleLinkClick}
+						>
+							{video.channelName}
+						</Link>
+					)}
+
 					<div className={styles.videoStats}>
 						<span>{formatViews(views)} views</span> •{' '}
 						<span>{formatDateAgo(createdAt)}</span>

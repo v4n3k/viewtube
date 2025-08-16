@@ -1,1 +1,6 @@
-export type { Video, VideoAction, VideoActionParams } from './types';
+export type {
+	Video,
+	VideoAction,
+	VideoActionParams,
+	VideoWithoutChannel,
+} from './types';
