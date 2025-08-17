@@ -1,4 +1,5 @@
 export {
+	addVideoToHistory,
 	addVideoToWatchLater,
 	deleteVideoFromWatchLater,
 	dislikeVideo,

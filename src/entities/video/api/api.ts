@@ -111,3 +111,10 @@ export const deleteVideoFromWatchLater = async (params: VideoActionParams) => {
 
 	return response.data;
 };
+
+export const addVideoToHistory = async (params: VideoActionParams) => {
+	const url = getVideoActionPath(params, 'history');
+	const response = await api.post<Video>(url, params);
+
+	return response.data;
+};

@@ -40,4 +40,5 @@ export type VideoAction =
 	| 'dislike'
 	| 'unlike'
 	| 'undislike'
-	| 'watchLater';
+	| 'watchLater'
+	| 'history';

@@ -7,7 +7,7 @@ import { useParams } from 'next/navigation';
 
 export const useSaveVideo = () => {
 	const channelId = useChannelId();
-	const videoId = Number(useParams<{ videoId: string }>()?.videoId ?? NaN);
+	const videoId = Number(useParams()?.videoId);
 
 	const queryClient = useQueryClient();
 

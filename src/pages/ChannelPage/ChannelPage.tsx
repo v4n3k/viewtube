@@ -1,4 +1,4 @@
-import { ChannelVideosList } from '@/features/video/getVideosByChannel';
+import { ChannelVideosList } from '@/features/video/getChannelVideos';
 import { Divider } from '@/shared/ui';
 import { ChannelHeader } from '@/widgets/channel/ChannelHeader';
 import styles from './ChannelPage.module.css';

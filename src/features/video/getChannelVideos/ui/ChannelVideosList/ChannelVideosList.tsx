@@ -2,12 +2,12 @@
 
 import { VideosList } from '@/entities/video/ui';
 import { useParams } from 'next/navigation';
-import { useGetVideosByChannel } from '../../model';
+import { useGetChannelVideos } from '../../model';
 
 export const ChannelVideosList = () => {
 	const channelId = Number(useParams()?.channelId);
 
-	const { videosByChannel, isLoading } = useGetVideosByChannel(channelId);
+	const { channelVideos, isLoading } = useGetChannelVideos(channelId);
 
-	return <VideosList videos={videosByChannel} isLoading={isLoading} />;
+	return <VideosList videos={channelVideos} isLoading={isLoading} />;
 };

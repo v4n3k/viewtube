@@ -13,7 +13,7 @@ interface VideoPlayerProps {
 	autoplay?: boolean;
 	loop?: boolean;
 	muted?: boolean;
-	onWatch?: (videoSrc: string) => void;
+	onWatch?: () => void;
 }
 
 export const VideoPlayer = ({
@@ -27,12 +27,10 @@ export const VideoPlayer = ({
 }: VideoPlayerProps) => {
 	const videoRef = useRef<HTMLVideoElement>(null);
 	const plyrInstance = useRef<Plyr | null>(null);
-	const hasWatchedMilestoneRef = useRef(false);
+	const hasWatched = useRef(false);
 
 	useEffect(() => {
 		let plyr: Plyr | null = null;
-		let handleTimeUpdate: (() => void) | null = null;
-		let handlePlay: (() => void) | null = null;
 
 		const initializePlyr = () => {
 			setTimeout(() => {
@@ -58,53 +56,39 @@ export const VideoPlayer = ({
 
 				plyrInstance.current = plyr;
 
-				if (onWatch) {
-					handleTimeUpdate = () => {
-						if (!plyrInstance.current || hasWatchedMilestoneRef.current) {
-							return;
-						}
+				const video = videoRef.current;
 
-						const currentTime = plyrInstance.current.currentTime;
-						const duration = plyrInstance.current.duration;
+				const handleTimeUpdate = () => {
+					if (hasWatched.current || !video || !onWatch) return;
 
-						const isDurationValid =
-							!isNaN(duration) && isFinite(duration) && duration > 0;
+					const { currentTime, duration } = video;
 
-						const watchedEnoughTime = currentTime >= 5;
-						const watchedEnoughPercentage =
-							isDurationValid && currentTime / duration >= 0.2;
+					if (!duration || duration === Infinity) return;
 
-						if (watchedEnoughTime || watchedEnoughPercentage) {
-							onWatch(src);
-							hasWatchedMilestoneRef.current = true;
-						}
-					};
-					plyr.on('timeupdate', handleTimeUpdate);
+					const fiveSecondsWatched = currentTime >= 5;
+					const twentyPercentWatched = currentTime >= duration * 0.2;
 
-					handlePlay = () => {
-						hasWatchedMilestoneRef.current = false;
-					};
-					plyr.on('play', handlePlay);
-				}
+					if (fiveSecondsWatched || twentyPercentWatched) {
+						hasWatched.current = true;
+						onWatch();
+					}
+				};
+
+				video.addEventListener('timeupdate', handleTimeUpdate);
+
+				return () => {
+					video.removeEventListener('timeupdate', handleTimeUpdate);
+				};
 			}, 0);
 		};
 
 		initializePlyr();
 
 		return () => {
-			if (!plyrInstance.current) return;
-
-			if (handleTimeUpdate) {
-				plyrInstance.current.off('timeupdate', handleTimeUpdate);
+			if (plyrInstance.current) {
+				plyrInstance.current.destroy();
+				plyrInstance.current = null;
 			}
-
-			if (handlePlay) {
-				plyrInstance.current.off('play', handlePlay);
-			}
-
-			plyrInstance.current.destroy();
-			plyrInstance.current = null;
-			hasWatchedMilestoneRef.current = false;
 		};
 	}, [src, autoplay, loop, muted, onWatch]);
 
