@@ -37,7 +37,10 @@ export const VideoWidget = () => {
 
 	return (
 		<div className={styles.videoWidget}>
-			<VideoPlayer src='https://storage.yandexcloud.net/viewtube/videos/video.mp4' />
+			<VideoPlayer
+				src='https://storage.yandexcloud.net/viewtube/videos/video.mp4'
+				onWatch={() => console.log('watched')}
+			/>
 
 			<VideoDetails
 				video={video}
