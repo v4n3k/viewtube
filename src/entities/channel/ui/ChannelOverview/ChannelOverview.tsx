@@ -6,7 +6,7 @@ import { ReactNode } from 'react';
 import styles from './ChannelOverview.module.css';
 
 interface ChannelOverviewProps
-	extends Pick<Channel, 'id' | 'avatarUrl' | 'name' | 'subscriptionsCount'> {
+	extends Pick<Channel, 'id' | 'avatarUrl' | 'name' | 'subscribersCount'> {
 	renderSubscriptionButton: () => ReactNode;
 }
 
@@ -14,10 +14,10 @@ export const ChannelOverview = ({
 	id,
 	avatarUrl,
 	name,
-	subscriptionsCount,
+	subscribersCount,
 	renderSubscriptionButton,
 }: ChannelOverviewProps) => {
-	const formattedSubscriptionsCount = formatNumber(subscriptionsCount);
+	const formattedSubscribersCount = formatNumber(subscribersCount);
 
 	return (
 		<div className={styles.channelOverview}>
@@ -28,7 +28,7 @@ export const ChannelOverview = ({
 				<Link href={PATH_GENERATORS.channel(id)} hoverEffect='text'>
 					{name}
 				</Link>
-				<span>{formattedSubscriptionsCount} subscribers</span>
+				<span>{formattedSubscribersCount} subscribers</span>
 			</div>
 			{renderSubscriptionButton()}
 		</div>
