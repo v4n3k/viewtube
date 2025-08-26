@@ -15,7 +15,6 @@ export interface Video {
 	visibility: Visibility;
 	allowComments: boolean;
 	createdAt: Date;
-	updatedAt: Date;
 	channelId: number;
 	channelName: string;
 	channelAvatar: string;

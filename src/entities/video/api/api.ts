@@ -14,11 +14,7 @@ interface GetSavedVideosParams extends PaginationParams {
 interface GetSavedVideosResponse
 	extends PaginatedResponse<'savedVideos', Video> {}
 
-interface GetLikedVideosParams extends PaginationParams {
-	channelId: number;
-}
-
-interface getHistoryVideosParams extends PaginationParams {
+interface GetPaginatedVideosByChannelId extends PaginationParams {
 	channelId: number;
 }
 
@@ -49,7 +45,7 @@ export const getSavedVideos = async (params: GetSavedVideosParams) => {
 	return response.data;
 };
 
-export const getLikedVideos = async (params: GetLikedVideosParams) => {
+export const getLikedVideos = async (params: GetPaginatedVideosByChannelId) => {
 	const { channelId, ...paginationParams } = params;
 
 	const response = await api.get<GetLikedVideosResponse>(
@@ -77,7 +73,9 @@ export const getVideosByChannelId = async (channelId: number) => {
 	return response.data;
 };
 
-export const getHistoryVideos = async (params: getHistoryVideosParams) => {
+export const getHistoryVideos = async (
+	params: GetPaginatedVideosByChannelId
+) => {
 	const { channelId, ...paginationParams } = params;
 
 	const response = await api.get<GetHistoryVideosResponse>(

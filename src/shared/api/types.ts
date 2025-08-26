@@ -4,13 +4,12 @@ interface PaginationMetadata {
 	totalItems: number;
 }
 
-export interface PaginationLimit {
+export interface PaginationParams {
+	page: number;
 	limit: number;
 }
 
-export interface PaginationParams extends PaginationLimit {
-	page: number;
-}
+export interface PaginationLimit extends Pick<PaginationParams, 'limit'> {}
 
 export type PaginatedResponse<K extends string, T> = {
 	[P in K]: T[];
