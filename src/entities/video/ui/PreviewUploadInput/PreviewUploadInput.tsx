@@ -5,11 +5,13 @@ export const PreviewUploadInput = ({
 	disabled,
 	initialImage,
 	placeholder,
+	errorMessage,
 }: {
 	onImageSelect: (file: File | null) => void;
 	disabled?: boolean;
 	initialImage?: File | null;
 	placeholder?: string;
+	errorMessage?: string;
 }) => {
 	const initialPreviewUrl =
 		initialImage instanceof File ? URL.createObjectURL(initialImage) : null;
@@ -23,8 +25,8 @@ export const PreviewUploadInput = ({
 			initialPreviewUrl={initialPreviewUrl}
 			placeholder={placeholder}
 			supportText='Supports JPG, PNG, GIF, WEBP'
-			maxSize={50 * 1024 * 1024}
 			showPreviewImage={true}
+			errorMessage={errorMessage}
 		/>
 	);
 };

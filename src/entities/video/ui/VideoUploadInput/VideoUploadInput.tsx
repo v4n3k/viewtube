@@ -5,11 +5,13 @@ export const VideoUploadInput = ({
 	disabled,
 	initialFile,
 	placeholder,
+	errorMessage,
 }: {
 	onFileSelect: (file: File | null) => void;
 	disabled?: boolean;
 	initialFile?: File | null;
 	placeholder?: string;
+	errorMessage?: string;
 }) => (
 	<FileUpload
 		onFileSelect={onFileSelect}
@@ -18,6 +20,7 @@ export const VideoUploadInput = ({
 		initialFile={initialFile}
 		placeholder={placeholder}
 		supportText='Supports MP4, AVI, MOV, WMV and other video formats'
-		maxSize={100 * 1024 * 1024} // 100MB
+		showPreviewImage={false}
+		errorMessage={errorMessage}
 	/>
 );

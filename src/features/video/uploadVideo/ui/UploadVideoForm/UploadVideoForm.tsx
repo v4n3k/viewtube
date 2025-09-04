@@ -3,7 +3,8 @@
 import { PreviewUploadInput, VideoUploadInput } from '@/entities/video/ui';
 import { Button, TextArea, TextField } from '@/shared/ui';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { useUploadVideo } from '../../model';
+import { ZodError } from 'zod';
+import { uploadVideoFormSchema, useUploadVideo } from '../../model';
 import styles from './UploadVideoForm.module.css';
 
 interface FormState {
@@ -13,6 +14,13 @@ interface FormState {
 	previewFile: File | null;
 }
 
+interface FormErrors {
+	title?: string;
+	description?: string;
+	videoFile?: string;
+	previewFile?: string;
+}
+
 const initialFormState: FormState = {
 	title: '',
 	description: '',
@@ -20,14 +28,14 @@ const initialFormState: FormState = {
 	previewFile: null,
 };
 
+const isZodError = (err: unknown): err is ZodError => {
+	return err instanceof ZodError;
+};
+
 export const UploadVideoForm = () => {
-	const [form, setForm] = useState(initialFormState);
-
+	const [form, setForm] = useState<FormState>(initialFormState);
+	const [errors, setErrors] = useState<FormErrors>({});
 	const { uploadVideo, isPending, isSuccess } = useUploadVideo();
-
-	const resetForm = () => {
-		setForm(initialFormState);
-	};
 
 	useEffect(() => {
 		if (isSuccess) {
@@ -37,32 +45,72 @@ export const UploadVideoForm = () => {
 
 	const { title, description, videoFile, previewFile } = form;
 
+	const resetForm = () => {
+		setForm(initialFormState);
+		setErrors({});
+	};
+
+	const validate = (): FormErrors => {
+		try {
+			uploadVideoFormSchema.parse(form);
+			return {};
+		} catch (err) {
+			const fieldErrors: FormErrors = {};
+
+			if (isZodError(err)) {
+				err.issues.forEach(issue => {
+					const path = issue.path[0] as keyof FormErrors;
+					fieldErrors[path] = issue.message;
+				});
+			}
+
+			return fieldErrors;
+		}
+	};
+
 	const handleFormChange = (
 		key: keyof FormState,
 		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
-		setForm(prev => ({ ...prev, [key]: e.target.value }));
+		const value = e.target.value;
+		setForm(prev => ({ ...prev, [key]: value }));
+
+		if (errors[key]) {
+			setErrors(prev => ({ ...prev, [key]: undefined }));
+		}
+	};
+
+	const handleFileSelect = (key: keyof FormState, file: File | null) => {
+		setForm(prev => ({ ...prev, [key]: file }));
+		if (errors[key]) {
+			setErrors(prev => ({ ...prev, [key]: undefined }));
+		}
+	};
+
+	const handleVideoFileSelect = (file: File | null) => {
+		handleFileSelect('videoFile', file);
+	};
+
+	const handlePreviewFileSelect = (file: File | null) => {
+		handleFileSelect('previewFile', file);
 	};
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		const formData = new FormData();
+		const validationErrors = validate();
+		if (Object.keys(validationErrors).length > 0) {
+			setErrors(validationErrors);
+			return;
+		}
 
+		const formData = new FormData();
 		formData.append('title', title);
 		formData.append('description', description);
 		if (videoFile) formData.append('videoFile', videoFile);
 		if (previewFile) formData.append('previewFile', previewFile);
 
 		uploadVideo(formData);
-	};
-
-	const handleVideoFileSelect = (file: File | null) => {
-		setForm(prev => ({ ...prev, videoFile: file }));
-	};
-
-	const handlePreviewFileSelect = (file: File | null) => {
-		setForm(prev => ({ ...prev, previewFile: file }));
 	};
 
 	return (
@@ -74,12 +122,13 @@ export const UploadVideoForm = () => {
 						initialFile={videoFile}
 						onFileSelect={handleVideoFileSelect}
 						placeholder='Upload video'
+						errorMessage={errors.videoFile}
 					/>
-
 					<PreviewUploadInput
 						initialImage={previewFile}
 						onImageSelect={handlePreviewFileSelect}
 						placeholder='Upload preview image'
+						errorMessage={errors.previewFile}
 					/>
 				</div>
 
@@ -88,15 +137,17 @@ export const UploadVideoForm = () => {
 					value={title}
 					onChange={e => handleFormChange('title', e)}
 					placeholder='Title'
+					errorMessage={errors.title}
 				/>
 				<TextArea
 					value={description}
 					onChange={e => handleFormChange('description', e)}
 					placeholder='Description'
+					errorMessage={errors.description}
 				/>
 
 				<div className={styles.buttonsContainer}>
-					<Button background='transparent' onClick={resetForm}>
+					<Button type='button' background='transparent' onClick={resetForm}>
 						Reset
 					</Button>
 					<Button type='submit' isLoading={isPending}>

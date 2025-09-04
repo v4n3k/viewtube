@@ -27,19 +27,19 @@
 	resize: none;
 }
 
-.input.error {
+.textArea.error {
 	border-color: var(--color-accent);
 }
 
-.input::placeholder {
+.textArea::placeholder {
 	color: var(--color-secondary);
 }
 
-.input:hover {
+.textArea:hover {
 	border-color: var(--color-border-hover);
 }
 
-.input:focus {
+.textArea:focus {
 	border-color: #4d90fe;
 	box-shadow: 0 0 3px rgba(77, 144, 254, 0.5);
 }
