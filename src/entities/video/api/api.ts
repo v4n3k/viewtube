@@ -134,3 +134,22 @@ export const addVideoToHistory = async (params: VideoActionParams) => {
 
 	return response.data;
 };
+
+interface UploadVideoParams {
+	channelId: number;
+	video: FormData;
+}
+
+export const uploadVideo = async ({ channelId, video }: UploadVideoParams) => {
+	const response = await api.post<Video>(
+		`/channels/${channelId}/videos/upload`,
+		video,
+		{
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+		}
+	);
+
+	return response.data;
+};

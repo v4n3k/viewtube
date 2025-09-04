@@ -42,6 +42,7 @@ export const VideoCard = memo(({ video }: VideoCardProps) => {
 				<img
 					className={styles.preview}
 					src={
+						previewUrl ||
 						'https://storage.yandexcloud.net/viewtube/images/uploaded-image.jpg'
 					}
 					alt={title}

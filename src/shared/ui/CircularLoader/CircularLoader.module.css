@@ -41,12 +41,12 @@
 	stroke-width: 4px;
 }
 
-.size-m {
+.size-md {
 	width: 32px;
 	height: 32px;
 }
 
-.size-s {
+.size-sm {
 	width: 20px;
 	height: 20px;
 }

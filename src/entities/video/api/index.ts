@@ -12,4 +12,5 @@ export {
 	likeVideo,
 	undislikeVideo,
 	unlikeVideo,
+	uploadVideo,
 } from './api';

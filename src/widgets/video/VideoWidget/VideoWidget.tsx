@@ -28,7 +28,14 @@ export const VideoWidget = () => {
 
 	if (!video) return;
 
-	const { id: videoId, isLiked, isDisliked, isSaved, channel } = video;
+	const {
+		id: videoId,
+		isLiked,
+		isDisliked,
+		isSaved,
+		channel,
+		videoUrl,
+	} = video;
 	const {
 		id: channelId,
 		name,
@@ -44,7 +51,10 @@ export const VideoWidget = () => {
 	return (
 		<div className={styles.videoWidget}>
 			<VideoPlayer
-				src='https://storage.yandexcloud.net/viewtube/videos/video.mp4'
+				src={
+					videoUrl ||
+					'https://storage.yandexcloud.net/viewtube/videos/video.mp4'
+				}
 				onWatch={handleAddVideoToHistory}
 			/>
 
