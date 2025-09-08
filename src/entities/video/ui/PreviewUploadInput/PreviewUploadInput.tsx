@@ -1,18 +1,20 @@
 import { FileUpload } from '@/shared/ui';
 
+interface PreviewUploadInputProps {
+	onImageSelect: (file: File | null) => void;
+	disabled?: boolean;
+	initialImage?: File | null;
+	placeholder?: string;
+	errorMessage?: string;
+}
+
 export const PreviewUploadInput = ({
 	onImageSelect,
 	disabled,
 	initialImage,
 	placeholder,
 	errorMessage,
-}: {
-	onImageSelect: (file: File | null) => void;
-	disabled?: boolean;
-	initialImage?: File | null;
-	placeholder?: string;
-	errorMessage?: string;
-}) => {
+}: PreviewUploadInputProps) => {
 	const initialPreviewUrl =
 		initialImage instanceof File ? URL.createObjectURL(initialImage) : null;
 

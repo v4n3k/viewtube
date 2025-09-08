@@ -7,7 +7,7 @@ export const ROUTE_TEMPLATES = {
 	WATCH_LATER: '/watch-later',
 	MY_VIDEOS: '/my-videos',
 	LIKED_VIDEOS: '/liked-videos',
-	UPLOAD: '/upload',
+	UPLOAD: '/upload-video',
 	SETTINGS: '/settings',
 	SIGN_IN: '/auth/sign-in',
 	SIGN_UP: '/auth/sign-up',

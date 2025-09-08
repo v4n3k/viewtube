@@ -14,7 +14,7 @@ export const RecommendedVideosList = () => {
 		isError,
 		error,
 	} = useGetRecommendedVideos({
-		limit: 1,
+		limit: 6,
 	});
 
 	return (

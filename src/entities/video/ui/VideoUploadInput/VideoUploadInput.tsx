@@ -1,18 +1,20 @@
 import { FileUpload } from '@/shared/ui';
 
+interface VideoUploadInputProps {
+	onFileSelect: (file: File | null) => void;
+	disabled?: boolean;
+	initialFile?: File | null;
+	placeholder?: string;
+	errorMessage?: string;
+}
+
 export const VideoUploadInput = ({
 	onFileSelect,
 	disabled,
 	initialFile,
 	placeholder,
 	errorMessage,
-}: {
-	onFileSelect: (file: File | null) => void;
-	disabled?: boolean;
-	initialFile?: File | null;
-	placeholder?: string;
-	errorMessage?: string;
-}) => (
+}: VideoUploadInputProps) => (
 	<FileUpload
 		onFileSelect={onFileSelect}
 		accept='video/*'

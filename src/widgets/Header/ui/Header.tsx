@@ -1,11 +1,20 @@
+'use client';
+
 import { PATH_GENERATORS } from '@/app/routes';
 import { Avatar, Button, Link } from '@/shared/ui';
+import { useRouter } from 'next/navigation';
 import { GoPlus } from 'react-icons/go';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import styles from './Header.module.css';
 import { SearchBox } from './SearchBox';
 
 export const Header = () => {
+	const router = useRouter();
+
+	const handleCreateClick = () => {
+		router.push(PATH_GENERATORS.upload());
+	};
+
 	return (
 		<header className={styles.header}>
 			<div className={styles.left}>
@@ -20,7 +29,7 @@ export const Header = () => {
 			<SearchBox />
 
 			<div className={styles.right}>
-				<Button>
+				<Button onClick={handleCreateClick}>
 					<GoPlus size={28} />
 					Create
 				</Button>

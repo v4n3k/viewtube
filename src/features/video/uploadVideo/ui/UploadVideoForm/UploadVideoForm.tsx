@@ -14,12 +14,9 @@ interface FormState {
 	previewFile: File | null;
 }
 
-interface FormErrors {
-	title?: string;
-	description?: string;
-	videoFile?: string;
-	previewFile?: string;
-}
+type FormErrors = {
+	[P in keyof FormState]?: string;
+};
 
 const initialFormState: FormState = {
 	title: '',
@@ -35,6 +32,7 @@ const isZodError = (err: unknown): err is ZodError => {
 export const UploadVideoForm = () => {
 	const [form, setForm] = useState<FormState>(initialFormState);
 	const [errors, setErrors] = useState<FormErrors>({});
+
 	const { uploadVideo, isPending, isSuccess } = useUploadVideo();
 
 	useEffect(() => {
@@ -68,23 +66,23 @@ export const UploadVideoForm = () => {
 		}
 	};
 
-	const handleFormChange = (
-		key: keyof FormState,
-		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-	) => {
-		const value = e.target.value;
-		setForm(prev => ({ ...prev, [key]: value }));
-
+	const checkErrors = (key: keyof FormState) => {
 		if (errors[key]) {
 			setErrors(prev => ({ ...prev, [key]: undefined }));
 		}
 	};
 
+	const handleTextChange = (
+		key: keyof FormState,
+		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) => {
+		setForm(prev => ({ ...prev, [key]: e.target.value }));
+		checkErrors(key);
+	};
+
 	const handleFileSelect = (key: keyof FormState, file: File | null) => {
 		setForm(prev => ({ ...prev, [key]: file }));
-		if (errors[key]) {
-			setErrors(prev => ({ ...prev, [key]: undefined }));
-		}
+		checkErrors(key);
 	};
 
 	const handleVideoFileSelect = (file: File | null) => {
@@ -95,10 +93,19 @@ export const UploadVideoForm = () => {
 		handleFileSelect('previewFile', file);
 	};
 
+	const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+		handleTextChange('title', e);
+	};
+
+	const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+		handleTextChange('description', e);
+	};
+
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		const validationErrors = validate();
+
 		if (Object.keys(validationErrors).length > 0) {
 			setErrors(validationErrors);
 			return;
@@ -114,7 +121,7 @@ export const UploadVideoForm = () => {
 	};
 
 	return (
-		<article className={styles.formContainer}>
+		<section className={styles.formContainer}>
 			<h2 className={styles.title}>Upload Video</h2>
 			<form className={styles.form} onSubmit={handleSubmit}>
 				<div className={styles.uploadsContainer}>
@@ -135,13 +142,13 @@ export const UploadVideoForm = () => {
 				<TextField
 					type='text'
 					value={title}
-					onChange={e => handleFormChange('title', e)}
+					onChange={handleTitleChange}
 					placeholder='Title'
 					errorMessage={errors.title}
 				/>
 				<TextArea
 					value={description}
-					onChange={e => handleFormChange('description', e)}
+					onChange={handleDescriptionChange}
 					placeholder='Description'
 					errorMessage={errors.description}
 				/>
@@ -155,6 +162,6 @@ export const UploadVideoForm = () => {
 					</Button>
 				</div>
 			</form>
-		</article>
+		</section>
 	);
 };
