@@ -50,7 +50,7 @@
 	--transition-easing-default: ease-in-out;
 }
 
-body.theme-dark {
+html[data-theme='dark'] {
 	/* colors */
 	--color-background: #000000;
 	--color-text: #ffffff;

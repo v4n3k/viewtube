@@ -23,6 +23,30 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
+			<head>
+				<script
+					dangerouslySetInnerHTML={{
+						__html: `
+              (function() {
+                const getInitialTheme = () => {
+                  const storedTheme = localStorage.getItem('theme');
+                  if (storedTheme === 'light' || storedTheme === 'dark') {
+                    return storedTheme;
+                  }
+                  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    return 'dark';
+                  }
+                  return 'light';
+                };
+
+                const initialTheme = getInitialTheme();
+                document.documentElement.setAttribute('data-theme', initialTheme);
+                // Теперь мы полагаемся только на data-theme на <html>
+              })();
+            `,
+					}}
+				/>
+			</head>
 			<body className={roboto.variable}>
 				<Providers>
 					<div className={styles.appLayout}>{children}</div>

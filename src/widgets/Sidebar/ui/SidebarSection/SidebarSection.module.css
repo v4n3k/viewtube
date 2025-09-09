@@ -2,4 +2,5 @@
 	font-size: var(--font-size-lg);
 	color: var(--color-text);
 	font-weight: var(--font-weight-xl);
+	margin-bottom: var(--spacing-sm);
 }

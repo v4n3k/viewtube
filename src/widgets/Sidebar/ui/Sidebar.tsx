@@ -17,6 +17,7 @@ import { useSubscribedChannels } from '../model';
 import { SidebarLink } from '../ui/SidebarLink/SidebarLink';
 import { SidebarSection } from '../ui/SidebarSection/SidebarSection';
 import styles from './Sidebar.module.css';
+import { ToggleThemeButton } from '@/features/theme/toggleTheme';
 
 const ICON_SIZE = 24;
 
@@ -69,31 +70,8 @@ export const Sidebar = () => {
 				</SidebarLink>
 			</SidebarSection>
 
-			<SidebarSection title='Subscriptions' withoutDivider>
-				<Show when={error}>{e => <div>Error: {e.message}</div>}</Show>
-
-				{subscribedChannels?.map(channel => (
-					<SidebarLink
-						key={channel.id}
-						href={PATH_GENERATORS.channel(channel.id)}
-					>
-						<Avatar />
-						{channel.name}
-					</SidebarLink>
-				))}
-				<Show when={showMoreAvailable}>
-					<Button variant='text' fullWidth onClick={handleShowMore}>
-						<ArrowDownIcon size={ICON_SIZE} />
-						Show more
-					</Button>
-				</Show>
-
-				<Show when={showFewerAvailable}>
-					<Button variant='text' fullWidth onClick={handleShowFewer}>
-						<ArrowUpIcon size={ICON_SIZE} />
-						Show fewer
-					</Button>
-				</Show>
+			<SidebarSection title='Theme' withoutDivider>
+				<ToggleThemeButton />
 			</SidebarSection>
 		</aside>
 	);
