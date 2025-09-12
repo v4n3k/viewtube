@@ -1,9 +1,14 @@
 'use client';
 
-import { PreviewUploadInput, VideoUploadInput } from '@/entities/video/ui';
-import { Button, TextArea, TextField } from '@/shared/ui';
+import { isZodError } from '@/shared/lib';
+import {
+	Button,
+	ImageUploadInput,
+	TextArea,
+	TextField,
+	VideoUploadInput,
+} from '@/shared/ui';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { ZodError } from 'zod';
 import { uploadVideoFormSchema, useUploadVideo } from '../../model';
 import styles from './UploadVideoForm.module.css';
 
@@ -23,10 +28,6 @@ const initialFormState: FormState = {
 	description: '',
 	videoFile: null,
 	previewFile: null,
-};
-
-const isZodError = (err: unknown): err is ZodError => {
-	return err instanceof ZodError;
 };
 
 export const UploadVideoForm = () => {
@@ -131,7 +132,7 @@ export const UploadVideoForm = () => {
 						placeholder='Upload video'
 						errorMessage={errors.videoFile}
 					/>
-					<PreviewUploadInput
+					<ImageUploadInput
 						initialImage={previewFile}
 						onImageSelect={handlePreviewFileSelect}
 						placeholder='Upload preview image'

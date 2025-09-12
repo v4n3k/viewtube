@@ -16,6 +16,16 @@ interface UnsubscribeFromChannelParams {
 	unsubscribeFromChannelId: number;
 }
 
+interface ChannelDTO {
+	id: number;
+	userId: number;
+	name: string;
+	description: string;
+	avatarUrl: string;
+	bannerUrl: string;
+	createdAt: string;
+}
+
 export const getChannel = async ({
 	requesterChannelId,
 	requestedChannelId,
@@ -47,4 +57,14 @@ export const unsubscribeFromChannel = ({
 			unsubscribeFromChannelId,
 		},
 	});
+};
+
+export const createChannel = async (channel: FormData) => {
+	const response = await api.post<ChannelDTO>(`/channels`, channel, {
+		headers: {
+			'Content-Type': 'multipart/form-data',
+		},
+	});
+
+	return response.data;
 };

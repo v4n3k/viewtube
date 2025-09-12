@@ -5,7 +5,7 @@ import {
 	getInitialThemeClient,
 	saveThemeToLocalStorage,
 	Theme,
-} from '@/shared/lib/theme';
+} from '@/shared/lib';
 import { useCallback, useEffect, useState } from 'react';
 
 export const useTheme = () => {

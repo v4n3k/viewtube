@@ -5,6 +5,7 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import styles from './FileUpload.module.css';
 
 interface FileUploadProps {
+	className?: string;
 	onFileSelect: (file: File | null) => void;
 	accept: string;
 	disabled?: boolean;
@@ -14,9 +15,12 @@ interface FileUploadProps {
 	supportText?: string;
 	showPreviewImage?: boolean;
 	errorMessage?: string;
+	roundedFull?: boolean;
+	aspectRatio?: 'default' | 'square' | 'banner';
 }
 
 export const FileUpload = ({
+	className,
 	onFileSelect,
 	accept,
 	disabled = false,
@@ -26,6 +30,8 @@ export const FileUpload = ({
 	supportText = 'Supported formats',
 	showPreviewImage = false,
 	errorMessage,
+	roundedFull = false,
+	aspectRatio = 'default',
 }: FileUploadProps) => {
 	const [selectedFile, setSelectedFile] = useState<File | null>(initialFile);
 	const [previewUrl, setPreviewUrl] = useState<string | null>(
@@ -95,7 +101,7 @@ export const FileUpload = ({
 		(selectedFile && selectedFile.type.startsWith('image/')) || previewUrl;
 
 	return (
-		<div className={styles.container}>
+		<div className={clsx(styles.container, className)}>
 			<input
 				ref={fileInputRef}
 				type='file'
@@ -106,6 +112,9 @@ export const FileUpload = ({
 			/>
 			<div
 				className={clsx(styles.uploadArea, {
+					[styles.roundedFull]: roundedFull,
+					[styles.square]: aspectRatio === 'square',
+					[styles.banner]: aspectRatio === 'banner',
 					[styles.disabled]: disabled,
 					[styles.error]: errorMessage,
 				})}

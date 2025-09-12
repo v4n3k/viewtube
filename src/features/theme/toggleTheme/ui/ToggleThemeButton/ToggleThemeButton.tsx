@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/shared/ui';
-import { useTheme } from '../../model/useTheme';
+import { useTheme } from '../../model';
 
 export const ToggleThemeButton = () => {
 	const { theme, toggleTheme } = useTheme();

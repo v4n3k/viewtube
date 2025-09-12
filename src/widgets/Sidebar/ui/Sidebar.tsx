@@ -1,11 +1,10 @@
 'use client';
 
 import { PATH_GENERATORS } from '@/app/routes';
-import { Avatar, Button, Show } from '@/shared/ui';
+import { ToggleThemeButton } from '@/features/theme/toggleTheme';
+import { useChannelId } from '@/shared/lib';
 import {
-	ArrowDownIcon,
 	ArrowRightIcon,
-	ArrowUpIcon,
 	HistoryIcon,
 	HomeIcon,
 	LikedVideosIcon,
@@ -13,23 +12,13 @@ import {
 	SubscriptionsIcon,
 	WatchLaterIcon,
 } from '@/shared/ui/icons';
-import { useSubscribedChannels } from '../model';
+
 import { SidebarLink } from '../ui/SidebarLink/SidebarLink';
 import { SidebarSection } from '../ui/SidebarSection/SidebarSection';
 import styles from './Sidebar.module.css';
-import { ToggleThemeButton } from '@/features/theme/toggleTheme';
-
-const ICON_SIZE = 24;
 
 export const Sidebar = () => {
-	const {
-		subscribedChannels,
-		error,
-		handleShowMore,
-		handleShowFewer,
-		showMoreAvailable,
-		showFewerAvailable,
-	} = useSubscribedChannels();
+	const channelId = useChannelId();
 
 	return (
 		<aside className={styles.sidebar}>
@@ -47,7 +36,7 @@ export const Sidebar = () => {
 
 			<SidebarSection>
 				<SidebarLink
-					href={PATH_GENERATORS.channel(1)}
+					href={PATH_GENERATORS.channel(channelId)}
 					Icon={ArrowRightIcon}
 					iconPosition='right'
 				>

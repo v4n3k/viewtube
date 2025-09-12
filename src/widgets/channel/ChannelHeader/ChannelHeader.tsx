@@ -3,12 +3,13 @@
 import { ChannelBanner } from '@/entities/channel/ui';
 import { useGetChannel } from '@/features/channel/getChannel';
 import { SubscribeToChannelButton } from '@/features/channel/subscribeToChannel';
-import { Avatar, ExpandableText } from '@/shared/ui';
+import { Avatar, Button, ExpandableText, Show } from '@/shared/ui';
 import { useParams } from 'next/navigation';
 import styles from './ChannelHeader.module.css';
 
 export const ChannelHeader = () => {
 	const channelId = Number(useParams()?.channelId);
+	const paramsChannelId = Number(useParams()?.channelId);
 
 	const { channel } = useGetChannel(channelId);
 
@@ -40,10 +41,20 @@ export const ChannelHeader = () => {
 						<ExpandableText className={styles.description} maxLines={1}>
 							{description}
 						</ExpandableText>
-						<SubscribeToChannelButton
-							isSubscribed={isSubscribed}
-							subscribedToChannelId={channelId}
-						/>
+						<Show when={paramsChannelId !== channelId}>
+							<SubscribeToChannelButton
+								isSubscribed={isSubscribed}
+								subscribedToChannelId={channelId}
+							/>
+						</Show>
+						<Show when={paramsChannelId === channelId}>
+							<div>
+								<Button>Edit Channel</Button>
+								<Button>Switch channel</Button>
+								<Button>Create new channel</Button>
+								<Button>Remove channel</Button>
+							</div>
+						</Show>
 					</div>
 				</div>
 			</div>

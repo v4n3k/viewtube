@@ -21,7 +21,7 @@ export const VideoUploadInput = ({
 		disabled={disabled}
 		initialFile={initialFile}
 		placeholder={placeholder}
-		supportText='Supports MP4, AVI, MOV, WMV and other video formats'
+		supportText='Supports MP4, AVI, WMV and other video formats'
 		showPreviewImage={false}
 		errorMessage={errorMessage}
 	/>

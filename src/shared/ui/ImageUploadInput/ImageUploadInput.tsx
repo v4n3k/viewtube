@@ -1,25 +1,32 @@
 import { FileUpload } from '@/shared/ui';
 
-interface PreviewUploadInputProps {
+interface ImageUploadInputProps {
+	className?: string;
 	onImageSelect: (file: File | null) => void;
 	disabled?: boolean;
 	initialImage?: File | null;
 	placeholder?: string;
 	errorMessage?: string;
+	roundedFull?: boolean;
+	aspectRatio?: 'default' | 'square' | 'banner';
 }
 
-export const PreviewUploadInput = ({
+export const ImageUploadInput = ({
+	className,
 	onImageSelect,
 	disabled,
 	initialImage,
 	placeholder,
 	errorMessage,
-}: PreviewUploadInputProps) => {
+	roundedFull = false,
+	aspectRatio = 'default',
+}: ImageUploadInputProps) => {
 	const initialPreviewUrl =
 		initialImage instanceof File ? URL.createObjectURL(initialImage) : null;
 
 	return (
 		<FileUpload
+			className={className}
 			onFileSelect={onImageSelect}
 			accept='image/*'
 			disabled={disabled}
@@ -29,6 +36,8 @@ export const PreviewUploadInput = ({
 			supportText='Supports JPG, PNG, GIF, WEBP'
 			showPreviewImage={true}
 			errorMessage={errorMessage}
+			roundedFull={roundedFull}
+			aspectRatio={aspectRatio}
 		/>
 	);
 };
