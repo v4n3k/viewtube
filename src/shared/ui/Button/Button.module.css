@@ -47,6 +47,10 @@
 	cursor: not-allowed;
 }
 
+.button:active {
+	transform: translateY(1px);
+}
+
 .buttonContent {
 	display: flex;
 	align-items: center;

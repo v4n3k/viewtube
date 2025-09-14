@@ -89,6 +89,10 @@
 	overflow: hidden;
 }
 
+.previewWrapper.roundedFull {
+	border-radius: 50%;
+}
+
 .previewImage {
 	display: block;
 	width: 100%;
@@ -115,6 +119,11 @@
 	cursor: pointer;
 	opacity: 1;
 	transition: all var(--transition-speed-fast) var(--transition-easing-default);
+}
+
+.removeButton.largeInset {
+	top: var(--spacing-xl);
+	right: var(--spacing-xl);
 }
 
 .removeButton:hover {

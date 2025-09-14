@@ -6,6 +6,8 @@ export const PATH_GENERATORS = {
 	home: () => ROUTE_TEMPLATES.HOME,
 	subscriptions: () => ROUTE_TEMPLATES.SUBSCRIPTIONS,
 	channels: () => ROUTE_TEMPLATES.CHANNELS,
+	createChannel: () => ROUTE_TEMPLATES.CREATE_CHANNEL,
+	myChannels: () => ROUTE_TEMPLATES.MY_CHANNELS,
 	history: () => ROUTE_TEMPLATES.HISTORY,
 	watchLater: () => ROUTE_TEMPLATES.WATCH_LATER,
 	myVideos: () => ROUTE_TEMPLATES.MY_VIDEOS,
@@ -21,6 +23,9 @@ export const PATH_GENERATORS = {
 
 	channel: (channelId: string | number) =>
 		generatePath(ROUTE_TEMPLATES.CHANNEL, { channelId }),
+
+	editChannel: (channelId: string | number) =>
+		generatePath(ROUTE_TEMPLATES.EDIT_CHANNEL, { channelId }),
 
 	// with query params
 	searchResults: (query: string, page?: number) => {

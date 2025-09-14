@@ -121,22 +121,28 @@ export const FileUpload = ({
 				onClick={handleClick}
 			>
 				{isImage && showPreviewImage ? (
-					<div className={styles.previewWrapper}>
+					<div
+						className={clsx(styles.previewWrapper, {
+							[styles.roundedFull]: roundedFull,
+						})}
+					>
 						<img
 							src={previewUrl || ''}
 							alt='Preview'
 							className={styles.previewImage}
 						/>
-						<button
-							type='button'
-							className={styles.removeButton}
-							onClick={e => {
-								e.stopPropagation();
-								handleRemove();
-							}}
-						>
-							×
-						</button>
+						{!roundedFull && (
+							<button
+								type='button'
+								className={styles.removeButton}
+								onClick={e => {
+									e.stopPropagation();
+									handleRemove();
+								}}
+							>
+								×
+							</button>
+						)}
 					</div>
 				) : selectedFile ? (
 					<div className={styles.fileInfo}>
@@ -144,6 +150,7 @@ export const FileUpload = ({
 						<p className={styles.fileSize}>
 							{formatFileSize(selectedFile.size)}
 						</p>
+
 						<button
 							type='button'
 							className={styles.removeButton}

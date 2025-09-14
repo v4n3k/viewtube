@@ -3,6 +3,7 @@ export const ROUTE_TEMPLATES = {
 	HOME: '/',
 	SUBSCRIPTIONS: '/subscriptions',
 	CHANNELS: '/channels',
+	CREATE_CHANNEL: '/create-channel',
 	HISTORY: '/history',
 	WATCH_LATER: '/watch-later',
 	MY_VIDEOS: '/my-videos',
@@ -15,6 +16,8 @@ export const ROUTE_TEMPLATES = {
 	// dynamic
 	WATCH_VIDEO: '/watch/[videoId]',
 	CHANNEL: '/channel/[channelId]',
+	MY_CHANNELS: '/my-channels/[userId]',
+	EDIT_CHANNEL: '/edit-channel/[channelId]',
 
 	// with query params (base path)
 	SEARCH_RESULTS: '/results',
