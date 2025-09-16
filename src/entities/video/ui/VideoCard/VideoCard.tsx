@@ -39,14 +39,7 @@ export const VideoCard = memo(({ video }: VideoCardProps) => {
 	return (
 		<li className={styles.videoCard} onClick={handleCardClick}>
 			<div className={styles.previewContainer}>
-				<img
-					className={styles.preview}
-					src={
-						previewUrl ||
-						'https://storage.yandexcloud.net/viewtube/images/uploaded-image.jpg'
-					}
-					alt={title}
-				/>
+				<img className={styles.preview} src={previewUrl} alt={title} />
 				<span className={styles.duration}>{formatDuration(duration)}</span>
 			</div>
 

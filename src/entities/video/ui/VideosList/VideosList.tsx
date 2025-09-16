@@ -1,6 +1,8 @@
 import { CircularLoader, Show } from '@/shared/ui';
+import clsx from 'clsx';
+import { ComponentType } from 'react';
 import { Video, VideoWithoutChannel } from '../../model';
-import { VideoCard } from '../VideoCard/VideoCard';
+import { VideoCard } from '../VideoCard';
 import styles from './VideosList.module.css';
 
 interface VideosListProps {
@@ -9,6 +11,9 @@ interface VideosListProps {
 	isLoading?: boolean;
 	isError?: boolean;
 	error?: Error | null;
+	layout?: 'grid' | 'verticalList';
+	gap?: 'lg' | 'xl';
+	VideoCardComponent?: ComponentType<{ video: Video | VideoWithoutChannel }>;
 }
 
 export const VideosList = ({
@@ -17,6 +22,9 @@ export const VideosList = ({
 	isLoading,
 	isError,
 	error,
+	layout = 'grid',
+	gap = 'lg',
+	VideoCardComponent = VideoCard,
 }: VideosListProps) => {
 	return (
 		<section className={styles.videosListSection}>
@@ -39,9 +47,15 @@ export const VideosList = ({
 			</Show>
 
 			<Show when={videos?.length && !isLoading && !isError}>
-				<ul className={styles.videosList}>
+				<ul
+					className={clsx(
+						styles.videosList,
+						styles[layout],
+						styles[`gap-${gap}`]
+					)}
+				>
 					{videos?.map(video => (
-						<VideoCard key={video.id} video={video} />
+						<VideoCardComponent key={video.id} video={video} />
 					))}
 				</ul>
 			</Show>

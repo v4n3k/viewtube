@@ -21,6 +21,16 @@ export const formatDuration = (durationInSeconds: number): string => {
 	return formattedDuration;
 };
 
+export const formatDate = (date: Date): string => {
+	const formattedDate = date.toLocaleDateString('en-GB', {
+		day: 'numeric',
+		month: 'short',
+		year: 'numeric',
+	});
+
+	return formattedDate;
+};
+
 export const formatDateAgo = (date: Date): string => {
 	if (!(date instanceof Date)) {
 		console.error('Invalid date format:', date);

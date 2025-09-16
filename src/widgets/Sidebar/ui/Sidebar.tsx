@@ -42,12 +42,13 @@ export const Sidebar = () => {
 				>
 					You
 				</SidebarLink>
-				<SidebarLink href={PATH_GENERATORS.history()} Icon={HistoryIcon}>
-					History
-				</SidebarLink>
 				<SidebarLink href={PATH_GENERATORS.myVideos()} Icon={MyVideosIcon}>
 					My videos
 				</SidebarLink>
+				<SidebarLink href={PATH_GENERATORS.history()} Icon={HistoryIcon}>
+					History
+				</SidebarLink>
+
 				<SidebarLink href={PATH_GENERATORS.watchLater()} Icon={WatchLaterIcon}>
 					Watch later
 				</SidebarLink>

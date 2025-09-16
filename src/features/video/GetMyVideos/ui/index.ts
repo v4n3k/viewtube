@@ -1,0 +1,1 @@
+export { MyVideosList } from './MyVideosList';

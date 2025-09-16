@@ -7,7 +7,6 @@ import { SubscribeToChannelButton } from '@/features/channel/subscribeToChannel'
 import { useChannelId } from '@/shared/lib';
 import { Avatar, Button, ExpandableText, Show } from '@/shared/ui';
 import { EditIcon, PlusIcon, SwitchIcon, TrashIcon } from '@/shared/ui/icons';
-import clsx from 'clsx';
 import { useParams, useRouter } from 'next/navigation';
 import styles from './ChannelHeader.module.css';
 
@@ -65,7 +64,7 @@ export const ChannelHeader = () => {
 							<span>•</span>
 							<span>{videosCount} videos</span>
 						</div>
-						<ExpandableText className={styles.description} maxLines={1}>
+						<ExpandableText className={styles.description} maxLines={2}>
 							{description}
 						</ExpandableText>
 
@@ -78,34 +77,37 @@ export const ChannelHeader = () => {
 
 						<Show when={isOwner}>
 							<div className={styles.channelActions}>
-								<Button
-									className={clsx(styles.actionButton, styles.edit)}
-									onClick={handleEditClick}
-								>
-									<EditIcon size={ICON_SIZE} />
-									Edit Channel
-								</Button>
-								<Button
-									className={clsx(styles.actionButton, styles.switch)}
-									onClick={handleSwitchClick}
-								>
-									<SwitchIcon size={ICON_SIZE} />
-									Switch Channel
-								</Button>
-								<Button
-									className={clsx(styles.actionButton, styles.create)}
-									onClick={handleCreateClick}
-								>
-									<PlusIcon size={ICON_SIZE} />
-									Create New
-								</Button>
-								<Button
-									className={clsx(styles.actionButton, styles.remove)}
-									onClick={handleDeleteClick}
-								>
-									<TrashIcon size={ICON_SIZE} />
-									Delete Channel
-								</Button>
+								<div className={styles.channelActions}>
+									<Button onClick={handleSwitchClick}>
+										<SwitchIcon size={ICON_SIZE} />
+										Switch Channel
+									</Button>
+									<Button
+										background='outlined'
+										variant='secondary'
+										onClick={handleEditClick}
+									>
+										<EditIcon size={ICON_SIZE} />
+										Edit Channel
+									</Button>
+									<Button
+										background='outlined'
+										variant='success'
+										onClick={handleCreateClick}
+									>
+										<PlusIcon size={ICON_SIZE} />
+										Create New
+									</Button>
+
+									<Button
+										background='outlined'
+										variant='danger'
+										onClick={handleDeleteClick}
+									>
+										<TrashIcon size={ICON_SIZE} />
+										Delete Channel
+									</Button>
+								</div>
 							</div>
 						</Show>
 					</div>

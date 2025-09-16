@@ -1,3 +1,5 @@
+'use client';
+
 import { getRecommendedVideos } from '@/entities/video/api';
 import { PaginationLimit } from '@/shared/api';
 import { useInfiniteQuery } from '@tanstack/react-query';

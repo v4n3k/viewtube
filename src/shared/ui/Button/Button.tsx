@@ -4,10 +4,11 @@ import { CircularLoader } from '../CircularLoader';
 import styles from './Button.module.css';
 
 interface ButtonProps extends ComponentProps<'button'> {
-	background?: 'filled' | 'transparent';
-	variant?: 'primary' | 'text';
+	background?: 'filled' | 'transparent' | 'outlined';
+	variant?: 'primary' | 'secondary' | 'danger' | 'success';
 	fullWidth?: boolean;
 	isLoading?: boolean;
+	size?: 'sm' | 'md' | 'lg';
 }
 
 export const Button = ({
@@ -18,6 +19,7 @@ export const Button = ({
 	variant = 'primary',
 	fullWidth = false,
 	isLoading = false,
+	size = 'md',
 	...props
 }: ButtonProps) => {
 	return (
@@ -26,6 +28,7 @@ export const Button = ({
 				styles.button,
 				styles[background],
 				styles[variant],
+				styles[size],
 				{ [styles.disabled]: disabled || isLoading },
 				{ [styles.fullWidth]: fullWidth },
 				className
@@ -41,7 +44,7 @@ export const Button = ({
 
 			{isLoading && (
 				<span className={styles.loaderWrapper}>
-					<CircularLoader size='sm' color='contrast' />
+					<CircularLoader size='sm' />
 				</span>
 			)}
 		</button>

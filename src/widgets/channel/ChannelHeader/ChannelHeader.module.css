@@ -1,14 +1,15 @@
 .container {
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
 	gap: var(--spacing-md);
 }
 
 .channelInfo {
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	gap: var(--spacing-md);
-	max-width: min(70%, 800px);
+	max-width: min(80%, 900px);
 	width: 100%;
 }
 
@@ -35,34 +36,5 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: var(--spacing-sm);
-}
-
-.actionButton {
-	display: flex;
-	align-items: center;
-	gap: var(--spacing-xs);
-	padding: var(--spacing-sm) var(--spacing-md);
-	border: 1px solid var(--color-border);
-	border-radius: var(--border-radius-md);
-	background-color: var(--color-background);
-	color: var(--color-text);
-	font-size: var(--font-size-sm);
-	font-weight: var(--font-weight-md);
-	transition: all var(--transition-speed-fast) var(--transition-easing-default);
-}
-
-.actionButton.edit,
-.actionButton.switch {
-	color: var(--color-primary);
-	border-color: var(--color-primary);
-}
-
-.actionButton.create {
-	color: var(--color-success);
-	border-color: var(--color-success);
-}
-
-.actionButton.remove {
-	color: var(--color-accent);
-	border-color: var(--color-accent);
+	width: 100%;
 }

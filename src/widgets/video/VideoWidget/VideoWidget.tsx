@@ -7,6 +7,8 @@ import { DislikeButton } from '@/features/video/dislikeVideo';
 import { useGetVideo } from '@/features/video/getVideo/model/useGetVideo';
 import { LikeButton } from '@/features/video/likeVideo';
 import { SaveButton } from '@/features/video/saveVideo';
+import { useChannelId } from '@/shared/lib';
+import { Show } from '@/shared/ui';
 import dynamic from 'next/dynamic';
 import { VideoDetails } from '../VideoDetails';
 import styles from './VideoWidget.module.css';
@@ -23,6 +25,8 @@ const VideoPlayer = dynamic(
 );
 
 export const VideoWidget = () => {
+	const currentChannelId = useChannelId();
+
 	const { video } = useGetVideo();
 	const { addVideoToHistory } = useAddVideoToHistory();
 
@@ -48,6 +52,8 @@ export const VideoWidget = () => {
 		addVideoToHistory(videoId);
 	};
 
+	const isGuest = currentChannelId !== channelId;
+
 	return (
 		<div className={styles.videoWidget}>
 			<VideoPlayer
@@ -67,10 +73,12 @@ export const VideoWidget = () => {
 						avatarUrl={avatarUrl}
 						subscribersCount={subscribersCount}
 						renderSubscriptionButton={() => (
-							<SubscribeToChannelButton
-								isSubscribed={isSubscribed}
-								subscribedToChannelId={channelId}
-							/>
+							<Show when={isGuest}>
+								<SubscribeToChannelButton
+									isSubscribed={isSubscribed}
+									subscribedToChannelId={channelId}
+								/>
+							</Show>
 						)}
 					/>
 				)}

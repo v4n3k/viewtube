@@ -8,7 +8,7 @@ export {
 	getRecommendedVideos,
 	getSavedVideos,
 	getVideoById,
-	getVideosByChannelId,
+	getChannelVideos,
 	likeVideo,
 	undislikeVideo,
 	unlikeVideo,

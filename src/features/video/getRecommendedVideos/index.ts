@@ -1,1 +1,1 @@
-export { RecommendedVideosList } from './ui/RecommendedVideosList';
+export { RecommendedVideosList } from './ui';

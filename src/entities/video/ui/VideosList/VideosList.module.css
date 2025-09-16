@@ -18,8 +18,24 @@
 }
 
 .videosList {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 	gap: var(--spacing-lg);
 	width: 100%;
+}
+
+.videosList.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.videosList.verticalList {
+	display: flex;
+	flex-direction: column;
+}
+
+.videosList.gap-lg {
+	gap: var(--spacing-lg);
+}
+
+.videosList.gap-xl {
+	gap: var(--spacing-xl);
 }

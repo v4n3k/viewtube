@@ -1,23 +1,19 @@
 'use client';
 
-import { VideosList } from '@/entities/video/ui';
+import { MyVideoCard, VideosList } from '@/entities/video/ui';
 import { InfiniteScroll } from '@/shared/ui';
-import { useParams } from 'next/navigation';
-import { useGetChannelVideos } from '../../model';
+import { useGetMyVideos } from '../../model';
 
-export const ChannelVideosList = () => {
-	const channelId = Number(useParams()?.channelId);
-
+export const MyVideosList = () => {
 	const {
-		channelVideos,
+		myVideos,
 		fetchNextPage,
 		hasNextPage,
 		isFetchingNextPage,
 		isLoading,
 		isError,
 		error,
-	} = useGetChannelVideos({
-		channelId,
+	} = useGetMyVideos({
 		limit: 6,
 	});
 
@@ -28,10 +24,14 @@ export const ChannelVideosList = () => {
 			isLoading={isFetchingNextPage}
 		>
 			<VideosList
-				videos={channelVideos}
+				title='My videos'
+				videos={myVideos}
 				isLoading={isLoading || isFetchingNextPage}
 				isError={isError}
 				error={error}
+				layout='verticalList'
+				gap='xl'
+				VideoCardComponent={MyVideoCard}
 			/>
 		</InfiniteScroll>
 	);
