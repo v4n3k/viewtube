@@ -18,6 +18,7 @@ export const ROUTE_TEMPLATES = {
 	CHANNEL: '/channel/[channelId]',
 	MY_CHANNELS: '/my-channels/[userId]',
 	EDIT_CHANNEL: '/edit-channel/[channelId]',
+	EDIT_VIDEO: '/edit-video/[videoId]',
 
 	// with query params (base path)
 	SEARCH_RESULTS: '/results',

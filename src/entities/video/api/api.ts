@@ -2,31 +2,22 @@ import { api, PaginatedResponse, PaginationParams } from '@/shared/api';
 import { getVideoActionPath } from '../lib';
 import { Video, VideoActionParams } from '../model';
 
+interface ChannelPaginationParams extends PaginationParams {
+	channelId: number;
+}
+
 interface GetRecommendedVideosParams extends PaginationParams {}
 
 interface GetRecommendedVideosResponse
 	extends PaginatedResponse<'recommendedVideos', Video> {}
-
-interface GetSavedVideosParams extends PaginationParams {
-	channelId: number;
-}
-
 interface GetSavedVideosResponse
 	extends PaginatedResponse<'savedVideos', Video> {}
-
-interface GetPaginatedVideosByChannelId extends PaginationParams {
-	channelId: number;
-}
 
 interface GetHistoryVideosResponse
 	extends PaginatedResponse<'historyVideos', Video> {}
 
 interface GetLikedVideosResponse
 	extends PaginatedResponse<'likedVideos', Video> {}
-
-interface GetChannelVideosParams extends PaginationParams {
-	channelId: number;
-}
 
 interface GetChannelVideosResponse<T>
 	extends PaginatedResponse<'channelVideos', T> {}
@@ -41,7 +32,7 @@ export const getRecommendedVideos = async (
 	return response.data;
 };
 
-export const getSavedVideos = async (params: GetSavedVideosParams) => {
+export const getSavedVideos = async (params: ChannelPaginationParams) => {
 	const { channelId, ...paginationParams } = params;
 
 	const response = await api.get<GetSavedVideosResponse>(
@@ -52,7 +43,7 @@ export const getSavedVideos = async (params: GetSavedVideosParams) => {
 	return response.data;
 };
 
-export const getLikedVideos = async (params: GetPaginatedVideosByChannelId) => {
+export const getLikedVideos = async (params: ChannelPaginationParams) => {
 	const { channelId, ...paginationParams } = params;
 
 	const response = await api.get<GetLikedVideosResponse>(
@@ -65,6 +56,7 @@ export const getLikedVideos = async (params: GetPaginatedVideosByChannelId) => {
 
 export const getVideoById = async (params: VideoActionParams) => {
 	const { channelId, videoId } = params;
+
 	const response = await api.get<Video>(
 		`channels/${channelId}/videos/${videoId}`
 	);
@@ -72,9 +64,7 @@ export const getVideoById = async (params: VideoActionParams) => {
 	return response.data;
 };
 
-export const getHistoryVideos = async (
-	params: GetPaginatedVideosByChannelId
-) => {
+export const getHistoryVideos = async (params: ChannelPaginationParams) => {
 	const { channelId, ...paginationParams } = params;
 
 	const response = await api.get<GetHistoryVideosResponse>(
@@ -85,7 +75,7 @@ export const getHistoryVideos = async (
 	return response.data;
 };
 
-export const getChannelVideos = async <T>(params: GetChannelVideosParams) => {
+export const getChannelVideos = async <T>(params: ChannelPaginationParams) => {
 	const { channelId, ...paginationParams } = params;
 
 	const response = await api.get<GetChannelVideosResponse<T>>(
@@ -94,6 +84,18 @@ export const getChannelVideos = async <T>(params: GetChannelVideosParams) => {
 			params: paginationParams,
 		}
 	);
+
+	return response.data;
+};
+
+export const getSubscriptionVideos = async (
+	params: ChannelPaginationParams
+) => {
+	const { channelId, ...paginationParams } = params;
+
+	const response = await api.get(`/channels/${channelId}/subscribed`, {
+		params: paginationParams,
+	});
 
 	return response.data;
 };

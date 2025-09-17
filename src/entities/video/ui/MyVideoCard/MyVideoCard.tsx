@@ -32,6 +32,15 @@ export const MyVideoCard = memo(({ video }: MyVideoCardProps) => {
 		router.push(PATH_GENERATORS.video(id));
 	};
 
+	const handleEditClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+		e.stopPropagation();
+		router.push(PATH_GENERATORS.editVideo(id));
+	};
+
+	const handleDeleteClick = () => {
+		console.log('delete video'); // TODO: delete video
+	};
+
 	return (
 		<li className={styles.myVideoCard} onClick={handleCardClick}>
 			<div className={styles.previewContainer}>
@@ -51,10 +60,14 @@ export const MyVideoCard = memo(({ video }: MyVideoCardProps) => {
 			</div>
 
 			<div className={styles.actions}>
-				<Button variant='primary'>
+				<Button variant='primary' onClick={handleEditClick}>
 					Edit <EditIcon />
 				</Button>
-				<Button background='outlined' variant='danger'>
+				<Button
+					background='outlined'
+					variant='danger'
+					onClick={handleDeleteClick}
+				>
 					Delete <TrashIcon />
 				</Button>
 			</div>

@@ -17,3 +17,7 @@
 .toggleSidebarButton {
 	padding: var(--spacing-md);
 }
+
+.avatar {
+	cursor: pointer;
+}

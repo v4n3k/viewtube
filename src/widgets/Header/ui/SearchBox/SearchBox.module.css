@@ -11,8 +11,10 @@
 }
 
 .button {
+	display: flex;
+	height: 45px;
 	border: 1px solid var(--color-border);
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
-	border-left: none;
+	border-left-color: transparent;
 }

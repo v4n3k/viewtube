@@ -27,6 +27,9 @@ export const PATH_GENERATORS = {
 	editChannel: (channelId: string | number) =>
 		generatePath(ROUTE_TEMPLATES.EDIT_CHANNEL, { channelId }),
 
+	editVideo: (videoId: string | number) =>
+		generatePath(ROUTE_TEMPLATES.EDIT_VIDEO, { videoId }),
+
 	// with query params
 	searchResults: (query: string, page?: number) => {
 		return addQueryParams(ROUTE_TEMPLATES.SEARCH_RESULTS, {

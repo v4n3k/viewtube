@@ -1,7 +1,8 @@
 'use client';
 
 import { PATH_GENERATORS } from '@/app/routes';
-import { Avatar, Button, Link } from '@/shared/ui';
+import { useChannelId } from '@/shared/lib';
+import { Avatar, Button, Link, Show } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
 import { GoPlus } from 'react-icons/go';
 import { RxHamburgerMenu } from 'react-icons/rx';
@@ -10,9 +11,14 @@ import { SearchBox } from './SearchBox';
 
 export const Header = () => {
 	const router = useRouter();
+	const channelId = useChannelId();
 
 	const handleCreateClick = () => {
 		router.push(PATH_GENERATORS.upload());
+	};
+
+	const handleAvatarClick = () => {
+		router.push(PATH_GENERATORS.channel(channelId));
 	};
 
 	return (
@@ -28,13 +34,19 @@ export const Header = () => {
 
 			<SearchBox />
 
-			<div className={styles.right}>
-				<Button onClick={handleCreateClick}>
-					<GoPlus size={28} />
-					Create
-				</Button>
-				<Avatar size='lg' />
-			</div>
+			<Show when={channelId}>
+				<div className={styles.right}>
+					<Button onClick={handleCreateClick}>
+						<GoPlus size={28} />
+						Create
+					</Button>
+					<Avatar
+						className={styles.avatar}
+						size='lg'
+						onClick={handleAvatarClick}
+					/>
+				</div>
+			</Show>
 		</header>
 	);
 };

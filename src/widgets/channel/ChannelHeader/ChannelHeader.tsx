@@ -48,7 +48,7 @@ export const ChannelHeader = () => {
 	};
 
 	const handleDeleteClick = () => {
-		console.log('delete channel');
+		console.log('delete channel'); // TODO: delete channel
 	};
 
 	return (
