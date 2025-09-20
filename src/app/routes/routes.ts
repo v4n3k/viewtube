@@ -7,6 +7,7 @@ export const ROUTE_TEMPLATES = {
 	HISTORY: '/history',
 	WATCH_LATER: '/watch-later',
 	MY_VIDEOS: '/my-videos',
+	MY_CHANNELS: '/my-channels',
 	LIKED_VIDEOS: '/liked-videos',
 	UPLOAD: '/upload-video',
 	SETTINGS: '/settings',
@@ -16,7 +17,6 @@ export const ROUTE_TEMPLATES = {
 	// dynamic
 	WATCH_VIDEO: '/watch/[videoId]',
 	CHANNEL: '/channel/[channelId]',
-	MY_CHANNELS: '/my-channels/[userId]',
 	EDIT_CHANNEL: '/edit-channel/[channelId]',
 	EDIT_VIDEO: '/edit-video/[videoId]',
 

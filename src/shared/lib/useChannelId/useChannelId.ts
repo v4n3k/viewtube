@@ -9,14 +9,13 @@ export const useChannelId = () => {
 		if (typeof window !== 'undefined') {
 			const storedChannelId = localStorage.getItem('channelId');
 
-			if (!storedChannelId) {
-				localStorage.setItem('channelId', '1');
-				setChannelId(1);
-			} else {
-				setChannelId(Number(storedChannelId));
+			if (!storedChannelId) return;
+
+			const parsedChannelId = Number(storedChannelId);
+
+			if (!isNaN(parsedChannelId) && parsedChannelId > 0) {
+				setChannelId(parsedChannelId);
 			}
-		} else {
-			setChannelId(1);
 		}
 	}, []);
 

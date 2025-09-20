@@ -10,6 +10,7 @@ export const useGetChannel = (requestedChannelId: number) => {
 	const query = useQuery({
 		queryKey: ['channel', requestedChannelId, requesterChannelId],
 		queryFn: () => getChannel({ requestedChannelId, requesterChannelId }),
+		enabled: !!requesterChannelId && !!requestedChannelId,
 	});
 
 	return {

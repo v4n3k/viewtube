@@ -15,6 +15,7 @@ export {
 	GoBookmarkFill as FillBookmarkIcon,
 	GoVideo as MyVideosIcon,
 } from 'react-icons/go';
+export { GrChannel as MyChannelsIcon } from 'react-icons/gr';
 export {
 	MdModeEdit as EditIcon,
 	MdHistory as HistoryIcon,

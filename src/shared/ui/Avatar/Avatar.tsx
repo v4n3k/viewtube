@@ -3,7 +3,7 @@ import { ComponentProps } from 'react';
 import styles from './Avatar.module.css';
 
 interface AvatarProps extends ComponentProps<'img'> {
-	src?: string;
+	src: string;
 	size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 	shape?: 'circle' | 'square';
 }

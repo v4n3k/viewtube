@@ -1,7 +1,7 @@
 'use client';
 
 import { PATH_GENERATORS } from '@/app/routes';
-import { formatDate, formatDuration } from '@/entities/video/lib';
+import { formatDate, formatDuration, formatViews } from '@/entities/video/lib';
 import { Button } from '@/shared/ui';
 import { EditIcon, TrashIcon } from '@/shared/ui/icons';
 import { useRouter } from 'next/navigation';
@@ -24,9 +24,8 @@ export const MyVideoCard = memo(({ video }: MyVideoCardProps) => {
 		duration,
 		createdAt,
 		views,
+		commentsCount,
 	} = video;
-
-	const commentsCount = 11;
 
 	const handleCardClick = () => {
 		router.push(PATH_GENERATORS.video(id));
@@ -40,6 +39,8 @@ export const MyVideoCard = memo(({ video }: MyVideoCardProps) => {
 	const handleDeleteClick = () => {
 		console.log('delete video'); // TODO: delete video
 	};
+
+	// TODO: add public / private toggle
 
 	return (
 		<li className={styles.myVideoCard} onClick={handleCardClick}>
@@ -55,12 +56,12 @@ export const MyVideoCard = memo(({ video }: MyVideoCardProps) => {
 
 			<div className={styles.stats}>
 				<span>{formatDate(createdAt)}</span>
-				<span>{views} views</span>
+				<span>{formatViews(views)} views</span>
 				<span>{commentsCount} comments</span>
 			</div>
 
 			<div className={styles.actions}>
-				<Button variant='primary' onClick={handleEditClick}>
+				<Button variant='primary' fullWidth onClick={handleEditClick}>
 					Edit <EditIcon />
 				</Button>
 				<Button

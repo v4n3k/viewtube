@@ -8,6 +8,7 @@ import {
 	HistoryIcon,
 	HomeIcon,
 	LikedVideosIcon,
+	MyChannelsIcon,
 	MyVideosIcon,
 	SubscriptionsIcon,
 	WatchLaterIcon,
@@ -44,6 +45,9 @@ export const Sidebar = () => {
 				</SidebarLink>
 				<SidebarLink href={PATH_GENERATORS.myVideos()} Icon={MyVideosIcon}>
 					My videos
+				</SidebarLink>
+				<SidebarLink href={PATH_GENERATORS.myChannels()} Icon={MyChannelsIcon}>
+					My channels
 				</SidebarLink>
 				<SidebarLink href={PATH_GENERATORS.history()} Icon={HistoryIcon}>
 					History

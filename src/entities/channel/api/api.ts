@@ -37,6 +37,12 @@ export const getChannel = async ({
 	return response.data;
 };
 
+export const getMyChannels = async (userId: number) => {
+	const response = await api.get<Channel[]>(`/users/${userId}/channels`);
+
+	return response.data;
+};
+
 export const subscribeToChannel = ({
 	subscriberChannelId,
 	subscribeToChannelId,

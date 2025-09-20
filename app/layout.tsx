@@ -41,7 +41,6 @@ export default function RootLayout({
 
                 const initialTheme = getInitialTheme();
                 document.documentElement.setAttribute('data-theme', initialTheme);
-                // Теперь мы полагаемся только на data-theme на <html>
               })();
             `,
 					}}

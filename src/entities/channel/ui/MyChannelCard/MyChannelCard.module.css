@@ -1,0 +1,133 @@
+.channelCard {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid var(--color-border);
+	border-radius: var(--border-radius-lg);
+	padding: var(--spacing-lg);
+	background: var(--color-background-card, var(--color-background));
+	transition: all var(--transition-speed-normal)
+		var(--transition-easing-default);
+	cursor: pointer;
+}
+
+.channelCard:hover {
+	border-color: var(--color-border-hover);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.channelCard.selected {
+	border-color: var(--color-border-hover);
+	background: var(--color-background-hover);
+}
+
+.content {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--spacing-lg);
+}
+
+.main {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--spacing-md);
+	flex: 0 0 auto;
+}
+
+.avatar {
+	width: 70px;
+	height: 70px;
+	flex-shrink: 0;
+}
+
+.details {
+	flex: 1;
+	min-width: 0;
+}
+
+.name {
+	margin: 0 0 var(--spacing-xs);
+	font-size: var(--font-size-xl);
+	font-weight: var(--font-weight-lg);
+	color: var(--color-text-primary, var(--color-text));
+	line-height: 1.2;
+	word-break: break-word;
+}
+
+.stats {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: var(--spacing-xs);
+	margin: 0 0 var(--spacing-xs);
+	padding: 0;
+	font-size: var(--font-size-md);
+	color: var(--color-text-secondary, var(--color-secondary));
+	list-style: none;
+}
+
+.statItem {
+	display: flex;
+	align-items: center;
+	white-space: nowrap;
+}
+
+.statItem:not(:last-child)::after {
+	content: '•';
+	margin-left: var(--spacing-xs);
+	color: var(--color-text-secondary, var(--color-secondary));
+}
+
+.createdAt {
+	margin: 0 0 var(--spacing-sm);
+	font-size: var(--font-size-sm);
+	color: var(--color-text-secondary, var(--color-secondary));
+}
+
+.description {
+	display: -webkit-box;
+	flex: 1;
+	font-size: var(--font-size-sm);
+	line-height: 1.5;
+	color: var(--color-text-secondary, var(--color-secondary));
+	word-break: break-word;
+	align-self: center;
+	padding: 0 var(--spacing-lg);
+	min-width: 180px;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 4;
+	line-clamp: 4;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.actions {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-sm);
+	flex-shrink: 0;
+}
+
+.actionButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--spacing-xs);
+	min-width: 110px;
+	min-height: 40px;
+	padding: var(--spacing-xs) var(--spacing-sm);
+	font-size: var(--font-size-sm);
+	font-weight: var(--font-weight-md);
+	transition: all var(--transition-speed-fast) var(--transition-easing-default);
+}
+
+.buttonIcon {
+	font-size: 1rem;
+	flex-shrink: 0;
+}
+
+.buttonText {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

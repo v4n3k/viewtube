@@ -1,0 +1,6 @@
+.myChannelsManager {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-2xl);
+	width: 100%;
+}

@@ -10,6 +10,7 @@ export interface Channel {
 	videosCount: number;
 	author: ChannelAuthor;
 	isSubscribed: boolean;
+	createdAt: Date;
 }
 
 export interface Subscription {
