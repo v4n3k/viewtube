@@ -2,11 +2,12 @@
 
 import { PATH_GENERATORS } from '@/app/routes';
 import { MyChannelsList } from '@/entities/channel/ui';
-import { useGetMyChannels } from '@/features/channel/getMyChannels/model';
+import { useGetMyChannels } from '@/features/channel/getMyChannels';
 import { Button, Show } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
-
 import styles from './MyChannelsManager.module.css';
+
+const MAX_CHANNELS_COUNT = 3;
 
 export const MyChannelsManager = () => {
 	const router = useRouter();
@@ -33,7 +34,7 @@ export const MyChannelsManager = () => {
 				onSelect={handleSelect}
 				onDelete={handleDelete}
 			/>
-			<Show when={myChannels.length < 3}>
+			<Show when={myChannels.length < MAX_CHANNELS_COUNT}>
 				<Button onClick={handleCreate}>Create new channel</Button>
 			</Show>
 		</div>

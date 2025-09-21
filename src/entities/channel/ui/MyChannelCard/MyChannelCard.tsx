@@ -82,6 +82,7 @@ export const MyChannelCard = ({
 					</Button>
 
 					<Button
+						background='outlined'
 						variant='danger'
 						onClick={handleDelete}
 						className={styles.actionButton}

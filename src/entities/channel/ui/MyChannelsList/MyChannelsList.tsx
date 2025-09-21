@@ -22,17 +22,12 @@ export const MyChannelsList = ({
 		if (!isNaN(selectedChannelId) || isNaN(initialChannelId)) {
 			return;
 		}
-
 		setSelectedChannelId(initialChannelId);
 	}, [initialChannelId, selectedChannelId]);
 
 	const handleSelect = (channelId: number) => {
 		setSelectedChannelId(channelId);
 		onSelect(channelId);
-	};
-
-	const handleDelete = (channelId: number) => {
-		onDelete(channelId);
 	};
 
 	return (
@@ -45,7 +40,7 @@ export const MyChannelsList = ({
 						channel={channel}
 						isSelected={channel.id === selectedChannelId}
 						onSelect={handleSelect}
-						onDelete={handleDelete}
+						onDelete={onDelete}
 					/>
 				))}
 			</ul>
