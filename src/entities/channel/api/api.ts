@@ -74,3 +74,9 @@ export const createChannel = async (channel: FormData) => {
 
 	return response.data;
 };
+
+export const deleteChannel = async (channelId: number) => {
+	const response = await api.delete<Channel>(`/channels/${channelId}`);
+
+	return response.data;
+};

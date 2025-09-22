@@ -2,6 +2,7 @@
 
 import { PATH_GENERATORS } from '@/app/routes';
 import { MyChannelsList } from '@/entities/channel/ui';
+import { useDeleteChannel } from '@/features/channel/deleteChannel';
 import { useGetMyChannels } from '@/features/channel/getMyChannels';
 import { Button, Show } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
@@ -11,14 +12,16 @@ const MAX_CHANNELS_COUNT = 3;
 
 export const MyChannelsManager = () => {
 	const router = useRouter();
+
 	const { myChannels } = useGetMyChannels();
+	const { deleteChannel, isSuccess: isDeleteSuccess } = useDeleteChannel();
 
 	const handleSelect = (channelId: number) => {
 		localStorage.setItem('channelId', String(channelId));
 	};
 
 	const handleDelete = (channelId: number) => {
-		console.log('delete channel', channelId); // TODO: delete channel
+		deleteChannel(channelId);
 	};
 
 	const handleCreate = () => {
@@ -33,6 +36,7 @@ export const MyChannelsManager = () => {
 				channels={myChannels}
 				onSelect={handleSelect}
 				onDelete={handleDelete}
+				isDeleteSuccess={isDeleteSuccess}
 			/>
 			<Show when={myChannels.length < MAX_CHANNELS_COUNT}>
 				<Button onClick={handleCreate}>Create new channel</Button>

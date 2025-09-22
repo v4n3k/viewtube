@@ -1,5 +1,6 @@
 export {
 	createChannel,
+	deleteChannel,
 	getChannel,
 	getMyChannels,
 	subscribeToChannel,

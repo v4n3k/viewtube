@@ -6,7 +6,7 @@ export const useGetMyChannels = () => {
 	const userId = useUserId();
 
 	const query = useQuery({
-		queryKey: ['myChannels'],
+		queryKey: ['myChannels', userId],
 		queryFn: () => getMyChannels(userId),
 		enabled: !!userId,
 	});
