@@ -22,39 +22,47 @@ export const MyChannelsList = ({
 	const [deletedChannelId, setDeletedChannelId] = useState<number>(NaN);
 
 	useEffect(() => {
-		if (!isNaN(selectedChannelId) || isNaN(initialChannelId)) {
-			return;
-		}
-		setSelectedChannelId(initialChannelId);
+		const initSelectedChannel = () => {
+			if (!isNaN(selectedChannelId) || isNaN(initialChannelId)) {
+				return;
+			}
+			setSelectedChannelId(initialChannelId);
+		};
+
+		initSelectedChannel();
 	}, [initialChannelId, selectedChannelId]);
 
 	useEffect(() => {
-		if (!isDeleteSuccess || isNaN(deletedChannelId)) {
-			return;
-		}
+		const handleAutoSelectAfterDelete = () => {
+			if (!isDeleteSuccess || isNaN(deletedChannelId)) {
+				return;
+			}
 
-		if (deletedChannelId !== selectedChannelId) {
+			if (deletedChannelId !== selectedChannelId) {
+				setDeletedChannelId(NaN);
+				return;
+			}
+
+			const remainingChannels = channels.filter(
+				channel => channel.id !== deletedChannelId
+			);
+
+			if (remainingChannels.length === 0) {
+				setDeletedChannelId(NaN);
+				return;
+			}
+
+			const newestChannel = remainingChannels.reduce((prev, curr) =>
+				curr.id > prev.id ? curr : prev
+			);
+
+			setSelectedChannelId(newestChannel.id);
+			onSelect(newestChannel.id);
+
 			setDeletedChannelId(NaN);
-			return;
-		}
+		};
 
-		const remainingChannels = channels.filter(
-			channel => channel.id !== deletedChannelId
-		);
-
-		if (remainingChannels.length === 0) {
-			setDeletedChannelId(NaN);
-			return;
-		}
-
-		const newestChannel = remainingChannels.reduce((prev, curr) =>
-			curr.id > prev.id ? curr : prev
-		);
-
-		setSelectedChannelId(newestChannel.id);
-		onSelect(newestChannel.id);
-
-		setDeletedChannelId(NaN);
+		handleAutoSelectAfterDelete();
 	}, [
 		deletedChannelId,
 		selectedChannelId,
