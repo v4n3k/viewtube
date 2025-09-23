@@ -4,3 +4,8 @@
 	gap: var(--spacing-2xl);
 	width: 100%;
 }
+
+.modalDescription {
+	font-size: var(--font-size-md);
+	color: var(--color-text);
+}

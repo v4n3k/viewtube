@@ -1,0 +1,144 @@
+.modalOverlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1000;
+	opacity: 0;
+	transition: opacity var(--transition-speed-normal)
+		var(--transition-easing-default);
+}
+
+.modalOverlay.modalEntering {
+	opacity: 1;
+}
+
+.modal {
+	display: flex;
+	flex-direction: column;
+	background-color: var(--color-background);
+	color: var(--color-text);
+	border-radius: var(--border-radius-lg);
+	border: 1px solid var(--color-border);
+	box-shadow: var(--shadow-elevated);
+	max-height: 90vh;
+	max-width: 95vw;
+	overflow: hidden;
+	transform: translateY(-20px);
+	opacity: 0;
+	transition: transform var(--transition-speed-normal)
+			var(--transition-easing-default),
+		opacity var(--transition-speed-normal) var(--transition-easing-default);
+}
+
+.modal.modalEntering {
+	transform: translateY(0);
+	opacity: 1;
+}
+
+.modalSm {
+	width: 100%;
+	max-width: 400px;
+}
+
+.modalMd {
+	width: 100%;
+	max-width: 600px;
+}
+
+.modalLg {
+	width: 100%;
+	max-width: 800px;
+}
+
+.modalXl {
+	width: 100%;
+	max-width: 1000px;
+}
+
+.modalFull {
+	width: 95%;
+	height: 90%;
+	max-width: none;
+}
+
+.modalHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-lg)
+		var(--spacing-xl);
+	flex-shrink: 0;
+}
+
+.modalTitle {
+	margin: 0;
+	font-size: var(--font-size-xl);
+	font-weight: var(--font-weight-lg);
+	color: var(--color-text);
+	line-height: 1.2;
+}
+
+.closeButton {
+	background: none;
+	border: none;
+	font-size: var(--font-size-2xl);
+	font-weight: var(--font-weight-md);
+	color: var(--color-secondary);
+	cursor: pointer;
+	padding: var(--spacing-xs);
+	border-radius: var(--border-radius-sm);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	transition: background-color var(--transition-speed-fast)
+			var(--transition-easing-default),
+		color var(--transition-speed-fast) var(--transition-easing-default);
+}
+
+.closeButton:hover,
+.closeButton:focus {
+	background-color: var(--color-background-hover);
+	color: var(--color-text);
+	outline: none;
+}
+
+.closeButton:focus-visible {
+	box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+.modalContent {
+	padding: var(--spacing-md) var(--spacing-lg);
+	overflow-y: auto;
+	flex-grow: 1;
+}
+
+.modalFooter {
+	padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-xl)
+		var(--spacing-xl);
+	flex-shrink: 0;
+	display: flex;
+	justify-content: flex-end;
+	gap: var(--spacing-md);
+}
+
+@supports not (
+	transition: transform var(--transition-speed-normal)
+		var(--transition-easing-default)
+) {
+	.modal {
+		transition: opacity var(--transition-speed-normal)
+			var(--transition-easing-default);
+	}
+
+	.modal.modalEntering {
+		transform: none;
+	}
+}

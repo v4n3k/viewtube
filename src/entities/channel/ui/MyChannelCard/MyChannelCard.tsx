@@ -64,7 +64,7 @@ export const MyChannelCard = ({
 							<li className={styles.statItem}>{videosCount} videos</li>
 						</ul>
 						<p className={styles.createdAt}>
-							Created {formatDate(new Date(createdAt))}
+							Created at {formatDate(new Date(createdAt))}
 						</p>
 					</div>
 				</div>

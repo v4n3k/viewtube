@@ -10,6 +10,7 @@ export { Show } from './helpers/Show';
 export { ImageUploadInput } from './ImageUploadInput';
 export { InfiniteScroll } from './InfiniteScroll';
 export { Link } from './Link';
+export { Modal } from './Modal';
 export { TextArea } from './TextArea';
 export { TextField } from './TextField';
 export { VideoUploadInput } from './VideoUploadInput';

@@ -4,13 +4,20 @@ import { PATH_GENERATORS } from '@/app/routes';
 import { MyChannelsList } from '@/entities/channel/ui';
 import { useDeleteChannel } from '@/features/channel/deleteChannel';
 import { useGetMyChannels } from '@/features/channel/getMyChannels';
-import { Button, Show } from '@/shared/ui';
+import { useTheme } from '@/features/theme/toggleTheme/model';
+import { Button, Modal, Show } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import styles from './MyChannelsManager.module.css';
 
 const MAX_CHANNELS_COUNT = 3;
 
 export const MyChannelsManager = () => {
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [channelIdToDelete, setChannelIdToDelete] = useState<number | null>(
+		null
+	);
+
 	const router = useRouter();
 
 	const { myChannels } = useGetMyChannels();
@@ -20,12 +27,26 @@ export const MyChannelsManager = () => {
 		localStorage.setItem('channelId', String(channelId));
 	};
 
-	const handleDelete = (channelId: number) => {
-		deleteChannel(channelId);
+	const handleDeleteClick = (channelId: number) => {
+		setChannelIdToDelete(channelId);
+		setIsModalOpen(true);
+	};
+
+	const handleConfirmDelete = () => {
+		if (channelIdToDelete !== null) {
+			deleteChannel(channelIdToDelete);
+			setIsModalOpen(false);
+			setChannelIdToDelete(null);
+		}
 	};
 
 	const handleCreate = () => {
 		router.push(PATH_GENERATORS.createChannel());
+	};
+
+	const handleCancelDelete = () => {
+		setIsModalOpen(false);
+		setChannelIdToDelete(null);
 	};
 
 	if (!myChannels) return null;
@@ -35,12 +56,31 @@ export const MyChannelsManager = () => {
 			<MyChannelsList
 				channels={myChannels}
 				onSelect={handleSelect}
-				onDelete={handleDelete}
+				onDelete={handleDeleteClick}
 				isDeleteSuccess={isDeleteSuccess}
 			/>
 			<Show when={myChannels.length < MAX_CHANNELS_COUNT}>
 				<Button onClick={handleCreate}>Create new channel</Button>
 			</Show>
+
+			<Modal
+				isOpen={isModalOpen}
+				title='Delete channel?'
+				footer={
+					<>
+						<Button onClick={handleCancelDelete}>Cancel</Button>
+						<Button variant='danger' onClick={handleConfirmDelete}>
+							Delete
+						</Button>
+					</>
+				}
+				onClose={handleCancelDelete}
+			>
+				<p className={styles.modalDescription}>
+					This action cannot be undone. All content in this channel will be
+					permanently deleted.
+				</p>
+			</Modal>
 		</div>
 	);
 };
