@@ -22,7 +22,7 @@ export const ChannelOverview = ({
 	return (
 		<div className={styles.channelOverview}>
 			<Link href={PATH_GENERATORS.channel(id)} hoverEffect='text'>
-				<Avatar src='' size='xl' />
+				<Avatar src={avatarUrl} size='xl' />
 			</Link>
 			<div>
 				<Link href={PATH_GENERATORS.channel(id)} hoverEffect='text'>

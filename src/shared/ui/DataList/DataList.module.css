@@ -1,4 +1,4 @@
-.videosListSection {
+.dataListSection {
 	display: flex;
 	flex-direction: column;
 	gap: var(--spacing-lg);
@@ -17,25 +17,25 @@
 	font-weight: var(--font-weight-lg);
 }
 
-.videosList {
+.list {
 	gap: var(--spacing-lg);
 	width: 100%;
 }
 
-.videosList.grid {
+.list.grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
-.videosList.verticalList {
+.list.verticalList {
 	display: flex;
 	flex-direction: column;
 }
 
-.videosList.gap-lg {
+.list.gap-lg {
 	gap: var(--spacing-lg);
 }
 
-.videosList.gap-xl {
+.list.gap-xl {
 	gap: var(--spacing-xl);
 }

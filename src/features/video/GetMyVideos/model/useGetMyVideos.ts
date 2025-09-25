@@ -12,7 +12,7 @@ export const useGetMyVideos = (params: PaginationLimit) => {
 	const { limit } = params;
 
 	const query = useInfiniteQuery({
-		queryKey: ['myVideos', limit],
+		queryKey: ['myVideos', channelId, limit],
 
 		queryFn: ({ pageParam = 1 }) => {
 			return getChannelVideos<Video>({ channelId, page: pageParam, limit });

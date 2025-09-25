@@ -1,10 +1,15 @@
 'use client';
 
-import { MyVideoCard, VideosList } from '@/entities/video/ui';
-import { InfiniteScroll } from '@/shared/ui';
+import { MyVideoCard } from '@/entities/video/ui';
+import { DataList, InfiniteScroll } from '@/shared/ui';
 import { useGetMyVideos } from '../../model';
 
-export const MyVideosList = () => {
+interface MyVideosListProps {
+	onEdit: (videoId: number) => void;
+	onDelete: (videoId: number) => void;
+}
+
+export const MyVideosList = ({ onEdit, onDelete }: MyVideosListProps) => {
 	const {
 		myVideos,
 		fetchNextPage,
@@ -23,15 +28,23 @@ export const MyVideosList = () => {
 			hasMore={hasNextPage}
 			isLoading={isFetchingNextPage}
 		>
-			<VideosList
+			<DataList
+				dataName='videos'
 				title='My videos'
-				videos={myVideos}
+				items={myVideos}
 				isLoading={isLoading || isFetchingNextPage}
 				isError={isError}
 				error={error}
 				layout='verticalList'
 				gap='xl'
-				VideoCardComponent={MyVideoCard}
+				ItemComponent={({ item, ...props }) => (
+					<MyVideoCard
+						video={item}
+						onDelete={onDelete}
+						onEdit={onEdit}
+						{...props}
+					/>
+				)}
 			/>
 		</InfiniteScroll>
 	);

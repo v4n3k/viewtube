@@ -1,7 +1,7 @@
 'use client';
 
-import { VideosList } from '@/entities/video/ui';
-import { InfiniteScroll } from '@/shared/ui';
+import { VideoCard } from '@/entities/video/ui';
+import { DataList, InfiniteScroll } from '@/shared/ui';
 import { useGetHistoryVideos } from '../../model';
 
 export const HistoryVideosList = () => {
@@ -23,12 +23,14 @@ export const HistoryVideosList = () => {
 			hasMore={hasNextPage}
 			isLoading={isFetchingNextPage}
 		>
-			<VideosList
+			<DataList
+				dataName='videos'
 				title='History'
-				videos={historyVideos}
+				items={historyVideos}
 				isLoading={isLoading}
 				isError={isError}
 				error={error}
+				ItemComponent={({ item }) => <VideoCard video={item} />}
 			/>
 		</InfiniteScroll>
 	);

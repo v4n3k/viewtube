@@ -11,67 +11,72 @@ import styles from './MyVideoCard.module.css';
 
 interface MyVideoCardProps {
 	video: VideoWithoutChannel;
+	onEdit: (videoId: number) => void;
+	onDelete: (videoId: number) => void;
 }
 
-export const MyVideoCard = memo(({ video }: MyVideoCardProps) => {
-	const router = useRouter();
+export const MyVideoCard = memo(
+	({ video, onEdit, onDelete }: MyVideoCardProps) => {
+		const router = useRouter();
 
-	const {
-		id,
-		title,
-		description,
-		previewUrl,
-		duration,
-		createdAt,
-		views,
-		commentsCount,
-	} = video;
+		const {
+			id,
+			title,
+			description,
+			previewUrl,
+			duration,
+			createdAt,
+			views,
+			commentsCount,
+		} = video;
 
-	const handleCardClick = () => {
-		router.push(PATH_GENERATORS.video(id));
-	};
+		const handleCardClick = () => {
+			router.push(PATH_GENERATORS.video(id));
+		};
 
-	const handleEditClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-		e.stopPropagation();
-		router.push(PATH_GENERATORS.editVideo(id));
-	};
+		const handleEditClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+			e.stopPropagation();
+			onEdit(id);
+		};
 
-	const handleDeleteClick = () => {
-		console.log('delete video'); // TODO: delete video
-	};
+		const handleDeleteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+			e.stopPropagation();
+			onDelete(id);
+		};
 
-	// TODO: add public / private toggle
+		// TODO: add public / private toggle
 
-	return (
-		<li className={styles.myVideoCard} onClick={handleCardClick}>
-			<div className={styles.previewContainer}>
-				<img className={styles.preview} src={previewUrl} alt={title} />
-				<span className={styles.duration}>{formatDuration(duration)}</span>
-			</div>
+		return (
+			<li className={styles.myVideoCard} onClick={handleCardClick}>
+				<div className={styles.previewContainer}>
+					<img className={styles.preview} src={previewUrl} alt={title} />
+					<span className={styles.duration}>{formatDuration(duration)}</span>
+				</div>
 
-			<div className={styles.titleAndDescription}>
-				<h3 className={styles.title}>{title}</h3>
-				<p className={styles.description}>{description}</p>
-			</div>
+				<div className={styles.titleAndDescription}>
+					<h3 className={styles.title}>{title}</h3>
+					<p className={styles.description}>{description}</p>
+				</div>
 
-			<div className={styles.stats}>
-				<span>{formatDate(createdAt)}</span>
-				<span>{formatViews(views)} views</span>
-				<span>{commentsCount} comments</span>
-			</div>
+				<div className={styles.stats}>
+					<span>{formatDate(createdAt)}</span>
+					<span>{formatViews(views)} views</span>
+					<span>{commentsCount} comments</span>
+				</div>
 
-			<div className={styles.actions}>
-				<Button variant='primary' fullWidth onClick={handleEditClick}>
-					Edit <EditIcon />
-				</Button>
-				<Button
-					background='outlined'
-					variant='danger'
-					onClick={handleDeleteClick}
-				>
-					Delete <TrashIcon />
-				</Button>
-			</div>
-		</li>
-	);
-});
+				<div className={styles.actions}>
+					<Button variant='primary' fullWidth onClick={handleEditClick}>
+						Edit <EditIcon />
+					</Button>
+					<Button
+						background='outlined'
+						variant='danger'
+						onClick={handleDeleteClick}
+					>
+						Delete <TrashIcon />
+					</Button>
+				</div>
+			</li>
+		);
+	}
+);

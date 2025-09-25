@@ -1,8 +1,8 @@
 import { useChannelId } from '@/shared/lib';
+import { DataList } from '@/shared/ui';
 import { useEffect, useState } from 'react';
 import { Channel } from '../../model';
 import { MyChannelCard } from '../MyChannelCard';
-import styles from './MyChannelsList.module.css';
 
 interface MyChannelsListProps {
 	channels: Channel[];
@@ -84,19 +84,21 @@ export const MyChannelsList = ({
 	};
 
 	return (
-		<section className={styles.myChannelsListSection}>
-			<h2 className={styles.title}>My channels</h2>
-			<ul className={styles.list}>
-				{channels.map(channel => (
+		<>
+			<DataList
+				dataName='channels'
+				title='My channels'
+				items={channels}
+				layout='verticalList'
+				ItemComponent={({ item }) => (
 					<MyChannelCard
-						key={channel.id}
-						channel={channel}
-						isSelected={channel.id === selectedChannelId}
+						channel={item}
+						isSelected={item.id === selectedChannelId}
 						onSelect={handleSelect}
 						onDelete={handleDelete}
 					/>
-				))}
-			</ul>
-		</section>
+				)}
+			/>
+		</>
 	);
 };

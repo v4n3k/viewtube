@@ -1,7 +1,14 @@
 'use client';
 
 import { Button, CircularLoader, Show, TextField } from '@/shared/ui';
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import {
+	ChangeEvent,
+	FormEvent,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 import { useCreateComment } from '../../model';
 import styles from './CreateCommentForm.module.css';
 
@@ -25,9 +32,9 @@ export const CreateCommentForm = () => {
 		setAreButtonsVisible(true);
 	};
 
-	const handleHideButtons = () => {
+	const handleHideButtons = useCallback(() => {
 		setAreButtonsVisible(false);
-	};
+	}, [setAreButtonsVisible]);
 
 	const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();

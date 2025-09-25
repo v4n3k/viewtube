@@ -1,9 +1,12 @@
 'use client';
 
 import { PATH_GENERATORS } from '@/app/routes';
+import { useGetChannel } from '@/features/channel/getChannel';
 import { useChannelId } from '@/shared/lib';
 import { Avatar, Button, Link, Show } from '@/shared/ui';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { GoPlus } from 'react-icons/go';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import styles from './Header.module.css';
@@ -13,6 +16,10 @@ export const Header = () => {
 	const router = useRouter();
 	const channelId = useChannelId();
 
+	const queryClient = useQueryClient();
+
+	const { channel } = useGetChannel(channelId);
+
 	const handleCreateClick = () => {
 		router.push(PATH_GENERATORS.upload());
 	};
@@ -20,6 +27,10 @@ export const Header = () => {
 	const handleAvatarClick = () => {
 		router.push(PATH_GENERATORS.channel(channelId));
 	};
+
+	useEffect(() => {
+		console.log('All queries:', queryClient.getQueryCache().findAll());
+	}, [queryClient]);
 
 	return (
 		<header className={styles.header}>
@@ -42,6 +53,7 @@ export const Header = () => {
 					</Button>
 					<Avatar
 						className={styles.avatar}
+						src={channel?.avatarUrl || ''}
 						size='lg'
 						onClick={handleAvatarClick}
 					/>

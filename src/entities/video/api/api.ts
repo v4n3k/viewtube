@@ -167,3 +167,9 @@ export const uploadVideo = async ({ channelId, video }: UploadVideoParams) => {
 
 	return response.data;
 };
+
+export const deleteVideo = async (videoId: number) => {
+	const response = await api.delete<Video>(`/videos/${videoId}`);
+
+	return response.data;
+};

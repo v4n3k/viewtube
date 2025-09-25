@@ -1,7 +1,7 @@
-import { MyVideosList } from '@/features/video/GetMyVideos';
+import { MyVideosPage } from '@/pages/MyVideosPage';
 
 const MyVideos = () => {
-	return <MyVideosList />;
+	return <MyVideosPage />;
 };
 
 export default MyVideos;

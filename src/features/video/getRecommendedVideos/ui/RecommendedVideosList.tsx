@@ -1,7 +1,7 @@
 'use client';
 
-import { VideosList } from '@/entities/video/ui';
-import { InfiniteScroll } from '@/shared/ui';
+import { VideoCard } from '@/entities/video/ui';
+import { DataList, InfiniteScroll } from '@/shared/ui';
 import { useGetRecommendedVideos } from '../model';
 
 export const RecommendedVideosList = () => {
@@ -23,12 +23,14 @@ export const RecommendedVideosList = () => {
 			hasMore={hasNextPage}
 			isLoading={isFetchingNextPage}
 		>
-			<VideosList
+			<DataList
+				dataName='videos'
 				title='Recommended'
-				videos={recommendedVideos}
+				items={recommendedVideos}
 				isLoading={isLoading || isFetchingNextPage}
 				isError={isError}
 				error={error}
+				ItemComponent={({ item }) => <VideoCard video={item} />}
 			/>
 		</InfiniteScroll>
 	);

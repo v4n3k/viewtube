@@ -1,7 +1,7 @@
 'use client';
 
-import { VideosList } from '@/entities/video/ui';
-import { InfiniteScroll } from '@/shared/ui';
+import { VideoCard } from '@/entities/video/ui';
+import { DataList, InfiniteScroll } from '@/shared/ui';
 import { useGetSubscriptionVideos } from '../../model';
 
 export const SubscriptionVideosList = () => {
@@ -23,12 +23,14 @@ export const SubscriptionVideosList = () => {
 			hasMore={hasNextPage}
 			isLoading={isFetchingNextPage}
 		>
-			<VideosList
+			<DataList
+				dataName='videos'
 				title='Subscriptions'
-				videos={subscriptionVideos}
+				items={subscriptionVideos}
 				isLoading={isLoading || isFetchingNextPage}
 				isError={isError}
 				error={error}
+				ItemComponent={({ item }) => <VideoCard video={item} />}
 			/>
 		</InfiniteScroll>
 	);

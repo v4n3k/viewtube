@@ -1,6 +1,7 @@
 export {
 	addVideoToHistory,
 	addVideoToWatchLater,
+	deleteVideo,
 	deleteVideoFromWatchLater,
 	dislikeVideo,
 	getChannelVideos,

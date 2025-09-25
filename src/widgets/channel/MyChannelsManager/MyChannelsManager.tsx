@@ -4,7 +4,6 @@ import { PATH_GENERATORS } from '@/app/routes';
 import { MyChannelsList } from '@/entities/channel/ui';
 import { useDeleteChannel } from '@/features/channel/deleteChannel';
 import { useGetMyChannels } from '@/features/channel/getMyChannels';
-import { useTheme } from '@/features/theme/toggleTheme/model';
 import { Button, Modal, Show } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';

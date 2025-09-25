@@ -1,5 +1,5 @@
-import { MyVideosList } from '@/features/video/GetMyVideos';
+import { MyVideosManager } from '@/widgets/video';
 
 export const MyVideosPage = () => {
-	return <MyVideosList />;
+	return <MyVideosManager />;
 };
