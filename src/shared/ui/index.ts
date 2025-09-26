@@ -1,6 +1,7 @@
 export { Avatar } from './Avatar';
 export { Button } from './Button';
 export { CircularLoader } from './CircularLoader';
+export { ConfirmModal } from './ConfirmModal';
 export { DataList } from './DataList';
 export { Divider } from './Divider';
 export { ExpandableText } from './ExpandableText';

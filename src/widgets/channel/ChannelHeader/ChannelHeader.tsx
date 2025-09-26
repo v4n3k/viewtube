@@ -5,7 +5,14 @@ import { ChannelBanner } from '@/entities/channel/ui';
 import { useGetChannel } from '@/features/channel/getChannel';
 import { SubscribeToChannelButton } from '@/features/channel/subscribeToChannel';
 import { useChannelId } from '@/shared/lib';
-import { Avatar, Button, ExpandableText, Show } from '@/shared/ui';
+import {
+	Avatar,
+	Button,
+	CircularLoader,
+	Divider,
+	ExpandableText,
+	Show,
+} from '@/shared/ui';
 import { EditIcon, PlusIcon, SwitchIcon, TrashIcon } from '@/shared/ui/icons';
 import { useParams, useRouter } from 'next/navigation';
 import styles from './ChannelHeader.module.css';
@@ -18,9 +25,26 @@ export const ChannelHeader = () => {
 	const channelId = useChannelId();
 	const paramsChannelId = Number(useParams()?.channelId);
 
-	const { channel } = useGetChannel(paramsChannelId);
+	const { channel, isLoading } = useGetChannel(paramsChannelId);
 
-	if (!channel) return null;
+	const handleCreateClick = () => {
+		router.push(PATH_GENERATORS.createChannel());
+	};
+
+	if (!channel && !isLoading)
+		return (
+			<div className={styles.noChannelContainer}>
+				<p className={styles.noChannelText}>You don't have a channel</p>
+				<Button onClick={handleCreateClick}>
+					<PlusIcon size={ICON_SIZE} />
+					Create channel
+				</Button>
+			</div>
+		);
+
+	if (!channel || isLoading) {
+		return <CircularLoader onFullScreen />;
+	}
 
 	const {
 		name,
@@ -43,40 +67,39 @@ export const ChannelHeader = () => {
 		router.push(PATH_GENERATORS.myChannels());
 	};
 
-	const handleCreateClick = () => {
-		router.push(PATH_GENERATORS.createChannel());
-	};
-
 	const handleDeleteClick = () => {
-		console.log('delete channel'); // TODO: delete channel
+		console.log('delete channel');
 	};
 
 	return (
-		<header className={styles.channelHeader}>
-			<div className={styles.container}>
-				<ChannelBanner url={bannerUrl} />
-				<div className={styles.channelInfo}>
-					<Avatar size='2xl' src={avatarUrl} />
-					<div className={styles.info}>
-						<h2 className={styles.name}>{name}</h2>
-						<div className={styles.stats}>
-							<span>{subscribersCount} subscribers</span>
-							<span>•</span>
-							<span>{videosCount} videos</span>
-						</div>
-						<ExpandableText className={styles.description} maxLines={2}>
-							{description}
-						</ExpandableText>
+		<Show
+			when={channel && !isLoading}
+			fallback={<CircularLoader onFullScreen />}
+		>
+			<header className={styles.channelHeader}>
+				<div className={styles.container}>
+					<ChannelBanner url={bannerUrl} />
+					<div className={styles.channelInfo}>
+						<Avatar size='2xl' src={avatarUrl} />
+						<div className={styles.info}>
+							<h2 className={styles.name}>{name}</h2>
+							<div className={styles.stats}>
+								<span>{subscribersCount} subscribers</span>
+								<span>•</span>
+								<span>{videosCount} videos</span>
+							</div>
+							<ExpandableText className={styles.description} maxLines={2}>
+								{description}
+							</ExpandableText>
 
-						<Show when={isGuest}>
-							<SubscribeToChannelButton
-								isSubscribed={isSubscribed}
-								subscribedToChannelId={paramsChannelId}
-							/>
-						</Show>
+							<Show when={isGuest}>
+								<SubscribeToChannelButton
+									isSubscribed={isSubscribed}
+									subscribedToChannelId={paramsChannelId}
+								/>
+							</Show>
 
-						<Show when={isOwner}>
-							<div className={styles.channelActions}>
+							<Show when={isOwner}>
 								<div className={styles.channelActions}>
 									<Button onClick={handleSwitchClick}>
 										<SwitchIcon size={ICON_SIZE} />
@@ -108,11 +131,12 @@ export const ChannelHeader = () => {
 										Delete Channel
 									</Button>
 								</div>
-							</div>
-						</Show>
+							</Show>
+						</div>
 					</div>
 				</div>
-			</div>
-		</header>
+			</header>
+			<Divider />
+		</Show>
 	);
 };

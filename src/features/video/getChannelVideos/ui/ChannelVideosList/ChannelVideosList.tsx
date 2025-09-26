@@ -1,12 +1,14 @@
 'use client';
 
+import { VideoCard } from '@/entities/video/ui';
 import { DataList, InfiniteScroll } from '@/shared/ui';
+import { useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import { useGetChannelVideos } from '../../model';
-import { VideoCard } from '@/entities/video/ui';
 
 export const ChannelVideosList = () => {
 	const channelId = Number(useParams()?.channelId);
+	const queryClient = useQueryClient();
 
 	const {
 		channelVideos,
@@ -20,6 +22,15 @@ export const ChannelVideosList = () => {
 		channelId,
 		limit: 6,
 	});
+
+	const channelData = queryClient.getQueryData([
+		'channel',
+		channelId,
+		channelId,
+	]);
+
+	if (!channelData) return null;
+
 	return (
 		<InfiniteScroll
 			onFetchMore={fetchNextPage}

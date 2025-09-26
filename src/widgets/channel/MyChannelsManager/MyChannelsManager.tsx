@@ -4,7 +4,7 @@ import { PATH_GENERATORS } from '@/app/routes';
 import { MyChannelsList } from '@/entities/channel/ui';
 import { useDeleteChannel } from '@/features/channel/deleteChannel';
 import { useGetMyChannels } from '@/features/channel/getMyChannels';
-import { Button, Modal, Show } from '@/shared/ui';
+import { Button, ConfirmModal, Show } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styles from './MyChannelsManager.module.css';
@@ -62,7 +62,7 @@ export const MyChannelsManager = () => {
 				<Button onClick={handleCreate}>Create new channel</Button>
 			</Show>
 
-			<Modal
+			{/* <Modal
 				isOpen={isModalOpen}
 				title='Delete channel?'
 				footer={
@@ -79,7 +79,16 @@ export const MyChannelsManager = () => {
 					This action cannot be undone. All content in this channel will be
 					permanently deleted.
 				</p>
-			</Modal>
+			</Modal> */}
+
+			<ConfirmModal
+				isOpen={isModalOpen}
+				title='Delete channel?'
+				description='	This action cannot be undone. All content in this channel will be
+					permanently deleted.'
+				onClose={handleCancelDelete}
+				onConfirm={handleConfirmDelete}
+			/>
 		</div>
 	);
 };

@@ -1,3 +1,19 @@
+.noChannelContainer {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: var(--spacing-md);
+	padding-bottom: 10%;
+}
+
+.noChannelText {
+	font-size: var(--font-size-xl);
+	color: var(--color-text);
+	font-weight: var(--font-weight-lg);
+}
+
 .container {
 	display: flex;
 	flex-direction: column;

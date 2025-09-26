@@ -14,9 +14,10 @@ export const useSignIn = () => {
 		mutationFn: (credentials: SignInCredentials) => signInApi(credentials),
 
 		onSuccess: data => {
-			const { userId } = data;
+			const { userId, channelId } = data;
 
 			localStorage.setItem('userId', userId);
+			localStorage.setItem('channelId', channelId);
 
 			router.replace(PATH_GENERATORS.home());
 

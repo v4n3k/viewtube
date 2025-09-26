@@ -49,7 +49,7 @@ export const Header = () => {
 				<div className={styles.right}>
 					<Button onClick={handleCreateClick}>
 						<GoPlus size={28} />
-						Create
+						Upload video
 					</Button>
 					<Avatar
 						className={styles.avatar}
@@ -58,6 +58,12 @@ export const Header = () => {
 						onClick={handleAvatarClick}
 					/>
 				</div>
+			</Show>
+			<Show when={!channelId}>
+				<Button onClick={handleCreateClick}>
+					<GoPlus size={28} />
+					Create channel
+				</Button>
 			</Show>
 		</header>
 	);
