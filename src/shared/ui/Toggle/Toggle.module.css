@@ -1,0 +1,134 @@
+.toggleContainer {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--spacing-sm);
+	cursor: pointer;
+	user-select: none;
+	font-family: inherit;
+}
+
+.toggleContainer:hover .toggleLabel {
+	color: var(--color-secondary);
+}
+
+.toggleInput {
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.toggleSlider {
+	position: relative;
+	display: inline-block;
+	width: 44px;
+	height: 24px;
+	background-color: var(--color-toggle-unchecked);
+	border-radius: var(--border-radius-xl);
+	transition: background-color var(--transition-speed-normal)
+		var(--transition-easing-default);
+	flex-shrink: 0;
+}
+
+.toggleSlider.sm {
+	width: 36px;
+	height: 20px;
+	border-radius: var(--border-radius-lg);
+}
+
+.toggleSlider.md {
+	width: 44px;
+	height: 24px;
+	border-radius: var(--border-radius-xl);
+}
+
+.toggleSlider.lg {
+	width: 52px;
+	height: 28px;
+	border-radius: var(--border-radius-xl);
+}
+
+.toggleSlider.checked {
+	background-color: var(--color-toggle-checked);
+}
+
+.toggleSlider.disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.toggleThumb {
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 20px;
+	height: 20px;
+	background-color: var(--color-toggle-thumb);
+	border-radius: var(--border-radius-circle);
+	transition: transform var(--transition-speed-normal)
+		var(--transition-easing-default);
+	box-shadow: var(--shadow-elevated);
+}
+
+.toggleSlider.sm .toggleThumb {
+	width: 16px;
+	height: 16px;
+	top: 2px;
+	left: 2px;
+}
+
+.toggleSlider.md .toggleThumb {
+	width: 20px;
+	height: 20px;
+	top: 2px;
+	left: 2px;
+}
+
+.toggleSlider.lg .toggleThumb {
+	width: 24px;
+	height: 24px;
+	top: 2px;
+	left: 2px;
+}
+
+.toggleInput:checked + .toggleSlider {
+	background-color: var(--color-toggle-checked);
+}
+
+.toggleInput:checked + .toggleSlider .toggleThumb {
+	transform: translateX(20px);
+}
+
+.toggleInput:checked + .toggleSlider.sm .toggleThumb {
+	transform: translateX(16px);
+}
+
+.toggleInput:checked + .toggleSlider.md .toggleThumb {
+	transform: translateX(20px);
+}
+
+.toggleInput:checked + .toggleSlider.lg .toggleThumb {
+	transform: translateX(24px);
+}
+
+.toggleInput:disabled + .toggleSlider {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.toggleLabel {
+	color: var(--color-text);
+	font-size: var(--font-size-sm);
+	transition: 0.2s ease-in-out;
+}
+
+/* Show outline only on keyboard focus (Tab navigation) */
+.toggleInput:focus-visible + .toggleSlider {
+	outline: 2px solid var(--color-toggle-focus);
+	outline-offset: 2px;
+}
+
+/* Hide outline on regular focus (click/mouse) */
+.toggleInput:focus:not(:focus-visible) + .toggleSlider {
+	outline: none;
+}

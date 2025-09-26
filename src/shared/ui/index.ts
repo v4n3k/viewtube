@@ -15,4 +15,5 @@ export { Link } from './Link';
 export { Modal } from './Modal';
 export { TextArea } from './TextArea';
 export { TextField } from './TextField';
+export { Toggle } from './Toggle';
 export { VideoUploadInput } from './VideoUploadInput';

@@ -11,6 +11,12 @@
 	--color-background-hover: #e0e0e0;
 	--color-border-hover: #000000;
 
+	/* toggle colors */
+	--color-toggle-unchecked: #e0e0e0;
+	--color-toggle-checked: #2ecc71; /* Using your success color */
+	--color-toggle-focus: #2ecc71;
+	--color-toggle-thumb: #ffffff;
+
 	/* typography */
 	--font-size-xs: 12px;
 	--font-size-sm: 14px;
@@ -62,6 +68,12 @@ html[data-theme='dark'] {
 	--color-border: #383838;
 	--color-background-hover: #303030;
 	--color-border-hover: #808080;
+
+	/* NEW toggle colors for dark theme */
+	--color-toggle-unchecked: #4a4a4a;
+	--color-toggle-checked: #2ecc71;
+	--color-toggle-focus: #2ecc71;
+	--color-toggle-thumb: #ffffff;
 
 	/* shadows */
 	--shadow-elevated: 0 2px 4px rgba(0, 0, 0, 0.3);
