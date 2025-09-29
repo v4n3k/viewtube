@@ -2,21 +2,29 @@
 
 import { PATH_GENERATORS } from '@/app/routes';
 import { formatDate, formatDuration, formatViews } from '@/entities/video/lib';
-import { Button } from '@/shared/ui';
+import { Button, Toggle } from '@/shared/ui';
 import { EditIcon, TrashIcon } from '@/shared/ui/icons';
 import { useRouter } from 'next/navigation';
 import { memo } from 'react';
 import { VideoWithoutChannel } from '../../model';
 import styles from './MyVideoCard.module.css';
 
+type MyVideoCardHandler = (videoId: number) => void;
+
+type VideoVisibilityHandler = (
+	videoId: number,
+	visibility: VideoWithoutChannel['visibility']
+) => void;
+
 interface MyVideoCardProps {
 	video: VideoWithoutChannel;
-	onEdit: (videoId: number) => void;
-	onDelete: (videoId: number) => void;
+	onEdit: MyVideoCardHandler;
+	onDelete: MyVideoCardHandler;
+	onToggleVisibility: VideoVisibilityHandler;
 }
 
 export const MyVideoCard = memo(
-	({ video, onEdit, onDelete }: MyVideoCardProps) => {
+	({ video, onEdit, onDelete, onToggleVisibility }: MyVideoCardProps) => {
 		const router = useRouter();
 
 		const {
@@ -28,6 +36,7 @@ export const MyVideoCard = memo(
 			createdAt,
 			views,
 			commentsCount,
+			visibility,
 		} = video;
 
 		const handleCardClick = () => {
@@ -44,7 +53,9 @@ export const MyVideoCard = memo(
 			onDelete(id);
 		};
 
-		// TODO: add public / private toggle
+		const handleVisibilityToggle = (checked: boolean) => {
+			onToggleVisibility(id, checked ? 'public' : 'private');
+		};
 
 		return (
 			<li className={styles.myVideoCard} onClick={handleCardClick}>
@@ -62,6 +73,15 @@ export const MyVideoCard = memo(
 					<span>{formatDate(createdAt)}</span>
 					<span>{formatViews(views)} views</span>
 					<span>{commentsCount} comments</span>
+				</div>
+
+				<div className={styles.visibility}>
+					<Toggle
+						checked={visibility === 'public'}
+						onChange={handleVisibilityToggle}
+						label='Public'
+						stopPropagation
+					/>
 				</div>
 
 				<div className={styles.actions}>

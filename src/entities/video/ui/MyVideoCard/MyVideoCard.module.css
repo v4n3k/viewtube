@@ -1,6 +1,6 @@
 .myVideoCard {
 	display: flex;
-	gap: var(--spacing-lg);
+	gap: var(--spacing-xl);
 	width: 100%;
 	list-style: none;
 	cursor: pointer;
@@ -92,6 +92,10 @@
 	margin-left: var(--spacing-xs);
 	color: var(--color-text);
 	font-weight: var(--font-weight-md);
+}
+
+.visibility {
+	margin: auto 0;
 }
 
 .actions {

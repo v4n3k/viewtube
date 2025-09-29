@@ -1,7 +1,7 @@
 'use client';
 
 import { PATH_GENERATORS } from '@/app/routes';
-import { ToggleThemeButton } from '@/features/theme/toggleTheme';
+import { ThemeToggle } from '@/features/theme/toggleTheme';
 import { useChannelId } from '@/shared/lib';
 import {
 	ArrowRightIcon,
@@ -65,7 +65,7 @@ export const Sidebar = () => {
 			</SidebarSection>
 
 			<SidebarSection title='Theme' withoutDivider>
-				<ToggleThemeButton />
+				<ThemeToggle />
 			</SidebarSection>
 		</aside>
 	);

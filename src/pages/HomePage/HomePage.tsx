@@ -3,7 +3,7 @@ import styles from './HomePage.module.css';
 
 export const HomePage = () => {
 	return (
-		<div className={styles.page}>
+		<div className={styles.homePage}>
 			<RecommendedVideosList />
 		</div>
 	);

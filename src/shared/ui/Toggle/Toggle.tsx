@@ -9,6 +9,7 @@ interface ToggleProps
 	size?: 'sm' | 'md' | 'lg';
 	label?: string;
 	disabled?: boolean;
+	stopPropagation?: boolean;
 }
 
 export const Toggle = ({
@@ -17,6 +18,7 @@ export const Toggle = ({
 	size = 'md',
 	label,
 	disabled = false,
+	stopPropagation = false,
 	className,
 	id,
 	...props
@@ -25,8 +27,18 @@ export const Toggle = ({
 		onChange(e.target.checked);
 	};
 
+	const handleLabelClick = (e: React.MouseEvent<HTMLLabelElement>) => {
+		if (stopPropagation) {
+			e.stopPropagation();
+		}
+	};
+
 	return (
-		<label htmlFor={id} className={clsx(styles.toggleContainer, className)}>
+		<label
+			htmlFor={id}
+			className={clsx(styles.toggleContainer, className)}
+			onClick={handleLabelClick}
+		>
 			<input
 				id={id}
 				type='checkbox'

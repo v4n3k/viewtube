@@ -42,6 +42,7 @@ export const MyVideosList = ({ onEdit, onDelete }: MyVideosListProps) => {
 						video={item}
 						onDelete={onDelete}
 						onEdit={onEdit}
+						onToggleVisibility={() => console.log('toggle visibility')}
 						{...props}
 					/>
 				)}
