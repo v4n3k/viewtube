@@ -1,5 +1,7 @@
+'use client';
+
 import clsx from 'clsx';
-import { ComponentProps } from 'react';
+import { ComponentProps, useId } from 'react';
 import styles from './Toggle.module.css';
 
 interface ToggleProps
@@ -20,9 +22,10 @@ export const Toggle = ({
 	disabled = false,
 	stopPropagation = false,
 	className,
-	id,
 	...props
 }: ToggleProps) => {
+	const id = useId();
+
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		onChange(e.target.checked);
 	};

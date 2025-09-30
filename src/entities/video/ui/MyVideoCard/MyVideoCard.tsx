@@ -6,21 +6,14 @@ import { Button, Toggle } from '@/shared/ui';
 import { EditIcon, TrashIcon } from '@/shared/ui/icons';
 import { useRouter } from 'next/navigation';
 import { memo } from 'react';
-import { VideoWithoutChannel } from '../../model';
+import { VideoActionHandler, VideoWithoutChannel } from '../../model';
 import styles from './MyVideoCard.module.css';
-
-type MyVideoCardHandler = (videoId: number) => void;
-
-type VideoVisibilityHandler = (
-	videoId: number,
-	visibility: VideoWithoutChannel['visibility']
-) => void;
 
 interface MyVideoCardProps {
 	video: VideoWithoutChannel;
-	onEdit: MyVideoCardHandler;
-	onDelete: MyVideoCardHandler;
-	onToggleVisibility: VideoVisibilityHandler;
+	onEdit: VideoActionHandler;
+	onDelete: VideoActionHandler;
+	onToggleVisibility: VideoActionHandler;
 }
 
 export const MyVideoCard = memo(
@@ -53,8 +46,8 @@ export const MyVideoCard = memo(
 			onDelete(id);
 		};
 
-		const handleVisibilityToggle = (checked: boolean) => {
-			onToggleVisibility(id, checked ? 'public' : 'private');
+		const handleVisibilityToggle = () => {
+			onToggleVisibility(id);
 		};
 
 		return (

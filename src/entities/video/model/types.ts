@@ -41,4 +41,7 @@ export type VideoAction =
 	| 'unlike'
 	| 'undislike'
 	| 'watchLater'
-	| 'history';
+	| 'history'
+	| 'visibility';
+
+export type VideoActionHandler = (videoId: number) => void;

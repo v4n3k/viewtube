@@ -1,15 +1,21 @@
 'use client';
 
+import { VideoActionHandler } from '@/entities/video/model';
 import { MyVideoCard } from '@/entities/video/ui';
 import { DataList, InfiniteScroll } from '@/shared/ui';
 import { useGetMyVideos } from '../../model';
 
 interface MyVideosListProps {
-	onEdit: (videoId: number) => void;
-	onDelete: (videoId: number) => void;
+	onEdit: VideoActionHandler;
+	onDelete: VideoActionHandler;
+	onToggleVisibility: VideoActionHandler;
 }
 
-export const MyVideosList = ({ onEdit, onDelete }: MyVideosListProps) => {
+export const MyVideosList = ({
+	onEdit,
+	onToggleVisibility,
+	onDelete,
+}: MyVideosListProps) => {
 	const {
 		myVideos,
 		fetchNextPage,
@@ -42,7 +48,7 @@ export const MyVideosList = ({ onEdit, onDelete }: MyVideosListProps) => {
 						video={item}
 						onDelete={onDelete}
 						onEdit={onEdit}
-						onToggleVisibility={() => console.log('toggle visibility')}
+						onToggleVisibility={onToggleVisibility}
 						{...props}
 					/>
 				)}

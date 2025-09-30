@@ -62,25 +62,6 @@ export const MyChannelsManager = () => {
 				<Button onClick={handleCreate}>Create new channel</Button>
 			</Show>
 
-			{/* <Modal
-				isOpen={isModalOpen}
-				title='Delete channel?'
-				footer={
-					<>
-						<Button onClick={handleCancelDelete}>Cancel</Button>
-						<Button variant='danger' onClick={handleConfirmDelete}>
-							Delete
-						</Button>
-					</>
-				}
-				onClose={handleCancelDelete}
-			>
-				<p className={styles.modalDescription}>
-					This action cannot be undone. All content in this channel will be
-					permanently deleted.
-				</p>
-			</Modal> */}
-
 			<ConfirmModal
 				isOpen={isModalOpen}
 				title='Delete channel?'

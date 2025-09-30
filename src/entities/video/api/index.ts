@@ -12,6 +12,7 @@ export {
 	getSubscriptionVideos,
 	getVideoById,
 	likeVideo,
+	toggleVisibility,
 	undislikeVideo,
 	unlikeVideo,
 	uploadVideo,

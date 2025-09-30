@@ -149,6 +149,13 @@ export const addVideoToHistory = async (params: VideoActionParams) => {
 	return response.data;
 };
 
+export const toggleVisibility = async (params: VideoActionParams) => {
+	const url = getVideoActionPath(params, 'visibility');
+	const response = await api.patch<Video>(url);
+
+	return response.data;
+};
+
 interface UploadVideoParams {
 	channelId: number;
 	video: FormData;

@@ -3,6 +3,7 @@
 import { PATH_GENERATORS } from '@/app/routes';
 import { useDeleteVideo } from '@/features/video/deleteVideo';
 import { MyVideosList } from '@/features/video/GetMyVideos';
+import { useToggleVisibility } from '@/features/video/toggleVisibility';
 import { ConfirmModal } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -12,10 +13,15 @@ export const MyVideosManager = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [videoIdToDelete, setVideoIdToDelete] = useState<number | null>(null);
 
+	const { toggleVisibility } = useToggleVisibility();
 	const { deleteVideo } = useDeleteVideo();
 
 	const handleEditClick = (channelId: number) => {
 		router.push(PATH_GENERATORS.editChannel(channelId));
+	};
+
+	const handleVisibilityClick = (videoId: number) => {
+		toggleVisibility(videoId);
 	};
 
 	const handleDeleteClick = (channelId: number) => {
@@ -38,7 +44,11 @@ export const MyVideosManager = () => {
 
 	return (
 		<>
-			<MyVideosList onEdit={handleEditClick} onDelete={handleDeleteClick} />
+			<MyVideosList
+				onEdit={handleEditClick}
+				onToggleVisibility={handleVisibilityClick}
+				onDelete={handleDeleteClick}
+			/>
 			<ConfirmModal
 				isOpen={isModalOpen}
 				title='Delete video'
