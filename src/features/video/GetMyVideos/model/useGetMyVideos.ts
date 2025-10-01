@@ -41,7 +41,7 @@ export const useGetMyVideos = (params: PaginationLimit) => {
 	});
 
 	return {
-		myVideos: query.data?.pages,
+		myVideos: query.data?.pages || [],
 		...query,
 	};
 };

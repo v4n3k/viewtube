@@ -19,7 +19,7 @@ interface GetHistoryVideosResponse
 interface GetLikedVideosResponse
 	extends PaginatedResponse<'likedVideos', Video> {}
 
-interface GetChannelVideosResponse<T>
+export interface GetChannelVideosResponse<T>
 	extends PaginatedResponse<'channelVideos', T> {}
 
 export const getRecommendedVideos = async (

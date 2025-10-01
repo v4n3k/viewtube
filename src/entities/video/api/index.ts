@@ -17,3 +17,4 @@ export {
 	unlikeVideo,
 	uploadVideo,
 } from './api';
+export type { GetChannelVideosResponse } from './api';

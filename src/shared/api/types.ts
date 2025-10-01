@@ -14,3 +14,8 @@ export interface PaginationLimit extends Pick<PaginationParams, 'limit'> {}
 export type PaginatedResponse<K extends string, T> = {
 	[P in K]: T[];
 } & PaginationMetadata;
+
+export type InfiniteQueryResponse<T> = {
+	pages: T[];
+	pageParams: unknown[];
+};
