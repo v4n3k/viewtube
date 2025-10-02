@@ -1,6 +1,7 @@
 'use client';
 
 import { PATH_GENERATORS } from '@/app/routes';
+import { useSignIn } from '@/features/auth/signIn';
 import {
 	SignUpButton,
 	SignUpCredentials,
@@ -8,8 +9,9 @@ import {
 	useSignUp,
 } from '@/features/auth/signUp';
 import { FormContainer, FormFieldConfig, Link } from '@/shared/ui';
+import { useEffect } from 'react';
 
-const defaultValues: SignUpCredentials = {
+const initialFormState: SignUpCredentials = {
 	login: '',
 	email: '',
 	password: '',
@@ -48,20 +50,24 @@ const actions = (
 );
 
 export const SignUpForm = () => {
-	const { signUp } = useSignUp();
+	const { signUp, isSuccess, variables: credentials } = useSignUp();
+	const { signIn } = useSignIn();
 
-	const handleSubmit = (credentials: SignUpCredentials) => {
-		signUp(credentials);
-	};
+	useEffect(() => {
+		if (isSuccess && credentials) {
+			const { login, password } = credentials;
+			signIn({ login, password });
+		}
+	}, [isSuccess, credentials, signIn]);
 
 	return (
 		<FormContainer<SignUpCredentials>
 			title='Sign Up'
-			initialFormState={defaultValues}
+			initialFormState={initialFormState}
 			schema={signUpSchema}
 			fields={fields}
-			onSubmit={handleSubmit}
 			actions={actions}
+			onSubmit={signUp}
 		/>
 	);
 };
