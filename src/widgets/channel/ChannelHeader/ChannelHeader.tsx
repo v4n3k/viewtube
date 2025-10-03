@@ -13,7 +13,7 @@ import {
 	ExpandableText,
 	Show,
 } from '@/shared/ui';
-import { EditIcon, PlusIcon, SwitchIcon, TrashIcon } from '@/shared/ui/icons';
+import { EditIcon, PlusIcon, SwitchIcon } from '@/shared/ui/icons';
 import { useParams, useRouter } from 'next/navigation';
 import styles from './ChannelHeader.module.css';
 
@@ -31,7 +31,7 @@ export const ChannelHeader = () => {
 		router.push(PATH_GENERATORS.createChannel());
 	};
 
-	if (!channel && !isLoading)
+	if (!channel && !isLoading) {
 		return (
 			<div className={styles.noChannelContainer}>
 				<p className={styles.noChannelText}>You don't have a channel</p>
@@ -41,6 +41,7 @@ export const ChannelHeader = () => {
 				</Button>
 			</div>
 		);
+	}
 
 	if (!channel || isLoading) {
 		return <CircularLoader onFullScreen />;
@@ -67,10 +68,6 @@ export const ChannelHeader = () => {
 		router.push(PATH_GENERATORS.myChannels());
 	};
 
-	const handleDeleteClick = () => {
-		console.log('delete channel');
-	};
-
 	return (
 		<Show
 			when={channel && !isLoading}
@@ -88,9 +85,7 @@ export const ChannelHeader = () => {
 								<span>•</span>
 								<span>{videosCount} videos</span>
 							</div>
-							<ExpandableText className={styles.description} maxLines={2}>
-								{description}
-							</ExpandableText>
+							<ExpandableText maxLines={2}>{description}</ExpandableText>
 
 							<Show when={isGuest}>
 								<SubscribeToChannelButton
@@ -112,23 +107,6 @@ export const ChannelHeader = () => {
 									>
 										<EditIcon size={ICON_SIZE} />
 										Edit Channel
-									</Button>
-									<Button
-										background='outlined'
-										variant='success'
-										onClick={handleCreateClick}
-									>
-										<PlusIcon size={ICON_SIZE} />
-										Create New
-									</Button>
-
-									<Button
-										background='outlined'
-										variant='danger'
-										onClick={handleDeleteClick}
-									>
-										<TrashIcon size={ICON_SIZE} />
-										Delete Channel
 									</Button>
 								</div>
 							</Show>
