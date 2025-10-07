@@ -24,9 +24,7 @@ export const MyVideosList = ({
 		isLoading,
 		isError,
 		error,
-	} = useGetMyVideos({
-		limit: 6,
-	});
+	} = useGetMyVideos();
 
 	return (
 		<InfiniteScroll

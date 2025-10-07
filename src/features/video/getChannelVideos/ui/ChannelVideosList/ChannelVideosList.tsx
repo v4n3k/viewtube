@@ -18,7 +18,6 @@ export const ChannelVideosList = () => {
 		error,
 	} = useGetChannelVideos({
 		channelId,
-		limit: 6,
 	});
 
 	return (

@@ -3,7 +3,7 @@ import {
 	toggleVisibility as toggleVisibilityApi,
 } from '@/entities/video/api';
 import { Video } from '@/entities/video/model';
-import { InfiniteQueryResponse } from '@/shared/api';
+import { InfiniteQueryResponse, PAGINATION_LIMIT } from '@/shared/api';
 import { useChannelId } from '@/shared/lib';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
@@ -11,7 +11,6 @@ import { toast } from 'react-toastify';
 export const useToggleVisibility = () => {
 	const channelId = useChannelId();
 	const queryClient = useQueryClient();
-	const limit = 6; // TODO: create a hook for pagination limit
 
 	const mutation = useMutation({
 		mutationFn: (videoId: number) => {
@@ -19,7 +18,7 @@ export const useToggleVisibility = () => {
 		},
 
 		onMutate: async (videoId: number) => {
-			const queryKey = ['myVideos', channelId, limit];
+			const queryKey = ['myVideos', channelId, PAGINATION_LIMIT];
 
 			await queryClient.cancelQueries({ queryKey });
 
@@ -60,14 +59,14 @@ export const useToggleVisibility = () => {
 
 		onSuccess: () => {
 			queryClient.invalidateQueries({
-				queryKey: ['myVideos', channelId, limit],
+				queryKey: ['myVideos', channelId, PAGINATION_LIMIT],
 			});
 		},
 
 		onError: (error, videoId, context) => {
 			if (context?.previousData) {
 				queryClient.setQueryData(
-					['myVideos', channelId, limit],
+					['myVideos', channelId, PAGINATION_LIMIT],
 					context.previousData
 				);
 			}

@@ -2,20 +2,22 @@
 
 import { getChannelVideos } from '@/entities/video/api';
 import { Video } from '@/entities/video/model';
-import { PaginationLimit } from '@/shared/api';
+import { PAGINATION_LIMIT } from '@/shared/api';
 import { useChannelId } from '@/shared/lib';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-export const useGetMyVideos = (params: PaginationLimit) => {
+export const useGetMyVideos = () => {
 	const channelId = useChannelId();
 
-	const { limit } = params;
-
 	const query = useInfiniteQuery({
-		queryKey: ['myVideos', channelId, limit],
+		queryKey: ['myVideos', channelId, PAGINATION_LIMIT],
 
 		queryFn: ({ pageParam = 1 }) => {
-			return getChannelVideos<Video>({ channelId, page: pageParam, limit });
+			return getChannelVideos<Video>({
+				channelId,
+				page: pageParam,
+				limit: PAGINATION_LIMIT,
+			});
 		},
 
 		getNextPageParam: lastPage => {

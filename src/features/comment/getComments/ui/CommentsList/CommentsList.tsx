@@ -14,9 +14,7 @@ export const CommentsList = () => {
 		isLoading,
 		isError,
 		error,
-	} = useGetComments({
-		limit: 6,
-	});
+	} = useGetComments();
 
 	if (isLoading) {
 		return <CircularLoader paddingY='60px' />;

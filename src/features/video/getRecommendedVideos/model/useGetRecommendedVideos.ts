@@ -1,17 +1,15 @@
 'use client';
 
 import { getRecommendedVideos } from '@/entities/video/api';
-import { PaginationLimit } from '@/shared/api';
+import { PAGINATION_LIMIT } from '@/shared/api';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-export const useGetRecommendedVideos = (params: PaginationLimit) => {
-	const { limit } = params;
-
+export const useGetRecommendedVideos = () => {
 	const query = useInfiniteQuery({
-		queryKey: ['recommendedVideos', limit],
+		queryKey: ['recommendedVideos', PAGINATION_LIMIT],
 
 		queryFn: ({ pageParam = 1 }) => {
-			return getRecommendedVideos({ page: pageParam, limit });
+			return getRecommendedVideos({ page: pageParam, limit: PAGINATION_LIMIT });
 		},
 
 		getNextPageParam: lastPage => {

@@ -13,9 +13,7 @@ export const SubscriptionVideosList = () => {
 		isLoading,
 		isError,
 		error,
-	} = useGetSubscriptionVideos({
-		limit: 6,
-	});
+	} = useGetSubscriptionVideos();
 
 	return (
 		<InfiniteScroll

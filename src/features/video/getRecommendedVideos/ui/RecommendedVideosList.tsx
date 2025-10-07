@@ -13,9 +13,7 @@ export const RecommendedVideosList = () => {
 		isLoading,
 		isError,
 		error,
-	} = useGetRecommendedVideos({
-		limit: 6,
-	});
+	} = useGetRecommendedVideos();
 
 	return (
 		<InfiniteScroll

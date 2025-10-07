@@ -13,9 +13,7 @@ export const HistoryVideosList = () => {
 		isLoading,
 		isError,
 		error,
-	} = useGetHistoryVideos({
-		limit: 6,
-	});
+	} = useGetHistoryVideos();
 
 	return (
 		<InfiniteScroll

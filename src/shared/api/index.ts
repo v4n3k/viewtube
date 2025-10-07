@@ -1,4 +1,4 @@
-export { api } from './api';
+export { api, PAGINATION_LIMIT } from './api';
 export type {
 	InfiniteQueryResponse,
 	PaginatedResponse,

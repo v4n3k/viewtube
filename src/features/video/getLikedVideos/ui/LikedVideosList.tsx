@@ -13,9 +13,7 @@ export const LikedVideosList = () => {
 		isLoading,
 		isError,
 		error,
-	} = useGetLikedVideos({
-		limit: 6,
-	});
+	} = useGetLikedVideos();
 
 	return (
 		<InfiniteScroll

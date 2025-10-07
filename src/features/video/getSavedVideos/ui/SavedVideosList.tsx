@@ -13,9 +13,7 @@ export const SavedVideosList = () => {
 		isLoading,
 		isError,
 		error,
-	} = useGetSavedVideos({
-		limit: 6,
-	});
+	} = useGetSavedVideos();
 
 	return (
 		<InfiniteScroll
