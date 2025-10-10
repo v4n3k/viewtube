@@ -20,6 +20,11 @@
 	background: var(--color-background-hover);
 }
 
+.background.active {
+	background: var(--color-background-hover);
+	font-weight: var(--font-weight-md);
+}
+
 .text {
 	padding: 0;
 	color: var(--color-secondary);
@@ -28,4 +33,9 @@
 
 .text:hover {
 	color: var(--color-text);
+}
+
+.text.active {
+	color: var(--color-text);
+	font-weight: var(--font-weight-md);
 }

@@ -1,4 +1,7 @@
+'use client';
+
 import { Link, Show } from '@/shared/ui';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 import { IconType } from 'react-icons';
 
@@ -15,9 +18,11 @@ export const SidebarLink = ({
 	iconPosition = 'left',
 	children,
 }: SidebarLinkProps) => {
+	const pathname = usePathname();
+
 	return (
 		<li>
-			<Link href={href}>
+			<Link href={href} active={href === pathname}>
 				<Show when={iconPosition === 'left' && Icon}>
 					{Icon => <Icon size={24} />}
 				</Show>

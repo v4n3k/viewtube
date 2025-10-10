@@ -40,6 +40,7 @@ export const VideoWidget = () => {
 		channel,
 		videoUrl,
 	} = video;
+
 	const {
 		id: channelId,
 		name,
