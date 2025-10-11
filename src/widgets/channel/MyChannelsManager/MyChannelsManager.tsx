@@ -4,6 +4,7 @@ import { PATH_GENERATORS } from '@/app/routes';
 import { MyChannelsList } from '@/entities/channel/ui';
 import { useDeleteChannel } from '@/features/channel/deleteChannel';
 import { useGetMyChannels } from '@/features/channel/getMyChannels';
+import { useSelectChannel } from '@/features/channel/selectChannel';
 import { Button, ConfirmModal, Show } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -21,10 +22,7 @@ export const MyChannelsManager = () => {
 
 	const { myChannels } = useGetMyChannels();
 	const { deleteChannel, isSuccess: isDeleteSuccess } = useDeleteChannel();
-
-	const handleSelect = (channelId: number) => {
-		localStorage.setItem('channelId', String(channelId));
-	};
+	const { selectChannel } = useSelectChannel();
 
 	const handleDeleteClick = (channelId: number) => {
 		setChannelIdToDelete(channelId);
@@ -54,7 +52,7 @@ export const MyChannelsManager = () => {
 		<div className={styles.myChannelsManager}>
 			<MyChannelsList
 				channels={myChannels}
-				onSelect={handleSelect}
+				onSelect={selectChannel}
 				onDelete={handleDeleteClick}
 				isDeleteSuccess={isDeleteSuccess}
 			/>

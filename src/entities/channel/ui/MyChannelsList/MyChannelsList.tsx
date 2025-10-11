@@ -6,7 +6,7 @@ import { MyChannelCard } from '../MyChannelCard';
 
 interface MyChannelsListProps {
 	channels: Channel[];
-	onSelect: (channelId: number) => void;
+	onSelect: (channelId: number) => Promise<Channel>;
 	onDelete: (channelId: number) => void;
 	isDeleteSuccess: boolean;
 }
@@ -20,20 +20,20 @@ export const MyChannelsList = ({
 	const initialChannelId = useChannelId();
 	const [selectedChannelId, setSelectedChannelId] = useState<number>(NaN);
 	const [deletedChannelId, setDeletedChannelId] = useState<number>(NaN);
+	const [pendingChannelId, setPendingChannelId] = useState<number | null>(null);
 
 	useEffect(() => {
-		const initSelectedChannel = () => {
-			if (!isNaN(selectedChannelId) || isNaN(initialChannelId)) {
-				return;
+		const initializeSelectedChannel = () => {
+			if (isNaN(selectedChannelId) && !isNaN(initialChannelId)) {
+				setSelectedChannelId(initialChannelId);
 			}
-			setSelectedChannelId(initialChannelId);
 		};
 
-		initSelectedChannel();
+		initializeSelectedChannel();
 	}, [initialChannelId, selectedChannelId]);
 
 	useEffect(() => {
-		const handleAutoSelectAfterDelete = () => {
+		const autoSelectChannelAfterDeletion = () => {
 			if (!isDeleteSuccess || isNaN(deletedChannelId)) {
 				return;
 			}
@@ -58,11 +58,10 @@ export const MyChannelsList = ({
 
 			setSelectedChannelId(newestChannel.id);
 			onSelect(newestChannel.id);
-
 			setDeletedChannelId(NaN);
 		};
 
-		handleAutoSelectAfterDelete();
+		autoSelectChannelAfterDeletion();
 	}, [
 		deletedChannelId,
 		selectedChannelId,
@@ -71,9 +70,23 @@ export const MyChannelsList = ({
 		onSelect,
 	]);
 
-	const handleSelect = (channelId: number) => {
+	const handleSelect = async (channelId: number) => {
+		if (pendingChannelId || channelId === selectedChannelId) {
+			return;
+		}
+
+		const previousSelectedChannelId = selectedChannelId;
+
 		setSelectedChannelId(channelId);
-		onSelect(channelId);
+		setPendingChannelId(channelId);
+
+		try {
+			await onSelect(channelId);
+		} catch {
+			setSelectedChannelId(previousSelectedChannelId);
+		} finally {
+			setPendingChannelId(null);
+		}
 	};
 
 	const handleDelete = (channelId: number) => {
@@ -84,21 +97,19 @@ export const MyChannelsList = ({
 	};
 
 	return (
-		<>
-			<DataList
-				dataName='channels'
-				title='My channels'
-				items={channels}
-				layout='verticalList'
-				ItemComponent={({ item }) => (
-					<MyChannelCard
-						channel={item}
-						isSelected={item.id === selectedChannelId}
-						onSelect={handleSelect}
-						onDelete={handleDelete}
-					/>
-				)}
-			/>
-		</>
+		<DataList
+			dataName='channels'
+			title='My channels'
+			items={channels}
+			layout='verticalList'
+			ItemComponent={({ item }) => (
+				<MyChannelCard
+					channel={item}
+					isSelected={item.id === selectedChannelId}
+					onSelect={handleSelect}
+					onDelete={handleDelete}
+				/>
+			)}
+		/>
 	);
 };

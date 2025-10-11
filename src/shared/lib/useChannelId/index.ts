@@ -1,1 +1,1 @@
-export { useChannelId } from './useChannelId';
+export { setChannelIdInStorage, useChannelId } from './useChannelId';
