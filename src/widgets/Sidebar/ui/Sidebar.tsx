@@ -2,7 +2,7 @@
 
 import { PATH_GENERATORS } from '@/app/routes';
 import { ThemeToggle } from '@/features/theme/toggleTheme';
-import { useChannelId } from '@/shared/lib';
+import { useChannelId, useSidebarStore } from '@/shared/lib';
 import {
 	ArrowRightIcon,
 	HistoryIcon,
@@ -13,16 +13,20 @@ import {
 	SubscriptionsIcon,
 	WatchLaterIcon,
 } from '@/shared/ui/icons';
-
+import { Show } from '@/shared/ui';
+import clsx from 'clsx';
 import { SidebarLink } from '../ui/SidebarLink/SidebarLink';
 import { SidebarSection } from '../ui/SidebarSection/SidebarSection';
 import styles from './Sidebar.module.css';
 
 export const Sidebar = () => {
 	const channelId = useChannelId();
+	const isSidebarExpanded = useSidebarStore(state => state.isSidebarExpanded);
 
 	return (
-		<aside className={styles.sidebar}>
+		<aside
+			className={clsx(styles.sidebar, { [styles.expanded]: isSidebarExpanded })}
+		>
 			<SidebarSection>
 				<SidebarLink href={PATH_GENERATORS.home()} Icon={HomeIcon}>
 					Home
@@ -35,7 +39,7 @@ export const Sidebar = () => {
 				</SidebarLink>
 			</SidebarSection>
 
-			<SidebarSection>
+			<SidebarSection withoutDivider={!isSidebarExpanded}>
 				<SidebarLink
 					href={PATH_GENERATORS.channel(channelId)}
 					Icon={ArrowRightIcon}
@@ -64,9 +68,11 @@ export const Sidebar = () => {
 				</SidebarLink>
 			</SidebarSection>
 
-			<SidebarSection title='Theme' withoutDivider>
-				<ThemeToggle />
-			</SidebarSection>
+			<Show when={isSidebarExpanded}>
+				<SidebarSection title='Theme' withoutDivider>
+					<ThemeToggle />
+				</SidebarSection>
+			</Show>
 		</aside>
 	);
 };

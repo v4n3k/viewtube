@@ -1,0 +1,31 @@
+.sidebarLink {
+	height: 48px;
+}
+
+.sidebarLink:not(.expanded) {
+	width: 64px;
+	min-width: 64px;
+}
+
+.sidebarLink.expanded {
+	width: auto;
+}
+
+.sidebarLink > svg {
+	flex-shrink: 0;
+}
+
+.linkText {
+	opacity: 0;
+	width: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	transition: opacity 200ms ease-in-out, width 200ms ease-in-out;
+}
+
+.expanded {
+	opacity: 1;
+	width: auto;
+	white-space: normal;
+}

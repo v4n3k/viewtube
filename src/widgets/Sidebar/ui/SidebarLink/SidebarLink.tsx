@@ -1,9 +1,12 @@
 'use client';
 
+import { useSidebarStore } from '@/shared/lib';
 import { Link, Show } from '@/shared/ui';
+import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 import { IconType } from 'react-icons';
+import styles from './SidebarLink.module.css';
 
 interface SidebarLinkProps {
 	href: string;
@@ -19,14 +22,28 @@ export const SidebarLink = ({
 	children,
 }: SidebarLinkProps) => {
 	const pathname = usePathname();
+	const isSidebarExpanded = useSidebarStore(state => state.isSidebarExpanded);
 
 	return (
 		<li>
-			<Link href={href} active={href === pathname}>
+			<Link
+				href={href}
+				active={href === pathname}
+				className={clsx({
+					[styles.expanded]: isSidebarExpanded,
+					[styles.sidebarLink]: true,
+				})}
+			>
 				<Show when={iconPosition === 'left' && Icon}>
 					{Icon => <Icon size={24} />}
 				</Show>
-				{children}
+				<span
+					className={clsx(styles.linkText, {
+						[styles.expanded]: isSidebarExpanded,
+					})}
+				>
+					{children}
+				</span>
 				<Show when={iconPosition === 'right' && Icon}>
 					{Icon => <Icon size={24} />}
 				</Show>

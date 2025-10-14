@@ -13,6 +13,8 @@
 	opacity: 0;
 	transition: opacity var(--transition-speed-normal)
 		var(--transition-easing-default);
+	-webkit-backdrop-filter: blur(2px);
+	backdrop-filter: blur(2px);
 }
 
 .modalOverlay.modalEntering {

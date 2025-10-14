@@ -8,3 +8,4 @@ export {
 export { isZodError } from './typeGuards';
 export { addQueryParams, generatePath } from './url';
 export { useChannelId } from './useChannelId';
+export { useSidebarStore } from './useSidebarStore';

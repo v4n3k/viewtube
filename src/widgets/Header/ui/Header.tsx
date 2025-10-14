@@ -3,7 +3,7 @@
 import { PATH_GENERATORS } from '@/app/routes';
 import { useCheckAuth } from '@/features/auth/checkAuth';
 import { useGetChannel } from '@/features/channel/getChannel';
-import { useChannelId } from '@/shared/lib';
+import { useChannelId, useSidebarStore } from '@/shared/lib';
 import { Avatar, Button, Link, Show } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
 import { GoPlus } from 'react-icons/go';
@@ -14,6 +14,8 @@ import { SearchBox } from './SearchBox';
 export const Header = () => {
 	const router = useRouter();
 	const channelId = useChannelId();
+
+	const toggleSidebar = useSidebarStore(state => state.toggleSidebar);
 
 	const { channel } = useGetChannel(channelId);
 	const { isAuth } = useCheckAuth();
@@ -33,7 +35,11 @@ export const Header = () => {
 	return (
 		<header className={styles.header}>
 			<div className={styles.left}>
-				<Button className={styles.toggleSidebarButton} background='transparent'>
+				<Button
+					className={styles.toggleSidebarButton}
+					background='transparent'
+					onClick={toggleSidebar}
+				>
 					<RxHamburgerMenu size={20} />
 				</Button>
 				<Link href={PATH_GENERATORS.home()} hoverEffect='text'>
