@@ -4,7 +4,7 @@ import { useSidebarStore } from '@/shared/lib';
 import { Link, Show } from '@/shared/ui';
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
-import React from 'react';
+import { ReactNode } from 'react';
 import { IconType } from 'react-icons';
 import styles from './SidebarLink.module.css';
 
@@ -12,7 +12,7 @@ interface SidebarLinkProps {
 	href: string;
 	Icon?: IconType;
 	iconPosition?: 'left' | 'right';
-	children: React.ReactNode;
+	children: ReactNode;
 }
 
 export const SidebarLink = ({
@@ -27,16 +27,16 @@ export const SidebarLink = ({
 	return (
 		<li>
 			<Link
+				className={clsx(styles.sidebarLink, {
+					[styles.expanded]: isSidebarExpanded,
+				})}
 				href={href}
 				active={href === pathname}
-				className={clsx({
-					[styles.expanded]: isSidebarExpanded,
-					[styles.sidebarLink]: true,
-				})}
 			>
 				<Show when={iconPosition === 'left' && Icon}>
 					{Icon => <Icon size={24} />}
 				</Show>
+
 				<span
 					className={clsx(styles.linkText, {
 						[styles.expanded]: isSidebarExpanded,
@@ -44,6 +44,7 @@ export const SidebarLink = ({
 				>
 					{children}
 				</span>
+
 				<Show when={iconPosition === 'right' && Icon}>
 					{Icon => <Icon size={24} />}
 				</Show>

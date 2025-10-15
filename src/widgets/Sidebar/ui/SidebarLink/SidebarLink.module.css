@@ -16,16 +16,17 @@
 }
 
 .linkText {
+	display: none;
 	opacity: 0;
 	width: 0;
 	overflow: hidden;
-	white-space: nowrap;
 	text-overflow: ellipsis;
 	transition: opacity 200ms ease-in-out, width 200ms ease-in-out;
 }
 
-.expanded {
+.linkText.expanded {
+	display: block;
 	opacity: 1;
+	white-space: nowrap;
 	width: auto;
-	white-space: normal;
 }

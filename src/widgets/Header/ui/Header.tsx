@@ -7,7 +7,10 @@ import { useChannelId, useSidebarStore } from '@/shared/lib';
 import { Avatar, Button, Link, Show } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
 import { GoPlus } from 'react-icons/go';
-import { RxHamburgerMenu } from 'react-icons/rx';
+import {
+	TbLayoutSidebarLeftCollapse,
+	TbLayoutSidebarLeftExpand,
+} from 'react-icons/tb';
 import styles from './Header.module.css';
 import { SearchBox } from './SearchBox';
 
@@ -15,6 +18,7 @@ export const Header = () => {
 	const router = useRouter();
 	const channelId = useChannelId();
 
+	const isSidebarExpanded = useSidebarStore(state => state.isSidebarExpanded);
 	const toggleSidebar = useSidebarStore(state => state.toggleSidebar);
 
 	const { channel } = useGetChannel(channelId);
@@ -40,7 +44,11 @@ export const Header = () => {
 					background='transparent'
 					onClick={toggleSidebar}
 				>
-					<RxHamburgerMenu size={20} />
+					{isSidebarExpanded ? (
+						<TbLayoutSidebarLeftCollapse size={24} />
+					) : (
+						<TbLayoutSidebarLeftExpand size={24} />
+					)}
 				</Button>
 				<Link href={PATH_GENERATORS.home()} hoverEffect='text'>
 					ViewTube
