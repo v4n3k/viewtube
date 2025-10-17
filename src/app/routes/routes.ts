@@ -15,8 +15,9 @@ export const ROUTE_TEMPLATES = {
 	SIGN_UP: '/auth/sign-up',
 
 	// dynamic
-	WATCH_VIDEO: '/watch/[videoId]',
-	CHANNEL: '/channel/[channelId]',
+	WATCH_VIDEO: '/videos/[videoId]',
+	VIDEO_STATISTICS: 'videos/[videoId]/statistics',
+	CHANNEL: '/channels/[channelId]',
 	EDIT_CHANNEL: '/edit-channel/[channelId]',
 	EDIT_VIDEO: '/edit-video/[videoId]',
 

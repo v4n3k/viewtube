@@ -11,10 +11,11 @@ export {
 	getSavedVideos,
 	getSubscriptionVideos,
 	getVideoById,
+	getvideoLikesStats,
 	likeVideo,
 	toggleVisibility,
 	undislikeVideo,
 	unlikeVideo,
 	uploadVideo,
 } from './api';
-export type { GetChannelVideosResponse } from './api';
+export type { GetChannelVideosResponse, GetVideoLikesStatsParams } from './api';
