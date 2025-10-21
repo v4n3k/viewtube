@@ -13,6 +13,7 @@ export const useGetVideoLikesStats = (params: GetVideoLikesStatsParams) => {
 		queryKey: ['videoLikesStats', videoId, startDate, endDate],
 		queryFn: () => getvideoLikesStats(params),
 		enabled: !!videoId && !!startDate && !!endDate,
+		staleTime: 60 * 1000,
 	});
 
 	return { likesStats: query.data, ...query };
