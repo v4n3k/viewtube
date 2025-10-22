@@ -1,1 +1,0 @@
-export { useGetVideoLikesStats } from './model';

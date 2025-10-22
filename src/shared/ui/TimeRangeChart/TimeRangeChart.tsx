@@ -28,17 +28,18 @@ Chart.register(
 
 type TimeRange = '24h' | '7d' | '30d' | '90d' | 'All time';
 
-interface RawDataPoint {
+export interface StatsDataPoint {
 	timestamp: string;
 	value: number;
 }
 
 interface TimeRangeChartProps {
 	title: string;
-	historicalData: RawDataPoint[];
+	historicalData: StatsDataPoint[];
 	minDate: string;
 	selectedRange: TimeRange;
 	onRangeChange: (range: TimeRange) => void;
+	nonNegativeY?: boolean;
 }
 
 interface TimeRangeButtonConfig {
@@ -74,6 +75,7 @@ export const TimeRangeChart = ({
 	selectedRange,
 	onRangeChange,
 	minDate,
+	nonNegativeY = true,
 }: TimeRangeChartProps) => {
 	const dataAgeDays = useMemo(() => {
 		if (!minDate) return Infinity;
@@ -105,7 +107,7 @@ export const TimeRangeChart = ({
 			return { labels: [], datasets: [] };
 		}
 
-		let processedDataPoints: RawDataPoint[];
+		let processedDataPoints: StatsDataPoint[];
 
 		switch (selectedRange) {
 			case '24h':
@@ -157,6 +159,14 @@ export const TimeRangeChart = ({
 					text: `${title} | Range: ${
 						selectedRange === 'All time' ? 'All available' : selectedRange
 					}`,
+				},
+			},
+			scales: {
+				y: {
+					beginAtZero: nonNegativeY,
+					ticks: {
+						precision: 0,
+					},
 				},
 			},
 		}),

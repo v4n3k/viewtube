@@ -1,4 +1,5 @@
 import { api, PaginatedResponse, PaginationParams } from '@/shared/api';
+import { StatsDataPoint } from '@/shared/ui/TimeRangeChart';
 import { getVideoActionPath } from '../lib';
 import { Video, VideoActionParams } from '../model';
 
@@ -21,6 +22,15 @@ interface GetLikedVideosResponse
 
 export interface GetChannelVideosResponse<T>
 	extends PaginatedResponse<'channelVideos', T> {}
+
+export type VideoStatsType = 'like' | 'dislike' | 'view';
+
+export interface GetVideoStatsParams {
+	videoId: number;
+	startDate: string;
+	endDate: string;
+	type: VideoStatsType;
+}
 
 export const getRecommendedVideos = async (
 	params: GetRecommendedVideosParams
@@ -175,13 +185,7 @@ export const uploadVideo = async ({ channelId, video }: UploadVideoParams) => {
 	return response.data;
 };
 
-export interface GetVideoLikesStatsParams {
-	videoId: number;
-	startDate: string;
-	endDate: string;
-}
-
-export const getvideoLikesStats = async (params: GetVideoLikesStatsParams) => {
+export const getVideoLikesStats = async (params: GetVideoStatsParams) => {
 	const { videoId, startDate, endDate } = params;
 
 	const response = await api.get(`/videos/${videoId}/likes-stats`, {
@@ -189,6 +193,29 @@ export const getvideoLikesStats = async (params: GetVideoLikesStatsParams) => {
 			startDate,
 			endDate,
 		},
+	});
+
+	return response.data;
+};
+
+export const getVideoDislikesStats = async (params: GetVideoStatsParams) => {
+	const { videoId, startDate, endDate } = params;
+
+	const response = await api.get(`/videos/${videoId}/dislikes-stats`, {
+		params: {
+			startDate,
+			endDate,
+		},
+	});
+
+	return response.data;
+};
+
+export const getVideoStats = async (params: GetVideoStatsParams) => {
+	const { videoId, startDate, endDate, type } = params;
+
+	const response = await api.get<StatsDataPoint[]>(`/videos/${videoId}/stats`, {
+		params: { startDate, endDate, type },
 	});
 
 	return response.data;
