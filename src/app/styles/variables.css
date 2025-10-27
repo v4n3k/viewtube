@@ -4,7 +4,7 @@
 	--color-text: #000000;
 	--color-text-white: #ffffff;
 	--color-secondary: #606060;
-	--color-accent: #ff0000;
+	--color-accent: #ff0505;
 	--color-success: #2ecc71;
 	--color-button-background: #eaeaea;
 	--color-border: #bbbbbb;
@@ -13,9 +13,22 @@
 
 	/* toggle colors */
 	--color-toggle-unchecked: #e0e0e0;
-	--color-toggle-checked: #2ecc71; /* Using your success color */
+	--color-toggle-checked: #2ecc71;
 	--color-toggle-focus: #2ecc71;
 	--color-toggle-thumb: #ffffff;
+
+	/* chart colors */
+	--color-chart-grid: #d1d1d1;
+	--color-chart-text: #000000;
+	--color-chart-title: #000000;
+
+	--color-chart-like: #2ecc71;
+	--color-chart-dislike: #ff0505;
+	--color-chart-view: #3498db;
+
+	--color-chart-like-fill: rgba(46, 204, 113, 0.12);
+	--color-chart-dislike-fill: rgba(255, 0, 0, 0.12);
+	--color-chart-view-fill: rgba(52, 152, 219, 0.12);
 
 	/* typography */
 	--font-size-xs: 12px;
@@ -38,6 +51,8 @@
 	--spacing-lg: 16px;
 	--spacing-xl: 20px;
 	--spacing-2xl: 32px;
+	--spacing-3xl: 48px;
+	--spacing-4xl: 64px;
 
 	/* border radiuses */
 	--border-radius-xs: 4px;
@@ -62,18 +77,31 @@ html[data-theme='dark'] {
 	--color-text: #ffffff;
 	--color-text-white: #ffffff;
 	--color-secondary: #aaaaaa;
-	--color-accent: #ff0000;
+	--color-accent: #ff0505;
 	--color-success: #2ecc71;
 	--color-button-background: #212121;
 	--color-border: #383838;
 	--color-background-hover: #303030;
 	--color-border-hover: #808080;
 
-	/* NEW toggle colors for dark theme */
+	/* toggle colors */
 	--color-toggle-unchecked: #4a4a4a;
 	--color-toggle-checked: #2ecc71;
 	--color-toggle-focus: #2ecc71;
 	--color-toggle-thumb: #ffffff;
+
+	/* chart colors */
+	--color-chart-grid: #383838;
+	--color-chart-text: #ffffff;
+	--color-chart-title: #ffffff;
+
+	--color-chart-like: #2ecc71;
+	--color-chart-dislike: #ff0505;
+	--color-chart-view: #5dade2;
+
+	--color-chart-like-fill: rgba(46, 204, 113, 0.18);
+	--color-chart-dislike-fill: rgba(255, 0, 0, 0.18);
+	--color-chart-view-fill: rgba(93, 173, 226, 0.18);
 
 	/* shadows */
 	--shadow-elevated: 0 2px 4px rgba(0, 0, 0, 0.3);

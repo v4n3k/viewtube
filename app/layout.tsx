@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<head>
+			{/* <head>
 				<script
 					dangerouslySetInnerHTML={{
 						__html: `
@@ -45,7 +45,7 @@ export default function RootLayout({
             `,
 					}}
 				/>
-			</head>
+			</head> */}
 			<body className={roboto.variable}>
 				<Providers>
 					<div className={styles.appLayout}>{children}</div>

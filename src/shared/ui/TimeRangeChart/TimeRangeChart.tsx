@@ -1,10 +1,13 @@
 'use client';
 
+import { VideoMetricType } from '@/entities/video/api';
+import { useTheme } from '@/features/theme/toggleTheme';
 import { Button } from '@/shared/ui';
 import {
 	CategoryScale,
 	Chart,
 	ChartOptions,
+	Filler,
 	Legend,
 	LinearScale,
 	LineElement,
@@ -12,7 +15,7 @@ import {
 	Title,
 	Tooltip,
 } from 'chart.js';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import styles from './TimeRangeChart.module.css';
 
@@ -21,6 +24,7 @@ Chart.register(
 	LinearScale,
 	PointElement,
 	LineElement,
+	Filler,
 	Title,
 	Tooltip,
 	Legend
@@ -40,33 +44,38 @@ interface TimeRangeChartProps {
 	selectedRange: TimeRange;
 	onRangeChange: (range: TimeRange) => void;
 	nonNegativeY?: boolean;
+	metricType: VideoMetricType;
 }
 
-interface TimeRangeButtonConfig {
-	timeRange: TimeRange;
-	label: string;
-}
-
-const TIME_RANGE_BUTTONS: TimeRangeButtonConfig[] = [
-	{ timeRange: '24h', label: '24 hours' },
-	{ timeRange: '7d', label: '7 days' },
-	{ timeRange: '30d', label: '30 days' },
-	{ timeRange: '90d', label: '90 days' },
-	{ timeRange: 'All time', label: 'All time' },
-];
+const TIME_RANGE_CONFIG: Record<TimeRange, { label: string; days?: number }> = {
+	'24h': { label: '24 hours' },
+	'7d': { label: '7 days', days: 7 },
+	'30d': { label: '30 days', days: 30 },
+	'90d': { label: '90 days', days: 90 },
+	'All time': { label: 'All time' },
+};
 
 const getLabelFormat = (range: TimeRange): Intl.DateTimeFormatOptions => {
-	if (range === '24h') {
-		return {
-			hour: '2-digit',
-			minute: '2-digit',
-		};
-	}
-	return {
-		year: 'numeric',
-		month: 'short',
-		day: 'numeric',
-	};
+	return range === '24h'
+		? { hour: '2-digit', minute: '2-digit' }
+		: { year: 'numeric', month: 'short', day: 'numeric' };
+};
+
+const getCSSColor = (variable: string): string => {
+	if (typeof window === 'undefined') return '';
+	const value = getComputedStyle(document.documentElement)
+		.getPropertyValue(variable)
+		.trim();
+	return value.startsWith('#') || value.startsWith('rgb') ? value : '';
+};
+
+const COLORS: Record<VideoMetricType, { line: string; fill: string }> = {
+	like: { line: '--color-chart-like', fill: '--color-chart-like-fill' },
+	dislike: {
+		line: '--color-chart-dislike',
+		fill: '--color-chart-dislike-fill',
+	},
+	view: { line: '--color-chart-view', fill: '--color-chart-view-fill' },
 };
 
 export const TimeRangeChart = ({
@@ -76,7 +85,30 @@ export const TimeRangeChart = ({
 	onRangeChange,
 	minDate,
 	nonNegativeY = true,
+	metricType,
 }: TimeRangeChartProps) => {
+	const { theme } = useTheme();
+
+	const [chartColors, setChartColors] = useState({
+		line: '',
+		fill: '',
+		grid: '',
+		text: '',
+		title: '',
+	});
+
+	useEffect(() => {
+		const { line, fill } = COLORS[metricType];
+
+		setChartColors({
+			line: getCSSColor(line),
+			fill: getCSSColor(fill),
+			grid: getCSSColor('--color-chart-grid'),
+			text: getCSSColor('--color-chart-text'),
+			title: getCSSColor('--color-chart-title'),
+		});
+	}, [theme, metricType]);
+
 	const dataAgeDays = useMemo(() => {
 		if (!minDate) return Infinity;
 
@@ -88,107 +120,124 @@ export const TimeRangeChart = ({
 	}, [minDate]);
 
 	const availableRangeButtons = useMemo(() => {
-		return TIME_RANGE_BUTTONS.filter(btn => {
-			switch (btn.timeRange) {
-				case '7d':
-					return dataAgeDays >= 7;
-				case '30d':
-					return dataAgeDays >= 30;
-				case '90d':
-					return dataAgeDays >= 90;
-				default:
-					return true;
-			}
-		});
+		return Object.entries(TIME_RANGE_CONFIG)
+			.filter(([, config]) => !config.days || dataAgeDays >= config.days)
+			.map(([range, config]) => ({
+				timeRange: range as TimeRange,
+				label: config.label,
+			}));
 	}, [dataAgeDays]);
 
 	const lineChartData = useMemo(() => {
-		if (!historicalData || historicalData.length === 0) {
+		if (!historicalData?.length) {
 			return { labels: [], datasets: [] };
 		}
 
-		let processedDataPoints: StatsDataPoint[];
-
+		let sliceCount: number | undefined;
 		switch (selectedRange) {
 			case '24h':
-				processedDataPoints = historicalData.slice(-24);
+				sliceCount = 24;
 				break;
 			case '7d':
-				processedDataPoints = historicalData.slice(-7);
+				sliceCount = 7;
 				break;
 			case '30d':
-				processedDataPoints = historicalData.slice(-30);
+				sliceCount = 30;
 				break;
 			case '90d':
-				processedDataPoints = historicalData.slice(-90);
+				sliceCount = 90;
 				break;
-			case 'All time':
 			default:
-				processedDataPoints = historicalData;
-				break;
+				sliceCount = undefined;
 		}
 
-		const labelFormat = getLabelFormat(selectedRange);
+		const processedData = sliceCount
+			? historicalData.slice(-sliceCount)
+			: historicalData;
 
-		const labels = processedDataPoints.map(d => {
-			const date = new Date(d.timestamp);
-			return date.toLocaleString('en-GB', labelFormat);
-		});
+		const labelFormat = getLabelFormat(selectedRange);
+		const labels = processedData.map(d =>
+			new Date(d.timestamp).toLocaleString('en-GB', labelFormat)
+		);
 
 		return {
-			labels: labels,
+			labels,
 			datasets: [
 				{
 					label: title,
-					data: processedDataPoints.map(d => d.value),
-					borderColor: 'rgb(75, 192, 192)',
-					backgroundColor: 'rgba(75, 192, 192, 0.5)',
+					data: processedData.map(d => d.value),
+					borderColor: chartColors.line,
+					backgroundColor: chartColors.fill,
+					borderWidth: 3,
+					pointRadius: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 4,
+					fill: true,
+					tension: 0.3,
 				},
 			],
 		};
-	}, [selectedRange, historicalData, title]);
+	}, [selectedRange, historicalData, title, chartColors]);
 
-	const options: ChartOptions<'line'> = useMemo(
+	const options = useMemo<ChartOptions<'line'>>(
 		() => ({
 			responsive: true,
 			maintainAspectRatio: false,
 			plugins: {
-				legend: { position: 'top' as const },
+				legend: {
+					position: 'top',
+					labels: {
+						color: chartColors.text,
+						font: { family: 'inherit' },
+					},
+				},
 				title: {
 					display: true,
 					text: `${title} | Range: ${
 						selectedRange === 'All time' ? 'All available' : selectedRange
 					}`,
+					color: chartColors.title,
+					font: { size: 16, weight: 'bold', family: 'inherit' },
+					padding: { top: 10, bottom: 20 },
 				},
 			},
 			scales: {
+				x: {
+					grid: { color: chartColors.grid },
+					ticks: {
+						color: chartColors.text,
+						font: { family: 'inherit' },
+					},
+				},
 				y: {
 					beginAtZero: nonNegativeY,
 					ticks: {
 						precision: 0,
+						color: chartColors.text,
+						font: { family: 'inherit' },
 					},
+					grid: { color: chartColors.grid },
 				},
 			},
 		}),
-		[title, selectedRange]
+		[title, selectedRange, nonNegativeY, chartColors]
 	);
 
 	return (
 		<article className={styles.timeRangeChart}>
-			<div className={styles.rangeButtons}>
-				{availableRangeButtons.map(btn => (
-					<Button
-						key={btn.timeRange}
-						onClick={() => onRangeChange(btn.timeRange)}
-						variant={selectedRange === btn.timeRange ? 'success' : 'primary'}
-					>
-						{btn.label}
-					</Button>
-				))}
-			</div>
-
 			<div className={styles.chartWrapper}>
 				<Line options={options} data={lineChartData} />
+			</div>
+			<div className={styles.rangeButtons}>
+				{availableRangeButtons.map(({ timeRange, label }) => (
+					<Button
+						key={timeRange}
+						onClick={() => onRangeChange(timeRange)}
+						variant={selectedRange === timeRange ? 'success' : 'primary'}
+					>
+						{label}
+					</Button>
+				))}
 			</div>
 		</article>
 	);

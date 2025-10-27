@@ -1,6 +1,7 @@
 'use client';
 
 import { Toggle } from '@/shared/ui';
+import { useEffect } from 'react';
 import { useTheme } from '../../model';
 
 export const ThemeToggle = () => {

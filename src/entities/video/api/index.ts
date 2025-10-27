@@ -23,5 +23,5 @@ export {
 export type {
 	GetChannelVideosResponse,
 	GetVideoStatsParams,
-	VideoStatsType,
+	VideoMetricType,
 } from './api';

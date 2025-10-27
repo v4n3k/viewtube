@@ -4,12 +4,13 @@ import {
 	applyThemeToDOM,
 	getInitialThemeClient,
 	saveThemeToLocalStorage,
-	Theme,
 } from '@/shared/lib';
-import { useCallback, useEffect, useState } from 'react';
+import { useThemeStore } from '@/shared/lib/theme';
+import { useCallback, useEffect } from 'react';
 
 export const useTheme = () => {
-	const [theme, setTheme] = useState<Theme>('light');
+	const theme = useThemeStore(state => state.theme);
+	const setTheme = useThemeStore(state => state.setTheme);
 
 	useEffect(() => {
 		const initialTheme = getInitialThemeClient();
@@ -18,33 +19,12 @@ export const useTheme = () => {
 	}, []);
 
 	const toggleTheme = useCallback(() => {
-		setTheme(prevTheme => {
-			const newTheme = prevTheme === 'light' ? 'dark' : 'light';
-			saveThemeToLocalStorage(newTheme);
-			applyThemeToDOM(newTheme);
-			return newTheme;
-		});
-	}, []);
-
-	useEffect(() => {
-		if (typeof window === 'undefined') return;
-
-		if (localStorage.getItem('theme')) return;
-
-		const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
-		const handleChange = (event: MediaQueryListEvent) => {
-			const newSystemTheme = event.matches ? 'dark' : 'light';
-			setTheme(newSystemTheme);
-			applyThemeToDOM(newSystemTheme);
-		};
-
-		mediaQuery.addEventListener('change', handleChange);
-
-		return () => {
-			mediaQuery.removeEventListener('change', handleChange);
-		};
-	}, []);
+		const currentTheme = useThemeStore.getState().theme;
+		const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+		setTheme(newTheme);
+		saveThemeToLocalStorage(newTheme);
+		applyThemeToDOM(newTheme);
+	}, [setTheme]);
 
 	return {
 		theme,

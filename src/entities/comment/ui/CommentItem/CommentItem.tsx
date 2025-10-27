@@ -60,7 +60,7 @@ export const CommentItem = ({ comment }: CommentItemProps) => {
 		<li className={styles.commentItem}>
 			<div className={styles.container}>
 				<Link href={PATH_GENERATORS.channel(channel.id)} hoverEffect='text'>
-					<Avatar size='lg' />
+					<Avatar src={channel.avatarUrl} size='lg' />
 				</Link>
 
 				<div className={styles.content}>

@@ -1,22 +1,22 @@
 'use client';
 
-import { VideoStatsType } from '@/entities/video/api';
+import { VideoMetricType } from '@/entities/video/api';
 import { useGetVideo } from '@/features/video/getVideo/';
 import { useGetVideoStats } from '@/features/video/getVideoStats';
 import { useChartTimeRange } from '@/shared/lib/useChartTimeRange';
 import { TimeRangeChart } from '@/shared/ui';
 
 interface VideoStatsChartProps {
-	type: VideoStatsType;
+	metricType: VideoMetricType;
 }
 
-const TITLES: Record<VideoStatsType, string> = {
+const TITLES: Record<VideoMetricType, string> = {
 	like: 'Likes',
 	dislike: 'Dislikes',
 	view: 'Views',
 };
 
-export const VideoStatsChart = ({ type }: VideoStatsChartProps) => {
+export const VideoStatsChart = ({ metricType }: VideoStatsChartProps) => {
 	const { video, isLoading: isVideoLoading } = useGetVideo();
 
 	const {
@@ -29,11 +29,11 @@ export const VideoStatsChart = ({ type }: VideoStatsChartProps) => {
 	const { data: stats, isLoading: isStatsLoading } = useGetVideoStats({
 		startDate,
 		endDate,
-		type,
+		metricType,
 	});
 
 	if (isVideoLoading || isStatsLoading) {
-		return <div>Loading {TITLES[type]}...</div>;
+		return <div>Loading {TITLES[metricType]}...</div>;
 	}
 
 	if (!video || !video.createdAt) {
@@ -46,11 +46,12 @@ export const VideoStatsChart = ({ type }: VideoStatsChartProps) => {
 
 	return (
 		<TimeRangeChart
-			title={TITLES[type]}
+			title={TITLES[metricType]}
 			historicalData={stats}
 			minDate={video.createdAt.toISOString()}
 			selectedRange={selectedRange}
 			onRangeChange={setSelectedRange}
+			metricType={metricType}
 		/>
 	);
 };

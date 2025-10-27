@@ -23,13 +23,13 @@ interface GetLikedVideosResponse
 export interface GetChannelVideosResponse<T>
 	extends PaginatedResponse<'channelVideos', T> {}
 
-export type VideoStatsType = 'like' | 'dislike' | 'view';
+export type VideoMetricType = 'like' | 'dislike' | 'view';
 
 export interface GetVideoStatsParams {
 	videoId: number;
 	startDate: string;
 	endDate: string;
-	type: VideoStatsType;
+	metricType: VideoMetricType;
 }
 
 export const getRecommendedVideos = async (
@@ -212,10 +212,10 @@ export const getVideoDislikesStats = async (params: GetVideoStatsParams) => {
 };
 
 export const getVideoStats = async (params: GetVideoStatsParams) => {
-	const { videoId, startDate, endDate, type } = params;
+	const { videoId, startDate, endDate, metricType } = params;
 
 	const response = await api.get<StatsDataPoint[]>(`/videos/${videoId}/stats`, {
-		params: { startDate, endDate, type },
+		params: { startDate, endDate, metricType },
 	});
 
 	return response.data;

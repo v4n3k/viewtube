@@ -9,12 +9,12 @@ export const useGetVideoStats = (
 ) => {
 	const videoId = Number(useParams()?.videoId);
 
-	const { startDate, endDate, type } = params;
+	const { startDate, endDate, metricType } = params;
 
 	const query = useQuery({
-		queryKey: ['videoStats', videoId, type, startDate, endDate],
+		queryKey: ['videoStats', videoId, metricType, startDate, endDate],
 		queryFn: () => getVideoStats({ videoId, ...params }),
-		enabled: !!videoId && !!startDate && !!endDate && !!type,
+		enabled: !!videoId && !!startDate && !!endDate && !!metricType,
 		staleTime: 60 * 1000,
 	});
 
