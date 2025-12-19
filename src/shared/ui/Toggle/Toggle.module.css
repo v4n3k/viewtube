@@ -122,13 +122,11 @@
 	transition: 0.2s ease-in-out;
 }
 
-/* Show outline only on keyboard focus (Tab navigation) */
 .toggleInput:focus-visible + .toggleSlider {
 	outline: 2px solid var(--color-toggle-focus);
 	outline-offset: 2px;
 }
 
-/* Hide outline on regular focus (click/mouse) */
 .toggleInput:focus:not(:focus-visible) + .toggleSlider {
 	outline: none;
 }

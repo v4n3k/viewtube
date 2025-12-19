@@ -21,6 +21,9 @@ export const PATH_GENERATORS = {
 	video: (videoId: string | number) =>
 		generatePath(ROUTE_TEMPLATES.WATCH_VIDEO, { videoId }),
 
+	videoStats: (videoId: string | number) =>
+		generatePath(ROUTE_TEMPLATES.VIDEO_STATISTICS, { videoId }),
+
 	channel: (channelId: string | number) =>
 		generatePath(ROUTE_TEMPLATES.CHANNEL, { channelId }),
 

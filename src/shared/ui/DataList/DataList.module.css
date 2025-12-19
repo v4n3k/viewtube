@@ -3,6 +3,7 @@
 	flex-direction: column;
 	gap: var(--spacing-lg);
 	width: 100%;
+	padding: var(--spacing-md);
 }
 
 .title {
@@ -18,8 +19,9 @@
 }
 
 .list {
-	gap: var(--spacing-lg);
+	gap: var(--spacing-xl);
 	width: 100%;
+	padding-bottom: var(--spacing-xl);
 }
 
 .list.grid {

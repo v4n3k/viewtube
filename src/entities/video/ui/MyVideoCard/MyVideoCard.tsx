@@ -50,6 +50,11 @@ export const MyVideoCard = memo(
 			onToggleVisibility(id);
 		};
 
+		const handleStatsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+			e.stopPropagation();
+			router.push(PATH_GENERATORS.videoStats(id));
+		};
+
 		return (
 			<li className={styles.myVideoCard} onClick={handleCardClick}>
 				<div className={styles.previewContainer}>
@@ -75,6 +80,7 @@ export const MyVideoCard = memo(
 						label='Public'
 						stopPropagation
 					/>
+					<Button onClick={handleStatsClick}>Stats</Button>
 				</div>
 
 				<div className={styles.actions}>

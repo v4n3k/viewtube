@@ -1,9 +1,11 @@
 'use client';
 
 import { PATH_GENERATORS } from '@/app/routes';
+import { useThemeStore } from '@/shared/lib/theme';
 import { Avatar, Link } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
 import { memo } from 'react';
+import { useExtractColors } from 'react-extract-colors';
 import { formatDateAgo, formatDuration, formatViews } from '../../lib';
 import { Video, VideoWithoutChannel } from '../../model';
 import styles from './VideoCard.module.css';
@@ -25,6 +27,9 @@ const hasChannelInfo = (video: Video | VideoWithoutChannel): video is Video => {
 
 export const VideoCard = memo(({ video }: VideoCardProps) => {
 	const router = useRouter();
+	const theme = useThemeStore(state => state.theme);
+
+	const previewColors = useExtractColors(video.previewUrl, { format: 'rgb' });
 
 	const { id, title, previewUrl, duration, views, createdAt } = video;
 
@@ -36,8 +41,19 @@ export const VideoCard = memo(({ video }: VideoCardProps) => {
 		e.stopPropagation();
 	};
 
+	const videoCardStyle = {
+		'--hover-bg-color': previewColors.lighterColor || 'transparent',
+		'--hover-bg-opacity': theme === 'dark' ? '0.5' : '0.4',
+
+		'--hover-text-rgb': previewColors.lighterColor,
+	} as React.CSSProperties;
+
 	return (
-		<li className={styles.videoCard} onClick={handleCardClick}>
+		<li
+			className={styles.videoCard}
+			onClick={handleCardClick}
+			style={videoCardStyle}
+		>
 			<div className={styles.previewContainer}>
 				<img className={styles.preview} src={previewUrl} alt={title} />
 				<span className={styles.duration}>{formatDuration(duration)}</span>

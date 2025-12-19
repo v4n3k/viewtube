@@ -24,8 +24,12 @@ export const Header = () => {
 	const { channel } = useGetChannel(channelId);
 	const { isAuth } = useCheckAuth();
 
-	const handleCreateClick = () => {
+	const handleUploadVideoClick = () => {
 		router.push(PATH_GENERATORS.upload());
+	};
+
+	const handleCreateChannelClick = () => {
+		router.push(PATH_GENERATORS.createChannel());
 	};
 
 	const handleAvatarClick = () => {
@@ -59,7 +63,7 @@ export const Header = () => {
 
 			<Show when={channelId}>
 				<div className={styles.right}>
-					<Button onClick={handleCreateClick}>
+					<Button onClick={handleUploadVideoClick}>
 						<GoPlus size={28} />
 						Upload video
 					</Button>
@@ -72,7 +76,7 @@ export const Header = () => {
 				</div>
 			</Show>
 			<Show when={!channelId && isAuth}>
-				<Button onClick={handleCreateClick}>
+				<Button onClick={handleCreateChannelClick}>
 					<GoPlus size={28} />
 					Create channel
 				</Button>
