@@ -29,7 +29,7 @@ export const VideoDetails = ({
 					<span>{views} views</span>
 					<span>{formatDateAgo(createdAt)}</span>
 				</div>
-				<ExpandableText maxLines={2}>{description.repeat(10)}</ExpandableText>
+				<ExpandableText maxLines={2}>{description.repeat(100)}</ExpandableText>
 			</div>
 		</div>
 	);

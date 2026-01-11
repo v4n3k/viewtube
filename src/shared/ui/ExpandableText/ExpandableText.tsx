@@ -3,10 +3,13 @@
 import clsx from 'clsx';
 import {
 	ComponentProps,
+	startTransition,
+	useEffect,
 	useLayoutEffect,
 	useMemo,
 	useRef,
 	useState,
+	ViewTransition,
 } from 'react';
 import { Show } from '../helpers';
 import styles from './ExpandableText.module.css';
@@ -25,6 +28,10 @@ export const ExpandableText = ({
 }: ExpandableTextProps) => {
 	const [isExpanded, setIsExpanded] = useState(false);
 	const [shouldShowButton, setShouldShowButton] = useState(false);
+
+	useEffect(() => {
+		console.log(ViewTransition);
+	}, [ViewTransition]);
 
 	const textRef = useRef<HTMLParagraphElement | null>(null);
 
@@ -48,34 +55,36 @@ export const ExpandableText = ({
 		currentElement.className = clsx(styles.text, styles.clamped);
 		const clampedHeight = currentElement.clientHeight;
 
-		setShouldShowButton(fullHeight > clampedHeight);
+		startTransition(() => setShouldShowButton(fullHeight > clampedHeight));
 
 		currentElement.className = originalClassName;
 	}, [textContent, maxLines]);
 
 	const toggleExpand = () => {
-		setIsExpanded(prev => !prev);
+		startTransition(() => setIsExpanded(prev => !prev));
 	};
 
 	return (
-		<div className={clsx(styles.expandableText, className)}>
-			<p
-				className={clsx(styles.text, textClassName, {
-					[styles.clamped]: !isExpanded,
-				})}
-				ref={textRef}
-			>
-				{textContent}
-			</p>
-			<Show when={shouldShowButton}>
-				<button
-					className={clsx(styles.button, { [styles.showLess]: isExpanded })}
-					onClick={toggleExpand}
-					aria-expanded={isExpanded}
+		<ViewTransition>
+			<div className={clsx(styles.expandableText, className)}>
+				<p
+					className={clsx(styles.text, textClassName, {
+						[styles.clamped]: !isExpanded,
+					})}
+					ref={textRef}
 				>
-					{isExpanded ? 'Show less' : 'Show more'}
-				</button>
-			</Show>
-		</div>
+					{textContent}
+				</p>
+				<Show when={shouldShowButton}>
+					<button
+						className={clsx(styles.button, { [styles.showLess]: isExpanded })}
+						onClick={toggleExpand}
+						aria-expanded={isExpanded}
+					>
+						{isExpanded ? 'Show less' : 'Show more'}
+					</button>
+				</Show>
+			</div>
+		</ViewTransition>
 	);
 };

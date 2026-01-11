@@ -44,8 +44,6 @@ export const VideoCard = memo(({ video }: VideoCardProps) => {
 	const videoCardStyle = {
 		'--hover-bg-color': previewColors.lighterColor || 'transparent',
 		'--hover-bg-opacity': theme === 'dark' ? '0.5' : '0.4',
-
-		'--hover-text-rgb': previewColors.lighterColor,
 	} as React.CSSProperties;
 
 	return (
