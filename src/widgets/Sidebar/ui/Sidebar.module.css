@@ -6,7 +6,7 @@
 	min-width: 64px;
 	height: 100%;
 	overflow: hidden;
-	transition: width 0.25s ease-in-out;
+	/* transition: width 0.25s ease-in-out; */
 }
 
 .sidebar.expanded {

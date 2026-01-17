@@ -3,7 +3,11 @@
 import { PATH_GENERATORS } from '@/app/routes';
 import { useCheckAuth } from '@/features/auth/checkAuth';
 import { useGetChannel } from '@/features/channel/getChannel';
-import { useChannelId, useSidebarStore } from '@/shared/lib';
+import {
+	useChannelId,
+	useSidebarStore,
+	withViewTransition,
+} from '@/shared/lib';
 import { Avatar, Button, Link, Show } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
 import { GoPlus } from 'react-icons/go';
@@ -20,6 +24,8 @@ export const Header = () => {
 
 	const isSidebarExpanded = useSidebarStore(state => state.isSidebarExpanded);
 	const toggleSidebar = useSidebarStore(state => state.toggleSidebar);
+
+	const handleToggleSidebar = () => withViewTransition(toggleSidebar);
 
 	const { channel } = useGetChannel(channelId);
 	const { isAuth } = useCheckAuth();
@@ -46,7 +52,7 @@ export const Header = () => {
 				<Button
 					className={styles.toggleSidebarButton}
 					background='transparent'
-					onClick={toggleSidebar}
+					onClick={handleToggleSidebar}
 				>
 					{isSidebarExpanded ? (
 						<TbLayoutSidebarLeftCollapse size={24} />
