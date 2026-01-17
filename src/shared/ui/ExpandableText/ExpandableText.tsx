@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import {
 	ComponentProps,
 	startTransition,
-	useEffect,
 	useLayoutEffect,
 	useMemo,
 	useRef,
@@ -28,10 +27,6 @@ export const ExpandableText = ({
 }: ExpandableTextProps) => {
 	const [isExpanded, setIsExpanded] = useState(false);
 	const [shouldShowButton, setShouldShowButton] = useState(false);
-
-	useEffect(() => {
-		console.log(ViewTransition);
-	}, [ViewTransition]);
 
 	const textRef = useRef<HTMLParagraphElement | null>(null);
 
