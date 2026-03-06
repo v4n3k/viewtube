@@ -4,6 +4,7 @@
 	gap: var(--spacing-lg);
 	width: 100%;
 	padding: var(--spacing-md);
+	overflow-x: clip;
 }
 
 .title {
@@ -22,6 +23,7 @@
 	gap: var(--spacing-xl);
 	width: 100%;
 	padding-bottom: var(--spacing-xl);
+	overflow: visible;
 }
 
 .list.grid {

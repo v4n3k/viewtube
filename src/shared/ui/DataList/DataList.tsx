@@ -34,6 +34,8 @@ export const DataList = <T extends Identifiable>({
 }: DataListProps<T>) => {
 	const displayEmptyMessage = emptyMessage ?? `No ${dataName} found`;
 
+	const isEmpty = !isLoading && !isError && !items?.length;
+
 	return (
 		<section className={styles.dataListSection}>
 			<Show when={title}>
