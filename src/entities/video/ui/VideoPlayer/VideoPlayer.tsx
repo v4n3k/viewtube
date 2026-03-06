@@ -1,7 +1,8 @@
 'use client';
 
 import clsx from 'clsx';
-import Plyr from 'plyr';
+// 1. Импортируем только типы, чтобы не вызывать ошибку "document is not defined"
+import type Plyr from 'plyr';
 import 'plyr/dist/plyr.css';
 import { useEffect, useRef } from 'react';
 import styles from './VideoPlayer.module.css';
@@ -33,10 +34,12 @@ export const VideoPlayer = ({
 		let plyr: Plyr | null = null;
 
 		const initializePlyr = () => {
-			setTimeout(() => {
+			setTimeout(async () => {
 				if (!videoRef.current) return;
 
-				plyr = new Plyr(videoRef.current, {
+				const PlyrClass = (await import('plyr')).default;
+
+				plyr = new PlyrClass(videoRef.current, {
 					controls: [
 						'play-large',
 						'play',
