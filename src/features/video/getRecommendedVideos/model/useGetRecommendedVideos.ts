@@ -3,10 +3,11 @@
 import { getRecommendedVideos } from '@/entities/video/api';
 import { PAGINATION_LIMIT } from '@/shared/api';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { RECOMMENDED_VIDEOS_KEY } from './queryKey';
 
 export const useGetRecommendedVideos = () => {
 	const query = useInfiniteQuery({
-		queryKey: ['recommendedVideos', PAGINATION_LIMIT],
+		queryKey: RECOMMENDED_VIDEOS_KEY,
 
 		queryFn: ({ pageParam = 1 }) => {
 			return getRecommendedVideos({ page: pageParam, limit: PAGINATION_LIMIT });
@@ -23,12 +24,7 @@ export const useGetRecommendedVideos = () => {
 
 		select: data => ({
 			...data,
-			pages: data.pages
-				?.flatMap(page => page.recommendedVideos)
-				?.map(video => ({
-					...video,
-					createdAt: new Date(video.createdAt),
-				})),
+			pages: data.pages?.flatMap(page => page.recommendedVideos),
 		}),
 	});
 

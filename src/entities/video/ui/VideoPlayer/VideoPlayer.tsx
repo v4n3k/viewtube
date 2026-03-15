@@ -1,7 +1,6 @@
 'use client';
 
 import clsx from 'clsx';
-// 1. Импортируем только типы, чтобы не вызывать ошибку "document is not defined"
 import type Plyr from 'plyr';
 import 'plyr/dist/plyr.css';
 import { useEffect, useRef } from 'react';

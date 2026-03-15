@@ -1,4 +1,5 @@
-export { api, PAGINATION_LIMIT } from './api';
+export { PAGINATION_LIMIT } from './httpClient/constants';
+export { api } from './instance';
 export type {
 	InfiniteQueryResponse,
 	PaginatedResponse,

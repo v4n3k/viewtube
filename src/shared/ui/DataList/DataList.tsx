@@ -16,6 +16,7 @@ export interface DataListProps<T extends Identifiable> {
 	layout?: 'grid' | 'verticalList';
 	gap?: 'lg' | 'xl';
 	ItemComponent: ComponentType<{ item: T } & Record<string, any>>;
+	itemPropName?: string;
 	dataName?: 'items' | 'videos' | 'channels';
 	emptyMessage?: string;
 }
@@ -29,6 +30,7 @@ export const DataList = <T extends Identifiable>({
 	layout = 'grid',
 	gap = 'lg',
 	ItemComponent,
+	itemPropName = 'item',
 	dataName = 'items',
 	emptyMessage,
 }: DataListProps<T>) => {

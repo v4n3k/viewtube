@@ -2,7 +2,7 @@
 
 import { ChannelOverview } from '@/entities/channel/ui';
 import { SubscribeToChannelButton } from '@/features/channel/subscribeToChannel';
-import { useAddVideoToHistory } from '@/features/video/addVideoToHistory/model/useAddVideoToWatchLater';
+import { useAddVideoToHistory } from '@/features/video/addVideoToHistory/model/useAddVideoToHistory';
 import { DislikeButton } from '@/features/video/dislikeVideo';
 import { useGetVideo } from '@/features/video/getVideo/model/useGetVideo';
 import { LikeButton } from '@/features/video/likeVideo';
@@ -16,12 +16,12 @@ import styles from './VideoWidget.module.css';
 const VideoPlayer = dynamic(
 	() =>
 		import('@/entities/video/ui/VideoPlayer/VideoPlayer').then(
-			mod => mod.VideoPlayer
+			mod => mod.VideoPlayer,
 		),
 	{
 		ssr: false,
 		loading: () => <p>Loading video player...</p>,
-	}
+	},
 );
 
 export const VideoWidget = () => {

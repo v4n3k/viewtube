@@ -1,1 +1,1 @@
-export { useAddVideoToWatchLater } from './useAddVideoToWatchLater';
+export { useAddVideoToHistory } from './useAddVideoToHistory';

@@ -1,7 +1,7 @@
 import { getChannelVideos } from '@/entities/video/api';
 import { VideoWithoutChannel } from '@/entities/video/model';
+import { PAGINATION_LIMIT } from '@/shared/api/';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { PAGINATION_LIMIT } from './../../../../shared/api/api';
 
 interface GetChannelVideosParams {
 	channelId: number;

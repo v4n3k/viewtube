@@ -1,4 +1,5 @@
 import { api, PaginatedResponse, PaginationParams } from '@/shared/api';
+import { http } from '@/shared/api/httpClient/httpClient';
 import { StatsDataPoint } from '@/shared/ui/TimeRangeChart';
 import { getVideoActionPath } from '../lib';
 import { Video, VideoActionParams } from '../model';
@@ -7,21 +8,33 @@ interface ChannelPaginationParams extends PaginationParams {
 	channelId: number;
 }
 
-interface GetRecommendedVideosParams extends PaginationParams {}
+interface GetRecommendedVideosParams extends PaginationParams {
+	[key: string]: number | string | boolean | undefined;
+}
 
-interface GetRecommendedVideosResponse
-	extends PaginatedResponse<'recommendedVideos', Video> {}
-interface GetSavedVideosResponse
-	extends PaginatedResponse<'savedVideos', Video> {}
+export interface GetRecommendedVideosResponse extends PaginatedResponse<
+	'recommendedVideos',
+	Video
+> {}
+interface GetSavedVideosResponse extends PaginatedResponse<
+	'savedVideos',
+	Video
+> {}
 
-interface GetHistoryVideosResponse
-	extends PaginatedResponse<'historyVideos', Video> {}
+interface GetHistoryVideosResponse extends PaginatedResponse<
+	'historyVideos',
+	Video
+> {}
 
-interface GetLikedVideosResponse
-	extends PaginatedResponse<'likedVideos', Video> {}
+interface GetLikedVideosResponse extends PaginatedResponse<
+	'likedVideos',
+	Video
+> {}
 
-export interface GetChannelVideosResponse<T>
-	extends PaginatedResponse<'channelVideos', T> {}
+export interface GetChannelVideosResponse<T> extends PaginatedResponse<
+	'channelVideos',
+	T
+> {}
 
 export type VideoMetricType = 'like' | 'dislike' | 'view';
 
@@ -33,13 +46,13 @@ export interface GetVideoStatsParams {
 }
 
 export const getRecommendedVideos = async (
-	params: GetRecommendedVideosParams
+	params: GetRecommendedVideosParams,
 ) => {
-	const response = await api.get<GetRecommendedVideosResponse>('/videos', {
+	const response = await http.get<GetRecommendedVideosResponse>('videos', {
 		params,
 	});
 
-	return response.data;
+	return response;
 };
 
 export const getSavedVideos = async (params: ChannelPaginationParams) => {
@@ -47,7 +60,7 @@ export const getSavedVideos = async (params: ChannelPaginationParams) => {
 
 	const response = await api.get<GetSavedVideosResponse>(
 		`/channels/${channelId}/watchLater`,
-		{ params: paginationParams }
+		{ params: paginationParams },
 	);
 
 	return response.data;
@@ -58,7 +71,7 @@ export const getLikedVideos = async (params: ChannelPaginationParams) => {
 
 	const response = await api.get<GetLikedVideosResponse>(
 		`/channels/${channelId}/liked`,
-		{ params: paginationParams }
+		{ params: paginationParams },
 	);
 
 	return response.data;
@@ -68,7 +81,7 @@ export const getVideoById = async (params: VideoActionParams) => {
 	const { channelId, videoId } = params;
 
 	const response = await api.get<Video>(
-		`channels/${channelId}/videos/${videoId}`
+		`channels/${channelId}/videos/${videoId}`,
 	);
 
 	return response.data;
@@ -79,7 +92,7 @@ export const getHistoryVideos = async (params: ChannelPaginationParams) => {
 
 	const response = await api.get<GetHistoryVideosResponse>(
 		`/channels/${channelId}/history`,
-		{ params: paginationParams }
+		{ params: paginationParams },
 	);
 
 	return response.data;
@@ -92,14 +105,14 @@ export const getChannelVideos = async <T>(params: ChannelPaginationParams) => {
 		`/channels/${channelId}/videos`,
 		{
 			params: paginationParams,
-		}
+		},
 	);
 
 	return response.data;
 };
 
 export const getSubscriptionVideos = async (
-	params: ChannelPaginationParams
+	params: ChannelPaginationParams,
 ) => {
 	const { channelId, ...paginationParams } = params;
 
@@ -179,7 +192,7 @@ export const uploadVideo = async ({ channelId, video }: UploadVideoParams) => {
 			headers: {
 				'Content-Type': 'multipart/form-data',
 			},
-		}
+		},
 	);
 
 	return response.data;

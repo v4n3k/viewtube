@@ -31,7 +31,8 @@ export const VideoCard = memo(({ video }: VideoCardProps) => {
 
 	const previewColors = useExtractColors(video.previewUrl, { format: 'rgb' });
 
-	const { id, title, previewUrl, duration, views, createdAt } = video;
+	const { id, title, previewUrl, duration, views } = video;
+	const createdAt = new Date(video.createdAt);
 
 	const handleCardClick = () => {
 		router.push(PATH_GENERATORS.video(id));

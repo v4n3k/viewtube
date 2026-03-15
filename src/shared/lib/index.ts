@@ -1,4 +1,5 @@
 export { formatNumber } from './format';
+export { getQueryClient } from './getQueryClient';
 export {
 	applyThemeToDOM,
 	getInitialThemeClient,

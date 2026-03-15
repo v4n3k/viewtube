@@ -1,8 +1,13 @@
 'use client';
 
+import { Video, VideoWithoutChannel } from '@/entities/video/model/types';
 import { VideoCard } from '@/entities/video/ui';
 import { DataList, InfiniteScroll } from '@/shared/ui';
 import { useGetRecommendedVideos } from '../model';
+
+const VideoListItem = ({ item }: { item: Video | VideoWithoutChannel }) => (
+	<VideoCard video={item} />
+);
 
 export const RecommendedVideosList = () => {
 	const {
@@ -25,10 +30,10 @@ export const RecommendedVideosList = () => {
 				dataName='videos'
 				title='Recommended'
 				items={recommendedVideos}
-				isLoading={isLoading || isFetchingNextPage}
+				isLoading={isLoading}
 				isError={isError}
 				error={error}
-				ItemComponent={({ item }) => <VideoCard video={item} />}
+				ItemComponent={VideoListItem}
 			/>
 		</InfiniteScroll>
 	);

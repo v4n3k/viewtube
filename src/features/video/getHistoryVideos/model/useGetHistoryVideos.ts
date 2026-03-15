@@ -1,7 +1,7 @@
 import { getHistoryVideos } from '@/entities/video/api';
+import { PAGINATION_LIMIT } from '@/shared/api';
 import { useChannelId } from '@/shared/lib';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { PAGINATION_LIMIT } from './../../../../shared/api/api';
 
 export const useGetHistoryVideos = () => {
 	const channelId = useChannelId();
