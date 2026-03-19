@@ -8,7 +8,7 @@ import { useGetVideo } from '@/features/video/getVideo/model/useGetVideo';
 import { LikeButton } from '@/features/video/likeVideo';
 import { SaveButton } from '@/features/video/saveVideo';
 import { useChannelId } from '@/shared/lib';
-import { Show } from '@/shared/ui';
+import { CircularLoader, Show } from '@/shared/ui';
 import dynamic from 'next/dynamic';
 import { VideoDetails } from '../VideoDetails';
 import styles from './VideoWidget.module.css';
@@ -30,7 +30,7 @@ export const VideoWidget = () => {
 	const { video } = useGetVideo();
 	const { addVideoToHistory } = useAddVideoToHistory();
 
-	if (!video) return;
+	if (!video) return <CircularLoader />;
 
 	const {
 		id: videoId,

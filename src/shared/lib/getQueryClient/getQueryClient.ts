@@ -2,7 +2,7 @@ import { QueryClient } from '@tanstack/react-query';
 
 let browserQueryClient: QueryClient | undefined = undefined;
 
-export function createQueryClient() {
+export const createQueryClient = () => {
 	return new QueryClient({
 		defaultOptions: {
 			queries: {
@@ -13,13 +13,15 @@ export function createQueryClient() {
 			},
 		},
 	});
-}
+};
 
-export function getQueryClient() {
+export const getQueryClient = () => {
 	if (typeof window === 'undefined') {
 		return createQueryClient();
 	} else {
-		if (!browserQueryClient) browserQueryClient = createQueryClient();
+		if (!browserQueryClient) {
+			browserQueryClient = createQueryClient();
+		}
 		return browserQueryClient;
 	}
-}
+};

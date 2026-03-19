@@ -1,4 +1,5 @@
 import { api } from '@/shared/api';
+import { http } from '@/shared/api/httpClient';
 import { Channel, Subscription } from '../model';
 
 export interface GetChannelParams {
@@ -30,24 +31,24 @@ export const getChannel = async ({
 	requesterChannelId,
 	requestedChannelId,
 }: GetChannelParams) => {
-	const response = await api.get<Channel>(
-		`/channels/${requestedChannelId}/by/${requesterChannelId}`
+	const response = await http.get<Channel>(
+		`/channels/${requestedChannelId}/by/${requesterChannelId}`,
 	);
 
-	return response.data;
+	return response;
 };
 
 export const getMyChannels = async (userId: number) => {
-	const response = await api.get<Channel[]>(`/users/${userId}/channels`);
+	const response = await http.get<Channel[]>(`/users/${userId}/channels`);
 
-	return response.data;
+	return response;
 };
 
 export const subscribeToChannel = ({
 	subscriberChannelId,
 	subscribeToChannelId,
 }: SubscribeToChannelParams) => {
-	return api.post<Subscription>(`/subscriptions`, {
+	return http.post<Subscription>(`/subscriptions`, {
 		subscriberChannelId,
 		subscribeToChannelId,
 	});
@@ -66,23 +67,23 @@ export const unsubscribeFromChannel = ({
 };
 
 export const createChannel = async (channel: FormData) => {
-	const response = await api.post<ChannelDTO>(`/channels`, channel, {
+	const response = await http.post<ChannelDTO>(`/channels`, channel, {
 		headers: {
 			'Content-Type': 'multipart/form-data',
 		},
 	});
 
-	return response.data;
+	return response;
 };
 
 export const selectChannel = async (channelId: number) => {
-	const response = await api.get<Channel>(`/channels/select/${channelId}`);
+	const response = await http.get<Channel>(`/channels/select/${channelId}`);
 
-	return response.data;
+	return response;
 };
 
 export const deleteChannel = async (channelId: number) => {
-	const response = await api.delete<Channel>(`/channels/${channelId}`);
+	const response = await http.delete<Channel>(`/channels/${channelId}`);
 
-	return response.data;
+	return response;
 };

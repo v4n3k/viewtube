@@ -12,4 +12,4 @@ export type {
 	ResponseInterceptor,
 } from './httpTypes';
 
-export { createHttpClient } from './httpClient';
+export { createHttpClient, http } from './httpClient';

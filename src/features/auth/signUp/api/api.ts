@@ -1,8 +1,9 @@
 import { api } from '@/shared/api';
 import { SignUpCredentials, SignUpResponse } from '../model';
+import { http } from '@/shared/api/httpClient';
 
 export const signUp = (
-	credentials: SignUpCredentials
+	credentials: SignUpCredentials,
 ): Promise<SignUpResponse> => {
-	return api.post('/auth/sign_up', credentials);
+	return http.post('/auth/sign_up', credentials);
 };
