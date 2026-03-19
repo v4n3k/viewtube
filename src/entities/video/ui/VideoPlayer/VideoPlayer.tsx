@@ -1,7 +1,6 @@
 'use client';
 
 import clsx from 'clsx';
-import type Plyr from 'plyr';
 import 'plyr/dist/plyr.css';
 import { useEffect, useRef } from 'react';
 import styles from './VideoPlayer.module.css';
@@ -28,71 +27,93 @@ export const VideoPlayer = ({
 	const videoRef = useRef<HTMLVideoElement>(null);
 	const plyrInstance = useRef<Plyr | null>(null);
 	const hasWatched = useRef(false);
+	const isInitialized = useRef(false);
 
 	useEffect(() => {
 		let plyr: Plyr | null = null;
+		let isMounted = true;
 
-		const initializePlyr = () => {
-			setTimeout(async () => {
-				if (!videoRef.current) return;
+		const initializePlyr = async () => {
+			if (!videoRef.current || isInitialized.current) return;
 
-				const PlyrClass = (await import('plyr')).default;
+			const PlyrClass = (await import('plyr')).default;
 
-				plyr = new PlyrClass(videoRef.current, {
-					controls: [
-						'play-large',
-						'play',
-						'progress',
-						'current-time',
-						'duration',
-						'mute',
-						'volume',
-						'pip',
-						'fullscreen',
-						'settings',
-					],
-					autoplay: autoplay,
-					loop: { active: loop },
-					muted: muted,
-				});
+			if (!isMounted || !videoRef.current) return;
 
-				plyrInstance.current = plyr;
+			plyr = new PlyrClass(videoRef.current, {
+				controls: [
+					'play-large',
+					'play',
+					'progress',
+					'current-time',
+					'duration',
+					'mute',
+					'volume',
+					'pip',
+					'fullscreen',
+					'settings',
+				],
+				autoplay,
+				loop: { active: loop },
+				muted,
+			});
 
-				const video = videoRef.current;
+			plyrInstance.current = plyr;
+			isInitialized.current = true;
 
-				const handleTimeUpdate = () => {
-					if (hasWatched.current || !video || !onWatch) return;
+			const video = videoRef.current;
 
-					const { currentTime, duration } = video;
+			const handleTimeUpdate = () => {
+				if (hasWatched.current || !video || !onWatch) return;
 
-					if (!duration || duration === Infinity) return;
+				const { currentTime, duration } = video;
 
-					const fiveSecondsWatched = currentTime >= 5;
-					const twentyPercentWatched = currentTime >= duration * 0.2;
+				if (!duration || duration === Infinity) return;
 
-					if (fiveSecondsWatched || twentyPercentWatched) {
-						hasWatched.current = true;
-						onWatch();
-					}
-				};
+				const fiveSecondsWatched = currentTime >= 5;
+				const twentyPercentWatched = currentTime >= duration * 0.2;
 
-				video.addEventListener('timeupdate', handleTimeUpdate);
+				if (fiveSecondsWatched || twentyPercentWatched) {
+					hasWatched.current = true;
+					onWatch();
+				}
+			};
 
-				return () => {
+			video.addEventListener('timeupdate', handleTimeUpdate);
+
+			return () => {
+				if (isMounted) {
 					video.removeEventListener('timeupdate', handleTimeUpdate);
-				};
-			}, 0);
+				}
+			};
 		};
 
 		initializePlyr();
 
 		return () => {
+			isMounted = false;
 			if (plyrInstance.current) {
 				plyrInstance.current.destroy();
 				plyrInstance.current = null;
+				isInitialized.current = false;
 			}
 		};
-	}, [src, autoplay, loop, muted, onWatch]);
+	}, []);
+
+	useEffect(() => {
+		if (plyrInstance.current && src) {
+			plyrInstance.current.source = {
+				type: 'video',
+				sources: [{ src, type: 'video/mp4' }],
+			};
+		}
+	}, [src]);
+
+	useEffect(() => {
+		if (videoRef.current && previewUrl) {
+			videoRef.current.poster = previewUrl;
+		}
+	}, [previewUrl]);
 
 	return (
 		<div className={clsx(styles.videoPlayerWrapper, className)}>
